@@ -4,3 +4,5 @@ App\Entity\Lista:
       groups: ['proyecto']
     nombre:
       groups: ['proyecto']
+    tareas:
+      groups: ['proyecto']

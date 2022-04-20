@@ -1,0 +1,13 @@
+App\Entity\Tarea:
+  attributes:
+    id:
+      groups: ['proyecto']
+    nombre:
+      groups: ['proyecto']
+    descripcion:
+      groups: ['proyecto']
+    dificultad:
+      groups: ['proyecto']
+    prioridad:
+      groups: ['proyecto']
+    

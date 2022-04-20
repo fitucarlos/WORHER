@@ -53,11 +53,11 @@ class ProyectoController extends AbstractFOSRestController{
 
 
     /**
-     * @Rest\Post(path="/proyectos/lista/{id}")
+     * @Rest\Post(path="/proyecto/add_lista/{id}")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
-     public function editActions(
+     public function addListaActions(
         int $id,
         EntityManagerInterface $em,
         Request $request,
