@@ -16,7 +16,12 @@ class ListaFormType extends AbstractType
     {
         $builder
         ->add('id', TextType::class)
-        ->add('nombre', TextType::class);
+        ->add('nombre', TextType::class)
+        ->add('tareas', CollectionType::class, [
+            'allow_add' => true,
+            'allow_delete' => true,
+            'entry_type' => TareaFormType::class
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
