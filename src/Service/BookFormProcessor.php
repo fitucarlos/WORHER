@@ -6,30 +6,30 @@ use App\Entity\Book;
 use App\Form\Model\BookDto;
 use App\Form\Model\CategoryDto;
 use App\Form\Type\BookFormType;
-use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class BookFormProcessor{
+class BookFormProcessor
+{
 
     private $bookManager;
     private $categoryManager;
+    private $fileUploader;
     private $formFactory;
 
     public function __construct(
         BookManager $bookManager,
         CategoryManager $categoryManager,
         FormFactoryInterface $formFactory
-    ){
+    ) {
         $this->bookManager = $bookManager;
         $this->categoryManager = $categoryManager;
-        $this->formFactoryInterface = $formFactory;
+        $this->formFactory = $formFactory;
     }
 
-    public function __invoke(Book $book, Request $request): array {
-        
+    public function __invoke(Book $book, Request $request): array
+    {
         $bookDto = BookDto::createFromBook($book);
         $originalCategories = new ArrayCollection();
         foreach ($book->getCategories() as $category) {
@@ -40,7 +40,7 @@ class BookFormProcessor{
         $form = $this->formFactory->create(BookFormType::class, $bookDto);
         $form->handleRequest($request);
         if (!$form->isSubmitted()) {
-            return [null,'Form is not submitted'];
+            return [null, 'Form is not submitted'];
         }
         if ($form->isValid()) {
             // Remove categories
@@ -50,7 +50,7 @@ class BookFormProcessor{
                     $book->removeCategory($category);
                 }
             }
-  
+
             // Add categories
             foreach ($bookDto->categories as $newCategoryDto) {
                 if (!$originalCategories->contains($newCategoryDto)) {
@@ -68,7 +68,6 @@ class BookFormProcessor{
             $this->bookManager->reload($book);
             return [$book, null];
         }
-        
-        return [null,$form];
+        return [null, $form];
     }
 }
