@@ -53,7 +53,7 @@ class ProyectoController extends AbstractFOSRestController{
 
 
     /**
-     * @Rest\Post(path="/proyectos/{id}")
+     * @Rest\Post(path="/proyectos/lista/{id}")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
@@ -84,17 +84,10 @@ class ProyectoController extends AbstractFOSRestController{
       }
       if($form->isValid()){
 
-         // Remove Listas
-         foreach($originalListas as $originalListaDto){
-            if(!in_array($originalListas,$ProyectoDto->listas)){
-               $lista = $listaRepository->find($originalListaDto->id);
-               $Proyecto->removeLista($lista);
-            }
-         }
+      
 
          //Add listas
          foreach($ProyectoDto->listas as $newListaDto){
-            if(!$originalListas->contains($newListaDto)){
                $lista = $listaRepository->find($newListaDto->id ?? 0);
                if(!$lista){
                   $lista = new Lista();
@@ -102,9 +95,7 @@ class ProyectoController extends AbstractFOSRestController{
                   $em->persist($lista);
                }
                $Proyecto->addLista($lista);
-            }
          }
-         $Proyecto->setNombre($ProyectoDto->nombre);
          $em->persist($Proyecto);
          $em->flush();
          $em->refresh($Proyecto);
