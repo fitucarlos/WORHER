@@ -16,9 +16,9 @@ class TareaDto{
         $dto = new self();
         $dto->id = $Tarea->getId();
         $dto->nombre = $Tarea->getNombre();
-        $dto->nombre = $Tarea->getDescripcion();
-        $dto->nombre = $Tarea->getDificultad();
-        $dto->nombre = $Tarea->getPrioridad();
+        $dto->descripcion = $Tarea->getDescripcion();
+        $dto->dificultad = $Tarea->getDificultad();
+        $dto->prioridad = $Tarea->getPrioridad();
         return $dto;
     }
 }
