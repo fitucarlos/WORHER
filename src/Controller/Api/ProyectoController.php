@@ -88,8 +88,6 @@ class ProyectoController extends AbstractFOSRestController{
       }
       if($form->isValid()){
 
-      
-
          //Add listas
          foreach($ProyectoDto->listas as $newListaDto){
                $lista = $listaRepository->find($newListaDto->id ?? 0);
@@ -141,8 +139,6 @@ class ProyectoController extends AbstractFOSRestController{
       }
       if($form->isValid()){
 
-      
-
          //Add tareas
          foreach($ListaDto->tareas as $newTareaDto){
                $tarea = $tareaRepository->find($newTareaDto->id ?? 0);
@@ -163,4 +159,51 @@ class ProyectoController extends AbstractFOSRestController{
       }
       return $form;
    }
+
+
+   /**
+        * @Rest\Post(path="/proyecto/remove_tarea/{id}")
+        * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+        */
+   
+       public function removeTareaActions(
+         int $id,
+         EntityManagerInterface $em,
+         Request $request,
+         TareaRepository $tareaRepository,
+         ListaRepository $listaRepository
+      ){
+         $tarea = $tareaRepository->find($id);
+      if(!$tarea){
+         throw $this->createNotFoundException('Esta tarea no existe');
+      }
+      else{
+         $tareaRepository->remove($tarea);
+      }
+      }
+
+
+   /**
+        * @Rest\Post(path="/proyecto/remove_lista/{id}")
+        * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+        */
+   
+       public function removeListaActions(
+         int $id,
+         EntityManagerInterface $em,
+         Request $request,
+         TareaRepository $tareaRepository,
+         ListaRepository $listaRepository
+      ){
+         $lista = $listaRepository->find($id);
+      if(!$lista){
+         throw $this->createNotFoundException('Esta lista no existe');
+      }
+      else{
+         foreach($lista->getTareas() as $tarea);{
+            $tareaRepository->remove($tarea);
+         }
+         $listaRepository->remove($lista);
+      }
+      }
 }
