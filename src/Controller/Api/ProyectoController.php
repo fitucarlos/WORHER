@@ -142,13 +142,16 @@ class ProyectoController extends AbstractFOSRestController{
          //Add tareas
          foreach($ListaDto->tareas as $newTareaDto){
                $tarea = $tareaRepository->find($newTareaDto->id ?? 0);
-               if(!$tarea){
+               if(!$tarea && $newTareaDto->nombre && $newTareaDto->descripcion && $newTareaDto->dificultad && $newTareaDto->prioridad){
                   $tarea = new Tarea();
                   $tarea->setNombre($newTareaDto->nombre);
                   $tarea->setDescripcion($newTareaDto->descripcion);
                   $tarea->setDificultad($newTareaDto->dificultad);
                   $tarea->setPrioridad($newTareaDto->prioridad);
                   $em->persist($tarea);
+               }
+               else{
+                  throw $this->createNotFoundException('Faltan campos por rellenar');
                }
                $lista->addTarea($tarea);
          }
@@ -206,4 +209,34 @@ class ProyectoController extends AbstractFOSRestController{
          $listaRepository->remove($lista);
       }
       }
-}
+
+
+      /**
+           * @Rest\Post(path="/proyecto/remove_proyecto/{id}")
+           * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+           */
+      
+          public function removeProyectoActions(
+            int $id,
+            EntityManagerInterface $em,
+            Request $request,
+            TareaRepository $tareaRepository,
+            ListaRepository $listaRepository,
+            ProyectoRepository $proyectoRepository
+         ){
+            $proyecto = $proyectoRepository->find($id);
+         if(!$proyecto){
+            throw $this->createNotFoundException('Este proyecto no existe');
+         }
+         else{
+            foreach($proyecto->getListas() as $lista);{
+               foreach($lista->getTareas() as $tarea);{
+                  $tareaRepository->remove($tarea);
+               }
+               $listaRepository->remove($lista);
+            }
+            $proyectoRepository->remove($proyecto);
+         }
+         }
+   }
+   

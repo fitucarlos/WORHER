@@ -21,6 +21,18 @@ class ProyectoRepository extends ServiceEntityRepository
         parent::__construct($registry, Proyecto::class);
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Proyecto $entity, bool $flush = true): void
+    {
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
     // /**
     //  * @return Proyecto[] Returns an array of Proyecto objects
     //  */
