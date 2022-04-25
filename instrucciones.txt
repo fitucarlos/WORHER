@@ -1,0 +1,93 @@
+Instrucciones cómo usar API de Worher
+
+
+                            ############
+                            Añadir proyecto
+                            ############
+
+Method = POST
+
+  url = http://localhost:8000/api/proyectos
+  body = {
+          "nombre":"Nombre proyecto"
+         }
+
+#########################################################################
+         
+                            ############
+                            Añadir lista
+                            ############
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/add_lista/{ id de proyecto }
+  body = {
+          "listas": [
+                     {
+                       "nombre": "nombre lista"
+                     }
+                  ]
+          }
+
+#########################################################################
+                                    
+                            ############
+                            Añadir tarea
+                            ############
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/add_tarea/{ id de lista }
+  body = {
+          "tareas": [
+                     {
+                      "nombre": "nombre tarea",
+                      "descripcion": "Esto es una descripcionn",
+                      "dificultad": 2,
+                      "prioridad": 3
+                     }
+                  ]
+          }
+
+#########################################################################
+          
+                            ############
+                            Borrar proyecto
+                            ############
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/remove_proyecto/{ id de proyecto }
+
+
+#########################################################################
+          
+                            ############
+                            Borrar lista
+                            ############
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/remove_lista/{ id de lista }
+
+
+#########################################################################
+          
+                            ############
+                            Borrar tarea
+                            ############
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/remove_tarea/{ id de tarea }
+
+
+#########################################################################
+          
+                            #####################
+                            Recoger JSON de datos
+                            #####################
+
+Method = GET
+
+  url = http://localhost:8000/api/proyectos
