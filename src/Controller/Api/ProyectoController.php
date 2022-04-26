@@ -142,12 +142,46 @@ class ProyectoController extends AbstractFOSRestController{
          //Add tareas
          foreach($ListaDto->tareas as $newTareaDto){
                $tarea = $tareaRepository->find($newTareaDto->id ?? 0);
+               if($newTareaDto->dificultad == 0){
+                  $newTareaDto->dificultad = true;
+               }
+               if($newTareaDto->prioridad == 0){
+                  $newTareaDto->prioridad = true;
+               }
                if(!$tarea && $newTareaDto->nombre && $newTareaDto->descripcion && $newTareaDto->dificultad && $newTareaDto->prioridad){
                   $tarea = new Tarea();
                   $tarea->setNombre($newTareaDto->nombre);
                   $tarea->setDescripcion($newTareaDto->descripcion);
-                  $tarea->setDificultad($newTareaDto->dificultad);
-                  $tarea->setPrioridad($newTareaDto->prioridad);
+                  //comprobar dificultad
+                  if($newTareaDto->dificultad <= 3 && $newTareaDto->dificultad > 0){
+                     $tarea->setDificultad($newTareaDto->dificultad);
+                  }
+                  else{
+                     if($newTareaDto->dificultad > 3){
+                        $tarea->setDificultad(3);
+                     }
+                     else if($newTareaDto->dificultad == 0){
+                        $tarea->setDificultad(1);
+                     }
+                     else{
+                        $tarea->setDificultad(1);
+                     }
+                  }
+                  //comprobar prioridad
+                  if($newTareaDto->prioridad <= 5 && $newTareaDto->prioridad > 0){
+                     $tarea->setPrioridad($newTareaDto->prioridad);
+                  }
+                  else{
+                     if($newTareaDto->prioridad > 5){
+                        $tarea->setPrioridad(5);
+                     }
+                     else if($newTareaDto->prioridad == 0){
+                        $tarea->setPrioridad(1);
+                     }
+                     else{
+                        $tarea->setPrioridad(1);
+                     }
+                  }
                   $em->persist($tarea);
                }
                else{
