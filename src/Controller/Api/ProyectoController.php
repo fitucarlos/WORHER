@@ -142,12 +142,7 @@ class ProyectoController extends AbstractFOSRestController{
          //Add tareas
          foreach($ListaDto->tareas as $newTareaDto){
                $tarea = $tareaRepository->find($newTareaDto->id ?? 0);
-               if($newTareaDto->dificultad == 0){
-                  $newTareaDto->dificultad = true;
-               }
-               if($newTareaDto->prioridad == 0){
-                  $newTareaDto->prioridad = true;
-               }
+               
                if(!$tarea && $newTareaDto->nombre && $newTareaDto->descripcion && $newTareaDto->dificultad && $newTareaDto->prioridad){
                   $tarea = new Tarea();
                   $tarea->setNombre($newTareaDto->nombre);
