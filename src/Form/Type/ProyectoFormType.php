@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ProyectoFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    {   
         $builder
         ->add('nombre', TextType::class)
         ->add('listas', CollectionType::class, [

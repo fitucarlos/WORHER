@@ -10,10 +10,10 @@ use App\Form\Model\ListaDto;
 use App\Form\Model\TareaDto;
 use App\Form\Type\ListaFormType;
 use App\Form\Type\ProyectoFormType;
-use App\Repository\BookRepository;
 use App\Repository\ProyectoRepository;
 use App\Repository\ListaRepository;
 use App\Repository\TareaRepository;
+use App\Repository\UsuarioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -155,7 +155,13 @@ class ProyectoController extends AbstractFOSRestController{
          //Add tareas
          foreach($ListaDto->tareas as $newTareaDto){
                $tarea = $tareaRepository->find($newTareaDto->id ?? 0);
-               
+
+               if($newTareaDto->dificultad == 0){
+                  $newTareaDto->dificultad = 1;
+               }
+               if($newTareaDto->prioridad == 0){
+                  $newTareaDto->prioridad = 1;
+               }
                if(!$tarea && $newTareaDto->nombre && $newTareaDto->descripcion && $newTareaDto->dificultad && $newTareaDto->prioridad){
                   $tarea = new Tarea();
                   $tarea->setNombre($newTareaDto->nombre);
@@ -226,20 +232,20 @@ class ProyectoController extends AbstractFOSRestController{
          $tareaRepository->remove($tarea);
       }
       }
-
+      
 
    /**
         * @Rest\Post(path="/proyecto/remove_lista/{id}")
         * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
         */
-   
-       public function removeListaActions(
+        
+        public function removeListaActions(
          int $id,
          EntityManagerInterface $em,
          Request $request,
          TareaRepository $tareaRepository,
          ListaRepository $listaRepository
-      ){
+         ){
          $lista = $listaRepository->find($id);
       if(!$lista){
          throw $this->createNotFoundException('Esta lista no existe');
@@ -278,6 +284,25 @@ class ProyectoController extends AbstractFOSRestController{
                $listaRepository->remove($lista);
             }
             $proyectoRepository->remove($proyecto);
+         }
+      }
+      /**
+           * @Rest\Get(path="/proyecto/search_user/{email}")
+           * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+           */
+      
+          public function buscarUsuarioPorEmail(
+            string $email,
+            EntityManagerInterface $em,
+            Request $request,
+            UsuarioRepository $usuarioRepository
+         ){
+            $usuario = $usuarioRepository->findByEmail($email);
+         if(!$usuario){
+            throw $this->createNotFoundException('Este usuario no existe');
+         }
+         else{
+            return $usuario;
          }
          }
    }

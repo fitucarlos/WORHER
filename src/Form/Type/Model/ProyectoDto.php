@@ -10,6 +10,7 @@ class ProyectoDto{
 
     public function __construct() {
         $this->listas = [];
+        $this->usuarios = [];
     }
 
     public static function createFromProyecto(Proyecto $Proyecto):self

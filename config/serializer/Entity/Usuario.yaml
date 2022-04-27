@@ -1,10 +1,10 @@
-App\Entity\Proyecto:
+App\Entity\Usuario:
   attributes:
     id:
       groups: ['proyecto']
     nombre:
       groups: ['proyecto']
-    listas: 
+    apellido:
       groups: ['proyecto']
-    usuarios: 
+    email:
       groups: ['proyecto']

@@ -102,3 +102,14 @@ Method = GET
 Method = GET
 
   url = http://localhost:8000/api/proyecto/{ id de proyecto }
+
+
+#########################################################################
+          
+                            #########################
+                            Recoger Usuario por email
+                            #########################
+
+Method = GET
+
+  url = http://localhost:8000/api/proyecto/search_user{ email de usuario }
