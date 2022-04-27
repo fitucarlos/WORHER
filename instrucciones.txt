@@ -7,7 +7,7 @@ Instrucciones cómo usar API de Worher
 
 Method = POST
 
-  url = http://localhost:8000/api/proyectos
+  url = http://localhost:8000/api/proyecto
   body = {
           "nombre":"Nombre proyecto"
          }
@@ -91,3 +91,14 @@ Method = POST
 Method = GET
 
   url = http://localhost:8000/api/proyectos
+
+
+#########################################################################
+          
+                            #######################
+                            Recoger Proyecto por id
+                            #######################
+
+Method = GET
+
+  url = http://localhost:8000/api/proyecto/{ id de proyecto }

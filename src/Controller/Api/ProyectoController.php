@@ -34,7 +34,20 @@ class ProyectoController extends AbstractFOSRestController{
      }
 
     /**
-     * @Rest\Post(path="/proyectos")
+     * @Rest\Get(path="/proyecto/{id}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+     public function getProyectoActions(
+        int $id,
+        ProyectoRepository $ProyectoRepository
+     ){
+        $proyecto = $ProyectoRepository->find($id);
+        return $proyecto;
+     }
+
+    /**
+     * @Rest\Post(path="/proyecto")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
