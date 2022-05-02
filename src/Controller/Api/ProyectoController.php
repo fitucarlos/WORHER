@@ -10,6 +10,7 @@ use App\Form\Model\ListaDto;
 use App\Form\Model\TareaDto;
 use App\Form\Type\ListaFormType;
 use App\Form\Type\ProyectoFormType;
+use App\Form\Type\TareaFormType;
 use App\Repository\ProyectoRepository;
 use App\Repository\ListaRepository;
 use App\Repository\TareaRepository;
@@ -364,6 +365,68 @@ class ProyectoController extends AbstractFOSRestController{
             $em->persist($Lista);
             $em->flush();
             return $Lista;
+         }
+         
+         return $form;
+   }
+
+    /**
+     * @Rest\Post(path="/edit_tarea/{id}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+     public function editTareaActions(
+      int $id,
+      EntityManagerInterface $em,
+      Request $request,
+      TareaRepository $tareaRepository
+      ){
+         $tarea = $tareaRepository->find($id);
+         $tareaDto = TareaDto::createFromTarea($tarea);
+
+         $form = $this->createForm(TareaFormType::class, $tareaDto);
+         $form->handleRequest($request);
+
+         if (!$form->isSubmitted()) {
+            throw $this->createNotFoundException('Form not submitted');
+        }
+        if ($form->isValid()) {
+            if($tareaDto->dificultad == 0){
+               $tareaDto->dificultad = 1;
+            }
+            if($tareaDto->prioridad == 0){
+               $tareaDto->prioridad = 1;
+            }
+            if($tareaDto->dificultad > 3){
+               $tarea->setDificultad(3);
+            }
+            else if($tareaDto->dificultad == 0){
+               $tarea->setDificultad(1);
+            }
+            else{
+               $tarea->setDificultad(1);
+            }
+
+            if($tareaDto->prioridad > 5){
+               $tarea->setPrioridad(5);
+            }
+            else if($tareaDto->prioridad == 0){
+               $tarea->setPrioridad(1);
+            }
+            else{
+               $tarea->setPrioridad(1);
+            }
+
+
+            if($tareaDto->nombre){
+               $tarea->setNombre($tareaDto->nombre);
+            }
+            if($tareaDto->descripcion){
+               $tarea->setDescripcion($tareaDto->descripcion);
+            }
+            $em->persist($tarea);
+            $em->flush();
+            return $tarea;
          }
          
          return $form;
