@@ -84,6 +84,37 @@ Method = POST
 
 #########################################################################
           
+                            ######################
+                            Editar nombre proyecto
+                            ######################
+
+Method = POST
+
+  url = http://localhost:8000/api/edit_proyecto/{ id de proyecto }
+
+  body = {
+            "nombre":"Proyecto editado"
+          }
+
+
+
+#########################################################################
+          
+                            ###################
+                            Editar nombre lista
+                            ###################
+
+Method = POST
+
+  url = http://localhost:8000/api/edit_lista/{ id de lista }
+
+  body = {
+            "nombre":"lista editada"
+          }
+
+
+#########################################################################
+          
                             #####################
                             Recoger JSON de datos
                             #####################

@@ -24,5 +24,5 @@ APP_SECRET=d89c98576970a5e76d5a87d749aa0710
 #
 # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
 # DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7&charset=utf8mb4"
-DATABASE_URL=mysql://ugwliqozxvr3siav:bR0Tz8nHppS3mgyTpJFh@b5fugixivsxae8wmq78q-mysql.services.clever-cloud.com:3306/b5fugixivsxae8wmq78q
+DATABASE_URL=mysql://root:@127.0.0.1:3306/worherDB
 ###< doctrine/doctrine-bundle ###

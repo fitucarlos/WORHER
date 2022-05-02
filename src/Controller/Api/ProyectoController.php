@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -305,5 +306,67 @@ class ProyectoController extends AbstractFOSRestController{
             return $usuario;
          }
          }
+
+
+         
+    /**
+     * @Rest\Post(path="/edit_proyecto/{id}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+     public function editProyectoActions(
+      int $id,
+      EntityManagerInterface $em,
+      Request $request,
+      ProyectoRepository $proyectoRepository
+      ){
+         $Proyecto = $proyectoRepository->find($id);
+         $ProyectoDto = ProyectoDto::createFromProyecto($Proyecto);
+
+         $form = $this->createForm(ProyectoFormType::class, $ProyectoDto);
+         $form->handleRequest($request);
+
+         if (!$form->isSubmitted()) {
+            throw $this->createNotFoundException('Form not submitted');
+        }
+        if ($form->isValid()) {
+            $Proyecto->setNombre($ProyectoDto->nombre);
+            $em->persist($Proyecto);
+            $em->flush();
+            return $Proyecto;
+         }
+         
+         return $form;
+   }
+
+    /**
+     * @Rest\Post(path="/edit_lista/{id}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+     public function editListaActions(
+      int $id,
+      EntityManagerInterface $em,
+      Request $request,
+      ListaRepository $listaRepository
+      ){
+         $Lista = $listaRepository->find($id);
+         $ListaDto = ListaDto::createFromLista($Lista);
+
+         $form = $this->createForm(ListaFormType::class, $ListaDto);
+         $form->handleRequest($request);
+
+         if (!$form->isSubmitted()) {
+            throw $this->createNotFoundException('Form not submitted');
+        }
+        if ($form->isValid()) {
+            $Lista->setNombre($ListaDto->nombre);
+            $em->persist($Lista);
+            $em->flush();
+            return $Lista;
+         }
+         
+         return $form;
+   }
    }
    
