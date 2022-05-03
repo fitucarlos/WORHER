@@ -5,9 +5,11 @@ namespace App\Controller\Api;
 use App\Entity\Proyecto;
 use App\Entity\Lista;
 use App\Entity\Tarea;
+use App\Entity\Usuario;
 use App\Form\Model\ProyectoDto;
 use App\Form\Model\ListaDto;
 use App\Form\Model\TareaDto;
+use App\Form\Model\UsuarioDto;
 use App\Form\Type\ListaFormType;
 use App\Form\Type\ProyectoFormType;
 use App\Form\Type\TareaFormType;
@@ -431,5 +433,41 @@ class ProyectoController extends AbstractFOSRestController{
          
          return $form;
    }
+
+   
+    /**
+     * @Rest\Post(path="/proyecto/add_user/{id}/{user}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function addUserActions(
+      int $id,
+      string $user,
+      EntityManagerInterface $em,
+      Request $request,
+      ProyectoRepository $proyectoRepository,
+      UsuarioRepository $usuarioRepository
+   ){
+    $Proyecto = $proyectoRepository->find($id);
+    if(!$Proyecto){
+       throw $this->createNotFoundException('Este proyecto no existe');
+    }
+    $ProyectoDto = ProyectoDto::createFromProyecto($Proyecto);
+
+
+
+       //Add usuario
+       $usuario = $usuarioRepository->find($user);
+       if(!$usuario){
+         throw $this->createNotFoundException('Este usuario no existe');
+      }
+             $Proyecto->addUsuario($usuario);
+       
+       $em->persist($Proyecto);
+       $em->flush();
+       $em->refresh($Proyecto);
+       return $Proyecto;
+    
+ }
    }
    

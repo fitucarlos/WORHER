@@ -143,4 +143,4 @@ Method = GET
 
 Method = GET
 
-  url = http://localhost:8000/api/proyecto/search_user{ email de usuario }
+  url = http://localhost:8000/api/proyecto/search_user/{ email de usuario }
