@@ -4,19 +4,24 @@ namespace App\Controller\Api;
 
 use App\Entity\Proyecto;
 use App\Entity\Lista;
+use App\Entity\Mensaje;
 use App\Entity\Tarea;
 use App\Entity\Usuario;
 use App\Form\Model\ProyectoDto;
 use App\Form\Model\ListaDto;
+use App\Form\Model\MensajeDto;
 use App\Form\Model\TareaDto;
 use App\Form\Model\UsuarioDto;
 use App\Form\Type\ListaFormType;
+use App\Form\Type\MensajeFormType;
 use App\Form\Type\ProyectoFormType;
 use App\Form\Type\TareaFormType;
 use App\Repository\ProyectoRepository;
 use App\Repository\ListaRepository;
+use App\Repository\MensajeRepository;
 use App\Repository\TareaRepository;
 use App\Repository\UsuarioRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -470,40 +475,69 @@ class ProyectoController extends AbstractFOSRestController{
     
  }
 
-
-    /**
+/**
      * @Rest\Post(path="/proyecto/add_mensaje/{id}/{user}")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
     public function addMensajeActions(
       int $id,
-      string $user,
+      int $user,
       EntityManagerInterface $em,
       Request $request,
       ProyectoRepository $proyectoRepository,
       UsuarioRepository $usuarioRepository
    ){
-    $Proyecto = $proyectoRepository->find($id);
-    if(!$Proyecto){
-       throw $this->createNotFoundException('Este proyecto no existe');
-    }
-    $ProyectoDto = ProyectoDto::createFromProyecto($Proyecto);
-
-
-
-       //Add usuario
-       $usuario = $usuarioRepository->find($user);
-       if(!$usuario){
-         throw $this->createNotFoundException('Este usuario no existe');
+      $Proyecto = $proyectoRepository->find($id);
+      $usuario = $usuarioRepository->find($user);
+      $now = new DateTime();
+      $MensajeDto = new MensajeDto();
+      $form = $this->createForm(MensajeFormType::class, $MensajeDto);
+      $form->handleRequest($request);
+      if($form->isSubmitted() && $form->isValid()){
+          $Mensaje = new Mensaje();
+          $Mensaje->setTexto($MensajeDto->texto);
+          $Mensaje->setFecha($now);
+          $Mensaje->setHora($now);
+          $Mensaje->setUsuario($usuario);
+          $Proyecto->addMensaje($Mensaje);
+          $em->persist($Mensaje);
+          $em->flush();
+          return $Proyecto;
       }
-             $Proyecto->addUsuario($usuario);
-       
-       $em->persist($Proyecto);
-       $em->flush();
-       $em->refresh($Proyecto);
-       return $Proyecto;
-    
+      return $form;
  }
+/**
+     * @Rest\Get(path="/proyecto/get_mensajes/{id}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function getMensajesActions(
+      int $id,
+      MensajeRepository $mensajeRepository
+   ){
+      $mensajes = $mensajeRepository->findByProyecto($id);
+
+      return $mensajes;
+      
+ }
+
+
+/**
+     * @Rest\Get(path="/proyecto/get_users/{id}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function getUsersByProyectoActions(
+      int $id,
+      ProyectoRepository $proyectoRepository
+   ){
+      $proyecto = $proyectoRepository->find($id);
+
+      return $proyecto->getUsuarios();
+      
+ }
+
+
    }
    

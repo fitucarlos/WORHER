@@ -7,6 +7,7 @@ use App\Entity\Proyecto;
 class ProyectoDto{
     public $nombre;
     public $listas;
+    public $mensajes;
 
     public function __construct() {
         $this->listas = [];
