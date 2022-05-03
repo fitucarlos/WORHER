@@ -469,5 +469,41 @@ class ProyectoController extends AbstractFOSRestController{
        return $Proyecto;
     
  }
+
+
+    /**
+     * @Rest\Post(path="/proyecto/add_mensaje/{id}/{user}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function addMensajeActions(
+      int $id,
+      string $user,
+      EntityManagerInterface $em,
+      Request $request,
+      ProyectoRepository $proyectoRepository,
+      UsuarioRepository $usuarioRepository
+   ){
+    $Proyecto = $proyectoRepository->find($id);
+    if(!$Proyecto){
+       throw $this->createNotFoundException('Este proyecto no existe');
+    }
+    $ProyectoDto = ProyectoDto::createFromProyecto($Proyecto);
+
+
+
+       //Add usuario
+       $usuario = $usuarioRepository->find($user);
+       if(!$usuario){
+         throw $this->createNotFoundException('Este usuario no existe');
+      }
+             $Proyecto->addUsuario($usuario);
+       
+       $em->persist($Proyecto);
+       $em->flush();
+       $em->refresh($Proyecto);
+       return $Proyecto;
+    
+ }
    }
    
