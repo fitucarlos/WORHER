@@ -113,6 +113,36 @@ Method = POST
           }
 
 
+
+#########################################################################
+          
+                            ##########################
+                            Agregar usuario a proyecto
+                            ##########################
+
+Method = POST
+
+  url = http://localhost:8000/api/add_user/{ id de proyecto }/{ id de usuario}
+
+
+
+#########################################################################
+          
+                            ##########################
+                            Agregar mensaje a proyecto
+                            ##########################
+
+Method = POST
+
+  url = http://localhost:8000/api/add_mensaje/{ id de proyecto }/{ id de usuario}
+
+
+  body = {
+            "texto":"texto de mensaje"
+          }
+
+
+
 #########################################################################
           
                             #####################
@@ -144,3 +174,25 @@ Method = GET
 Method = GET
 
   url = http://localhost:8000/api/proyecto/search_user/{ email de usuario }
+
+
+#########################################################################
+          
+                            ############################
+                            Recoger Usuarios de proyecto
+                            ############################
+
+Method = GET
+
+  url = http://localhost:8000/api/proyecto/get_users/{ id de proyecto }
+
+
+#########################################################################
+          
+                            ############################
+                            Recoger Mensajes de proyecto
+                            ############################
+
+Method = GET
+
+  url = http://localhost:8000/api/proyecto/get_mensajes/{ id de proyecto }
