@@ -1,12 +1,12 @@
-App\Entity\Proyecto:
+App\Entity\Mensaje:
   attributes:
     id:
       groups: ['proyecto']
-    nombre:
+    texto:
       groups: ['proyecto']
-    listas: 
+    fecha:
       groups: ['proyecto']
-    usuarios: 
+    hora:
       groups: ['proyecto']
-    mensajes: 
+    usuario:
       groups: ['proyecto']

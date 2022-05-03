@@ -11,6 +11,7 @@ class ProyectoDto{
     public function __construct() {
         $this->listas = [];
         $this->usuarios = [];
+        $this->mensajes = [];
     }
 
     public static function createFromProyecto(Proyecto $Proyecto):self
