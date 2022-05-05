@@ -52,6 +52,9 @@ class ProyectoController extends AbstractFOSRestController{
         ProyectoRepository $ProyectoRepository
      ){
         $proyecto = $ProyectoRepository->find($id);
+        if(!$proyecto){
+         throw $this->createNotFoundException('Este proyecto no existe');
+      }
         return $proyecto;
      }
 
@@ -286,11 +289,15 @@ class ProyectoController extends AbstractFOSRestController{
             throw $this->createNotFoundException('Este proyecto no existe');
          }
          else{
+            if(count($proyecto->getListas()) > 0){
             foreach($proyecto->getListas() as $lista);{
+               if(count($lista->getTareas()) > 0){
                foreach($lista->getTareas() as $tarea);{
                   $tareaRepository->remove($tarea);
                }
+               }
                $listaRepository->remove($lista);
+            }
             }
             $proyectoRepository->remove($proyecto);
          }
@@ -329,6 +336,9 @@ class ProyectoController extends AbstractFOSRestController{
       ProyectoRepository $proyectoRepository
       ){
          $Proyecto = $proyectoRepository->find($id);
+         if(!$Proyecto){
+            throw $this->createNotFoundException('Este proyecto no existe');
+         }
          $ProyectoDto = ProyectoDto::createFromProyecto($Proyecto);
 
          $form = $this->createForm(ProyectoFormType::class, $ProyectoDto);
@@ -359,6 +369,9 @@ class ProyectoController extends AbstractFOSRestController{
       ListaRepository $listaRepository
       ){
          $Lista = $listaRepository->find($id);
+         if(!$Lista){
+            throw $this->createNotFoundException('Esta lista no existe');
+         }
          $ListaDto = ListaDto::createFromLista($Lista);
 
          $form = $this->createForm(ListaFormType::class, $ListaDto);
@@ -389,6 +402,9 @@ class ProyectoController extends AbstractFOSRestController{
       TareaRepository $tareaRepository
       ){
          $tarea = $tareaRepository->find($id);
+         if(!$tarea){
+            throw $this->createNotFoundException('Esta tarea no existe');
+         }
          $tareaDto = TareaDto::createFromTarea($tarea);
 
          $form = $this->createForm(TareaFormType::class, $tareaDto);
@@ -489,7 +505,13 @@ class ProyectoController extends AbstractFOSRestController{
       UsuarioRepository $usuarioRepository
    ){
       $Proyecto = $proyectoRepository->find($id);
+      if(!$Proyecto){
+         throw $this->createNotFoundException('Este proyecto no existe');
+      }
       $usuario = $usuarioRepository->find($user);
+      if(!$usuario){
+         throw $this->createNotFoundException('Este usuario no existe');
+      }
       $now = new DateTime();
       $MensajeDto = new MensajeDto();
       $form = $this->createForm(MensajeFormType::class, $MensajeDto);
