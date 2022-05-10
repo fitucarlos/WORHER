@@ -539,22 +539,28 @@ class ProyectoController extends AbstractFOSRestController{
       MensajeRepository $mensajeRepository
    ){
       $mensajes = $mensajeRepository->findByProyecto($id);
-
+      if(!$mensajes){
+         throw $this->createNotFoundException('Este proyecto no existe');
+      }
+      
       return $mensajes;
       
- }
-
-
-/**
-     * @Rest\Get(path="/proyecto/get_users/{id}")
-     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
-     */
-
+   }
+   
+   
+   /**
+    * @Rest\Get(path="/proyecto/get_users/{id}")
+    * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+    */
+    
     public function getUsersByProyectoActions(
-      int $id,
-      ProyectoRepository $proyectoRepository
-   ){
-      $proyecto = $proyectoRepository->find($id);
+       int $id,
+       ProyectoRepository $proyectoRepository
+       ){
+          $proyecto = $proyectoRepository->find($id);
+          if(!$proyecto){
+             throw $this->createNotFoundException('Este proyecto no existe');
+          }
 
       return $proyecto->getUsuarios();
       
