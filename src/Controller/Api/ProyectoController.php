@@ -581,5 +581,62 @@ class ProyectoController extends AbstractFOSRestController{
  }
 
 
+  /**
+           * @Rest\Get(path="/proyecto/search_user/{id_proyecto}/{email}")
+           * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+           */
+      
+          public function buscarUsuarioPorEmailEnProyecto(
+            string $email,
+            int $id_proyecto,
+            ProyectoRepository $proyectoRepository
+         ){
+
+            $proyecto = $proyectoRepository->find($id_proyecto);
+            if($proyecto) $usuarios = $proyecto->getUsuarios();
+            else throw $this->createNotFoundException('Este proyecto no existe');
+            $encontrado = false;
+            foreach($usuarios as $usuario){
+               if($usuario->getEmail() == $email){
+                  return $usuario;
+               }
+            }
+         if(!$encontrado){
+            throw $this->createNotFoundException('Este usuario no existe');
+         }
+         }
+
+
+   /**
+           * @Rest\Get(path="/proyecto/change_tarea/{id_tarea}/{id_new_list}")
+           * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+           */
+      
+          public function cambiarTareaDeLista(
+            int $id_tarea,
+            int $id_new_list,
+            TareaRepository $tareaRepository,
+            ListaRepository $listaRepository,
+            EntityManagerInterface $em
+         ){
+            $tarea = $tareaRepository->find($id_tarea);
+            if(!$tarea){
+               throw $this->createNotFoundException('Esta tarea no existe');
+            }
+            $oldLista = $tarea->getLista();
+            $newLista = $listaRepository->find($id_new_list);
+            if(!$newLista){
+               throw $this->createNotFoundException('Esta lista no existe');
+            }
+            $oldLista->removeTarea($tarea);
+            $newLista->addTarea($tarea);
+
+            $em->persist($tarea);
+            $em->flush();
+
+            return $newLista;
+         }      
+
+
    }
    
