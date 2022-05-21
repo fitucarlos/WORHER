@@ -1,0 +1,53 @@
+<div class="tarjeta container" id="lista{{lista.id}}">
+    <div class="row">
+        <h3 (dblclick)="renombrarLista()" *ngIf="!editar" id="nombre" class="col-11">{{lista.nombre}}</h3>
+        <div *ngIf="editar">
+            <div class="txt_field form-control mt-4">
+                <input type="text" required aria-label="Introducir nuevo nombre a la lista" name="nombreLista"
+                    #nombreLista id="nombreLista" value="{{lista.nombre}}" (keyup.enter)="actualizarNombre(nombreLista.value); nombreLista.value=''">
+                <span class="span"></span>
+                <label for="nombreLista" class="control-label required">Nombre de lista</label>
+            </div>
+            <button class="btn boton guardar" (click)="actualizarNombre(nombreLista.value); nombreLista.value=''">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                </svg> Guardar
+            </button>
+            <button class="btn boton cancelar" (click)="noActualizar()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg> Cancelar
+            </button>
+        </div>
+        <button class="col-1 btn pe-0 ps-0 " *ngIf="!editar" (click)="mostrarMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" *ngIf="!menu" width="20" height="20" fill="currentColor"
+                class="bi bi-three-dots" viewBox="0 0 16 16">
+                <path
+                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+            </svg>
+            <svg *ngIf="menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                <path fill-rule="evenodd"
+                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+            </svg>
+        </button>
+        <div class="container" *ngIf="menu">
+            <div class="dropdown-content row">
+                <button class="btn col-12" *ngIf="!editar" (click)="renombrarLista()">Renombrar lista</button>
+                <button class="btn col-12 disabled" *ngIf="editar" (click)="renombrarLista()">Renombrar lista</button>
+                <button class="btn col-12" (click)="borrarLista()">Borrar lista</button>
+            </div>
+        </div>
+    </div>
+
+    <app-tarea (actualizar)="actualizarTarea($event)" [proyecto]="proyecto" [lista]="lista" [tarea]="tarea" *ngFor="let tarea of lista.tareas"></app-tarea>
+
+
+
+</div>

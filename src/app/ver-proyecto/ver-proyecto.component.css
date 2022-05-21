@@ -1,0 +1,176 @@
+.botones {
+    display: flex;
+    justify-content: center;
+    width: 90vw;
+}
+
+.boton {
+    border: 1px solid gray;
+    margin: 2%;
+    font-weight: bold;
+    width: 150px;
+}
+
+.mostrarChat > .botones > .boton {
+    width:200px;
+}
+
+.miembros {
+    position: relative;
+}
+
+.circulo {
+    border-radius: 50%;
+    background-color: #813bff;
+    color:white;
+    font-weight: bold;
+    width: 35px;
+    padding: 2%;
+    text-align: center;
+    height: 35px;
+    border: 2px solid black;
+    margin-bottom: 2%;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    font-variant: small-caps;
+    margin-bottom: .5%;
+    padding-bottom: 1%;
+}
+
+.cabecera {
+    border-bottom: 1px solid gray;
+}
+.miembro:hover ~ .nombres {
+    visibility: visible;
+} 
+
+.nombres {
+    visibility: hidden;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    position:absolute;
+    top:45px;
+    z-index: 1000;
+    background-color: white;
+    padding: 1%;
+    overflow-x: hidden;
+    max-width: 300px;
+}
+
+li {
+    list-style: none;
+}
+
+
+h1::first-letter, li::first-letter {
+    text-transform: uppercase;
+}
+
+.filtro,
+.miembros {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.miembro {
+    margin: 1%;
+}
+
+
+
+.txt_field {
+    position: relative;
+    border-bottom: 2px solid #616161;
+}
+
+.txt_field input {
+    width: 100%;
+    padding: 0 5px;
+    height: 28px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.txt_field label {
+    position: absolute;
+    top: 60%;
+    left: 5px;
+    color: #616161;
+    transform: translateY(-70%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.txt_field .span::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 0;
+    background: grey;
+    transition: .5s;
+}
+
+.txt_field input:focus~label,
+.txt_field input:valid~label {
+    top: -5px;
+    color: grey;
+}
+
+.txt_field input:focus~.span::before,
+.txt_field input:valid~.span::before {
+    width: 100%;
+}
+
+.botonAdd {
+    color: white;
+    width: 100%;
+}
+
+.botonAdd svg {
+    background-color: black;
+    border-radius: 50%;
+    margin-bottom: 2%;
+    padding: 1.5%;
+}
+
+.lista {
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 10%;
+    margin-bottom: 7.5%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: white;
+    padding: 2%;
+}
+
+.chat {
+    display: none;
+}
+
+@media(min-width:1224px){
+    .chat {
+        display: block;
+    }
+
+    .botonChat {
+        display: none;
+    }
+
+    .mostrarChat {
+        display: none;
+    }
+}

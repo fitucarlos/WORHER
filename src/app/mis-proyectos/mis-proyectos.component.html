@@ -1,0 +1,87 @@
+<app-cargando *ngIf="isCargando()"></app-cargando>
+
+<ng-container *ngIf="!isCargando()">
+
+    <div class="proyectos container-fluid">
+        <h1 class="col-10">Mis proyectos</h1>
+        <div class="row">
+            <app-proyecto-tarjeta class="col-sm-12 col-md-6 col-lg-4 m-1 m-md-0 mb-md-1 mt-md-1" [p]="proy"
+                *ngFor="let proy of getProyectos()"></app-proyecto-tarjeta>
+            <div class="col-sm-12 col-md-6 col-lg-4 m-1 m-md-0 mb-md-1 mt-md-1">
+                <div class="tarjeta container d-flex justify-content-center flex-column">
+                    <h1 id="nombre" class="row-cols-1">Nuevo proyecto</h1>
+                    <button class="btn boton" data-bs-toggle="modal" data-bs-target="#nuevoProyecto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                            class="bi bi-plus-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- ---------------------------MODAL CREAR PROYECTO-------------------------------- -->
+    
+    <div class="modal fade" id="nuevoProyecto" tabindex="-1" aria-labelledby="nuevoProyectoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nuevoProyectoLabel">Nuevo proyecto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="txt_field form-control mt-4">
+                        <input type="text" required aria-label="Introducir nombre de proyecto"
+                            name="nombreProyecto" #nombreProyecto id="nombreProyecto">
+                        <span class="span"></span>
+                        <label for="nombreProyecto" class="control-label required">Nombre de
+                            proyecto</label>
+                    </div>
+                    <div class="txt_field form-control mt-4">
+                        <input type="text" required aria-label="Buscar miembro por email"
+                            name="buscarMiembro" #buscar id="buscarMiembro"
+                            (keyup.enter)="buscarMiembro(buscar.value)">
+                        <span class="span"></span>
+                        <label for="buscarMiembro" class="control-label required">Email de
+                            usuario</label>
+                    </div>
+                    <h4>Miembros del proyecto</h4>
+                    <table>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Eliminar</th>
+                        </tr>
+                        <tr *ngIf="miembros.length == 0">
+                            <td colspan="3">No se ha añadido ningún miembro aún al proyecto</td>
+                        </tr>
+                        <tr *ngFor="let m of miembros">
+                            <td>{{m.nombre}} {{m.apellido}}</td>
+                            <td>{{m.email}}</td>
+                            <td>
+                                <button type="button" class="btn boton" (click)="quitarMiembro(m)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-person-x-fill"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn boton" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn boton"
+                        (click)="addProyecto(nombreProyecto.value)" data-bs-dismiss="modal">Crear proyecto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
