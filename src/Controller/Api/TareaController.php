@@ -75,10 +75,16 @@ class TareaController extends AbstractFOSRestController{
                if($newTareaDto->prioridad == 0){
                   $newTareaDto->prioridad = 1;
                }
-               if(!$tarea && $newTareaDto->nombre && $newTareaDto->descripcion && $newTareaDto->dificultad && $newTareaDto->prioridad){
+               if(!$tarea && $newTareaDto->nombre && $newTareaDto->dificultad && $newTareaDto->prioridad){
                   $tarea = new Tarea();
                   $tarea->setNombre($newTareaDto->nombre);
-                  $tarea->setDescripcion($newTareaDto->descripcion);
+                  if($newTareaDto->descripcion){
+
+                     $tarea->setDescripcion($newTareaDto->descripcion);
+                  }
+                  else{
+                     $tarea->setDescripcion(null);
+                  }
                   //comprobar dificultad
                   if($newTareaDto->dificultad <= 3 && $newTareaDto->dificultad > 0){
                      $tarea->setDificultad($newTareaDto->dificultad);
@@ -158,14 +164,14 @@ class TareaController extends AbstractFOSRestController{
         Request $request,
         TareaRepository $tareaRepository
         ){
-           $tarea = $tareaRepository->find($id);
-           if(!$tarea){
-              throw $this->createNotFoundException('Esta tarea no existe');
-           }
-           $tareaDto = TareaDto::createFromTarea($tarea);
-  
-           $form = $this->createForm(TareaFormType::class, $tareaDto);
-           $form->handleRequest($request);
+         $tarea = $tareaRepository->find($id);
+         if(!$tarea){
+            throw $this->createNotFoundException('Esta lista no existe');
+         }
+         $tareaDto = TareaDto::createFromTarea($tarea);
+
+         $form = $this->createForm(TareaFormType::class, $tareaDto);
+         $form->handleRequest($request);
   
            if (!$form->isSubmitted()) {
               throw $this->createNotFoundException('Form not submitted');
