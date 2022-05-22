@@ -107,7 +107,7 @@ export class BbddProyectosService {
     return this.http.get(this.url + "proyecto/search_user/" + email);
   }
 
-  addTarea(idLista: number, nombre: string, descripcion: string, dificultad: number, prioridad: number, usuarios: any[]) {
+  addTarea(idLista: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {
     this.cargando = true;
     let body = {
       "tareas": [
@@ -119,14 +119,7 @@ export class BbddProyectosService {
         }
       ]
     }
-    this.http.post(this.url + 'proyecto/add_tarea/' + idLista, body).subscribe(
-      (respuesta: any) => {
-        usuarios.forEach(u => {
-          this.addUsuarioTarea()
-        })
-        this.cargarDatos();
-      }
-    )
+    return this.http.post(this.url + 'proyecto/add_tarea/' + idLista, body)
   }
 
   deleteTarea(id: number) {
@@ -135,6 +128,23 @@ export class BbddProyectosService {
 
   moverTarea(idTarea:number, idLista:number){
     this.http.get(this.url+'proyecto/change_tarea/'+idTarea+'/'+idLista).subscribe();
+  }
+
+  editarTarea(id: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {
+    this.cargando = true;
+    let body = 
+        {
+          "nombre": nombre,
+          "descripcion": descripcion,
+          "dificultad": dificultad,
+          "prioridad": prioridad
+        }
+      
+    this.http.post(this.url + 'edit_tarea/' + id, body).subscribe(
+      (respuesta: any) => {
+        this.cargarDatos();
+      }
+    )
   }
 
   addUsuarioTarea() {

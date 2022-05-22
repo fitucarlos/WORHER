@@ -1,5 +1,5 @@
 <div class="tarjeta container">
-    <h1 (dblclick)="editar()" id="nombre" class="row-cols-1">{{p.nombre}}</h1>
+    <h1 (click)="editar()" id="nombre" class="row-cols-1">{{p.nombre}}</h1>
     <div *ngIf="editando" >
         <div class="txt_field form-control mt-4">
             <input type="text" required aria-label="Introducir nuevo nombre al proyecto"

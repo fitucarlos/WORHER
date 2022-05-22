@@ -1,6 +1,6 @@
 <div class="tarjeta container" id="lista{{lista.id}}">
     <div class="row">
-        <h3 (dblclick)="renombrarLista()" *ngIf="!editar" id="nombre" class="col-11">{{lista.nombre}}</h3>
+        <h3 (click)="renombrarLista()" *ngIf="!editar" id="nombre" class="col-11">{{lista.nombre}}</h3>
         <div *ngIf="editar">
             <div class="txt_field form-control mt-4">
                 <input type="text" required aria-label="Introducir nuevo nombre a la lista" name="nombreLista"

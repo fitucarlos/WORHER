@@ -86,13 +86,7 @@ export class ListaComponent implements OnInit {
 
   }
 
-  addTarea(nombre:string, descripcion:string, dificultad:string, prioridad:string) {
-    let dif:number = parseInt(dificultad);
-    let prio:number = parseInt(prioridad);
-    this.bbddProyectos.addTarea(this.lista.id, nombre, descripcion, dif, prio, this.miembros)
-    this.actualizar.emit(true);
-  }
-
+ 
   actualizarTarea(actualizar:boolean){
     if(actualizar){
       this.actualizar.emit(true);

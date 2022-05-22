@@ -12,6 +12,11 @@
     right: 10px;
 }
 
+#selectDif {
+    position: absolute;
+    bottom: 15px;
+    right: -10px;
+}
 
 #nombre {
     margin-top:1rem;

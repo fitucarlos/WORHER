@@ -1,13 +1,18 @@
 <div class="container tarea" (click)="mostrarDetalles()">
   <p id="nombre">{{tarea.nombre}}</p>
 
-  <div id="dificultad">
-    <img src="assets/images/muy_facil.png" width="30" height="30" *ngIf="tarea.dificultad==1" />
-    <img src="assets/images/facil.png" width="30" height="30" *ngIf="tarea.dificultad==2" />
-    <img src="assets/images/normal.png" width="30" height="30" *ngIf="tarea.dificultad==3" />
-    <img src="assets/images/dificil.png" width="30" height="30" *ngIf="tarea.dificultad==4" />
-    <img src="assets/images/muy_dificil.png" width="30" height="30" *ngIf="tarea.dificultad==5" />
+  <div id="dificultad" (click)="seleccionarDificultad()">
+    <img src="assets/images/facil.png" width="30" height="30" *ngIf="tarea.dificultad==1" />
+    <img src="assets/images/normal.png" width="30" height="30" *ngIf="tarea.dificultad==2" />
+    <img src="assets/images/muy_dificil.png" width="30" height="30" *ngIf="tarea.dificultad==3" />
   </div>
+  <ng-container *ngIf="dificultad">
+    <select id="selectDif" #dificultad (change)="cambiarDificultad(dificultad.value)">
+      <option value="1">Fácil</option>
+      <option value="2">Normal</option>
+      <option value="3">Difícil</option>
+    </select>
+  </ng-container>
 
   <svg id="prioridad"
     [ngClass]="{ muyBaja:tarea.prioridad==1, baja: tarea.prioridad == 2, media: tarea.prioridad == 3, alta: tarea.prioridad == 4, muyAlta: tarea.prioridad == 5}"

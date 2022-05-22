@@ -20,12 +20,13 @@
 
         <div class="botones row">
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#moverTarea">Mover tarea</button>
-            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar tarea</button>
-            <button class="btn boton col-12">Crear tarea</button>
+            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#editarTarea">Editar tarea</button>
+            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#crearTarea">Crear tarea</button>
             <button class="btn boton botonChat col-12" (click)="mostrarChat()">Chat</button>
             <button *ngIf="!filtrando" class="btn boton col-12" (click)="filtrar()">Filtro</button>
-            <button *ngIf="filtrando" class="btn boton col-12" (click)="filtrar()"><svg xmlns="http://www.w3.org/2000/svg"
-                    width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <button *ngIf="filtrando" class="btn boton col-12" (click)="filtrar()"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg"
+                    viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
                     <path fill-rule="evenodd"
@@ -33,7 +34,7 @@
                 </svg>
             </button>
         </div>
-           
+
         <div class="filtro" *ngIf="filtrando">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="prioridad_baja">Prioridad baja</label>
@@ -53,12 +54,12 @@
                 <div class="col-lg-9 container">
                     <div class="listas row">
 
-                        <app-lista (actualizar)="isActualizar($event)" class="col-sm-12 col-md-6 col-lg-4 mt-2" [proyecto]="proyecto" [lista]="lista"
-                            *ngFor="let lista of proyecto.listas"  ></app-lista>
-                        
+                        <app-lista (actualizar)="isActualizar($event)" class="col-sm-12 col-md-6 col-lg-4 mt-2"
+                            [proyecto]="proyecto" [lista]="lista" *ngFor="let lista of proyecto.listas"></app-lista>
+
                         <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
-                            
-                            <div  class="mt-2 lista ">
+
+                            <div class="mt-2 lista ">
                                 <h3>Nueva lista</h3>
                                 <div class="txt_field form-control mt-4">
                                     <input type="text" required aria-label="Introducir nombre de nueva lista"
@@ -99,54 +100,146 @@
 <!-- -------------------------MOVER TAREA ------------------------ -->
 <div class="modal fade" id="moverTarea" tabindex="-1" aria-labelledby="moverTareaLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="moverTareaLabel">Mover tarea</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="moverTareaLabel">Mover tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-group">
+                    <label for="original">¿En qué lista se encuentra la tarea?</label>
+                    <select name="original" id="original" class="form-select" #original
+                        (change)="getTareasListaMover(original.value, tareaId, nuevaListaId, boton)">
+                        <option value="-1">Selecciona una lista</option>
+                        <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
+                    </select>
+                    <label for="tareaId">¿Qué tarea quiere mover?</label>
+                    <select name="tareaId" id="tareaid" class="form-select" #tareaId disabled
+                        (change)="habilitarResto(tareaId.value, nuevaListaId, boton)">
+                        <option value="-1">Selecciona una tarea</option>
+                        <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
+                    </select>
+                    <label for="nuevaListaId">¿A qué lista quiere mover la tarea?</label>
+                    <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId disabled
+                        (change)="habilitarBoton(nuevaListaId.value, original.value, boton)">
+                        <option value="-1">Selecciona una lista</option>
+                        <option *ngFor="let r of getListas()" value="{{r.id}}">{{r.nombre}}</option>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" #boton (click)="moverTarea(tareaId.value, nuevaListaId.value, original.value)"
+                    disabled class="btn boton" data-bs-dismiss="modal">Mover tarea</button>
+            </div>
         </div>
-        
-        <div class="modal-body">
-          <form class="form-group">
-            <label for="original">¿En qué lista se encuentra la tarea?</label>
-            <select name="original" id="original" class="form-select" #original (change)="getTareasLista(original.value, tareaId, nuevaListaId, boton)">
-                <option value="-1">Selecciona una lista</option>
-                <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
-            </select>
-            <label for="tareaId">¿Qué tarea quiere mover?</label>
-            <select name="tareaId" id="tareaid" class="form-select" #tareaId disabled (change)="habilitarResto(tareaId.value, nuevaListaId, boton)">
-                <option value="-1" >Selecciona una tarea</option>
-                <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
-            </select>
-            <label for="nuevaListaId">¿A qué lista quiere mover la tarea?</label>
-            <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId disabled (change)="habilitarBoton(nuevaListaId.value, original.value, boton)">
-                <option value="-1">Selecciona una lista</option>
-                <option *ngFor="let r of getListas()" value="{{r.id}}">{{r.nombre}}</option>
-            </select>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" #boton  (click)="moverTarea(tareaId.value, nuevaListaId.value, original.value)" disabled class="btn boton" data-bs-dismiss="modal">Mover tarea</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
-  <!-- -------------------MODAL EDITAR TAREA-------------------- -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- -------------------MODAL EDITAR TAREA-------------------- -->
+<div class="modal fade" id="editarTarea" tabindex="-1" #editar aria-labelledby="editarTareaLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarTareaLabel">Editar tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="listaEditar">¿En qué lista se encuentra la tarea?</label>
+                <select name="listaEditar" id="listaEditar" class="form-select" #listaEditar
+                    (change)="getTareasListaEditar(listaEditar.value, tareaEditar, nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar, botonEditar)">
+                    <option value="-1">Selecciona una lista</option>
+                    <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
+                </select>
+                <label for="tareaEditar">¿Qué tarea quiere editar?</label>
+                <select name="tareaEditar" id="tareaEditar" class="form-select" #tareaEditar disabled
+                    (change)="habilitarEditar(tareaEditar.value, nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar, botonEditar)">
+                    <option value="-1">Selecciona una tarea</option>
+                    <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
+                </select>
+                <div class="txt_field form-control mt-4">
+                    <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar
+                        id="nombreEditar" disabled>
+                    <span class="span"></span>
+                    <label for="nombreEditar" class="control-label required">Nombre de tarea</label>
+                </div>
+                <label for="prioridadEditar">Prioridad</label>
+                <select name="prioridadEditar" id="prioridadEditar" class="form-select" #prioridadEditar disabled>
+                    <option value="1">Muy baja</option>
+                    <option value="2">Baja</option>
+                    <option value="3">Normal</option>
+                    <option value="4">Alta</option>
+                    <option value="5">Muy alta</option>
+                </select>
+                <label for="dificultadEditar">Dificultad</label>
+                <select name="dificultadEditar" id="dificultadEditar" class="form-select" #dificultadEditar disabled>
+                    <option value="1">Fácil</option>
+                    <option value="2">Normal</option>
+                    <option value="3">Difícil</option>
+                </select>
+                <div class="txt_field form-control mt-4">
+                    <textarea required aria-label="descripción de tarea" name="descripcionEditar" #descripcionEditar
+                        id="descripcionEditar" disabled></textarea>
+                    <span class="span"></span>
+                    <label for="descripcionEditar" class="control-label required">Descripción de tarea</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn boton" data-bs-dismiss="modal"
+                    (click)="editarTarea(tareaEditar.value, nombreEditar.value, prioridadEditar.value, dificultadEditar.value, descripcionEditar.value)"
+                    #botonEditar disabled>Guardar cambios</button>
+            </div>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
+
+<!-- -------------------MODAL CREAR TAREA-------------------- -->
+<div class="modal fade" id="crearTarea" tabindex="-1" aria-labelledby="crearTareaLabel" aria-hidden="true" #modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearTareaLabel">Crear tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="listaCrear">¿En qué lista quieres crear la tarea?</label>
+                <select name="listaCrear" id="listaCrear" class="form-select" #listaCrear
+                    (change)="habilitarCrear(listaCrear.value, nombreCrear, prioridadCrear, dificultadCrear, descripcionCrear, botonCrear)">
+                    <option value="-1">Selecciona una lista</option>
+                    <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
+                </select>
+                <div class="txt_field form-control mt-4">
+                    <input type="text" required aria-label="Nombre de tarea" name="nombreCrear" #nombreCrear
+                        id="nombreCrear" disabled>
+                    <span class="span"></span>
+                    <label for="nombreCrear" class="control-label required">Nombre de tarea</label>
+                </div>
+                <label for="prioridadCrear">Prioridad</label>
+                <select name="prioridadCrear" id="prioridadCrear" class="form-select" #prioridadCrear disabled>
+                    <option value="1">Muy baja</option>
+                    <option value="2">Baja</option>
+                    <option value="3">Normal</option>
+                    <option value="4">Alta</option>
+                    <option value="5">Muy alta</option>
+                </select>
+                <label for="dificultadCrear">Dificultad</label>
+                <select name="dificultadCrear" id="dificultadCrear" class="form-select" #dificultadCrear disabled>
+                    <option value="1">Fácil</option>
+                    <option value="2">Normal</option>
+                    <option value="3">Difícil</option>
+                </select>
+                <div class="txt_field form-control mt-4">
+                    <textarea required aria-label="descripción de tarea" name="descripcionCrear" #descripcionCrear
+                        id="descripcionCrear" disabled></textarea>
+                    <span class="span"></span>
+                    <label for="descripcionCrear" class="control-label required">Descripción de tarea</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-dismiss="modal" (click)="crearTarea(modal, listaCrear.value, nombreCrear.value, descripcionCrear.value, dificultadCrear.value, prioridadCrear.value)" class="btn boton" #botonCrear>Crear tarea</button>
+            </div>
+        </div>
+    </div>
+</div>

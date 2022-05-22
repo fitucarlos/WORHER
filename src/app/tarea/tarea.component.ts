@@ -15,6 +15,7 @@ export class TareaComponent implements OnInit {
   detalles:boolean = false;
   miembros:any[] = [];
   modalMover:boolean = false;
+  dificultad:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
@@ -28,11 +29,9 @@ export class TareaComponent implements OnInit {
   getDificultad(){
     let dificultad:string;
     switch(this.tarea.dificultad){
-      case 1: dificultad="Muy fácil"; break;
-      case 2: dificultad="Fácil"; break;
-      case 3: dificultad="Normal"; break;
-      case 4: dificultad="Difícil"; break;
-      default: dificultad="Muy difícil";
+      case 1: dificultad="Fácil"; break;
+      case 2: dificultad="Normal"; break;
+      default: dificultad="Difícil"; 
     }
 
     return dificultad;
@@ -147,6 +146,13 @@ export class TareaComponent implements OnInit {
 
   }
 
+  seleccionarDificultad(){
+    this.dificultad = true;
+  }
+
+  cambiarDificultad(dif:string){
+    this.tarea.dificultad = parseInt(dif);
+  }
  
 
 
