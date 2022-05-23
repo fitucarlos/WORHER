@@ -11,6 +11,10 @@ class TareaDto{
     public $dificultad;
     public $prioridad;
 
+    public function __construct() {
+        $this->usuarios = [];
+    }
+
     public static function createFromTarea(Tarea $Tarea):self
     {
         $dto = new self();

@@ -5,17 +5,12 @@ namespace App\Controller\Api;
 use App\Entity\Proyecto;
 use App\Entity\Lista;
 use App\Entity\Mensaje;
-use App\Entity\Tarea;
-use App\Entity\Usuario;
 use App\Form\Model\ProyectoDto;
 use App\Form\Model\ListaDto;
 use App\Form\Model\MensajeDto;
-use App\Form\Model\TareaDto;
-use App\Form\Model\UsuarioDto;
 use App\Form\Type\ListaFormType;
 use App\Form\Type\MensajeFormType;
 use App\Form\Type\ProyectoFormType;
-use App\Form\Type\TareaFormType;
 use App\Repository\ProyectoRepository;
 use App\Repository\ListaRepository;
 use App\Repository\MensajeRepository;
@@ -26,36 +21,54 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProyectoController extends AbstractFOSRestController{
     /**
-     * @Rest\Get(path="/proyectos")
+     * @Rest\Get(path="/proyectos/{id}")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
      public function getActions(
-        ProyectoRepository $ProyectoRepository
+        int $id,
+        UsuarioRepository $usuarioRepository
      ){
-        return $ProyectoRepository->findAll();
+        $usuario = $usuarioRepository->find($id);
+        $proyectos = $usuario->getProyectos();
+        return $proyectos;
      }
 
     /**
-     * @Rest\Get(path="/proyecto/{id}")
+     * @Rest\Get(path="/proyecto/{id}/{id_usuario}")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
      public function getProyectoActions(
         int $id,
-        ProyectoRepository $ProyectoRepository
+        int $id_usuario,
+        ProyectoRepository $ProyectoRepository,
+        UsuarioRepository $usuarioRepository
      ){
         $proyecto = $ProyectoRepository->find($id);
+        $bool = false;
+        $usuario = $usuarioRepository->find($id_usuario);
         if(!$proyecto){
          throw $this->createNotFoundException('Este proyecto no existe');
       }
-        return $proyecto;
+        foreach($proyecto->getUsuarios() as $usuario_proyecto){
+         if($usuario_proyecto == $usuario){
+            $bool = true;
+            break;
+         }
+        }
+        if($bool){
+           
+           return $proyecto;
+        }
+        else{
+         throw $this->createNotFoundException('No es ningún proyecto tuyo');
+        }
      }
 
     /**
@@ -326,5 +339,62 @@ class ProyectoController extends AbstractFOSRestController{
       
    }
  
+/**
+     * @Rest\Get(path="/proyecto/exit_proyecto/{id}/{id_usuario}")
+     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function exitProyecto(
+      int $id,
+      int $id_usuario,
+      EntityManagerInterface $em,
+      TareaRepository $tareaRepository,
+      ListaRepository $listaRepository,
+      ProyectoRepository $proyectoRepository,
+      MensajeRepository $mensajeRepository,
+      UsuarioRepository $usuarioRepository
+   ){
+      $usuario = $usuarioRepository->find($id_usuario);
+      if(!$usuario){
+         throw $this->createNotFoundException('Este usuario no existe');
+      }
+      $proyecto = $proyectoRepository->find($id);
+      if(!$proyecto){
+         throw $this->createNotFoundException('Este proyecto no existe');
+      }
+
+      $proyecto->removeUsuario($usuario);
+      if(count($proyecto->getUsuarios())<=0){
+         $listas = $proyecto->getListas();
+         $j = 0;
+         if($listas){
+         while(count($listas)>0){
+            $tareas = $listas[$j]->getTareas();
+            $i = 0;
+            if($tareas){
+            while(count($tareas)>0){
+               
+               $tareaRepository->remove($tareas[$i]);
+               $i++;
+            }
+         }
+            $listaRepository->remove($listas[$j]);
+            $j++;
+         }
+      }
+         $mensajes = $proyecto->getMensajes();
+         if($mensajes){
+         foreach ($mensajes as $mensaje) {
+            $mensajeRepository->remove($mensaje);
+         }
+      }
+      $proyectoRepository->remove($proyecto);
+      }
+
+      $em->persist($proyecto);
+      $em->flush();
    }
+ 
+
+}
    

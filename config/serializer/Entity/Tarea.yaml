@@ -10,4 +10,6 @@ App\Entity\Tarea:
       groups: ['proyecto']
     prioridad:
       groups: ['proyecto']
+    usuarios: 
+      groups: ['proyecto']
     
