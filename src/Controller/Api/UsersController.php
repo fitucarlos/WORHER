@@ -71,7 +71,7 @@ class UsersController extends AbstractFOSRestController{
    }
 
     /**
-           * @Rest\Get(path="/proyecto/search_user/{email}")
+           * @Rest\Get(path="/search_user/{email}")
            * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
            */
       
@@ -93,7 +93,7 @@ class UsersController extends AbstractFOSRestController{
   
    
    /**
-    * @Rest\Get(path="/proyecto/get_users/{id}")
+    * @Rest\Get(path="/get_users/{id}")
     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
     */
     

@@ -72,20 +72,24 @@ class ProyectoController extends AbstractFOSRestController{
      }
 
     /**
-     * @Rest\Post(path="/proyecto")
+     * @Rest\Post(path="/proyecto/{id_usuario}")
      * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
      */
 
      public function postActions(
+        int $id_usuario,
         EntityManagerInterface $em,
+        UsuarioRepository $usuarioRepository,
         Request $request
      ){
+        $usuario = $usuarioRepository->find($id_usuario);
         $ProyectoDto = new ProyectoDto();
         $form = $this->createForm(ProyectoFormType::class, $ProyectoDto);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $Proyecto = new Proyecto();
             $Proyecto->setNombre($ProyectoDto->nombre);
+            $Proyecto->addUsuario($usuario);
             $em->persist($Proyecto);
             $em->flush();
             return $Proyecto;
