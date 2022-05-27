@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class TareaComponent implements OnInit {
   detalles:boolean = false;
   miembros:any[] = [];
   editando:boolean = false;
+  moviendo:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
@@ -50,26 +52,15 @@ export class TareaComponent implements OnInit {
   }
 
   borrarTarea(){
-   this.bbddProyectos.deleteTarea(this.tarea.id).subscribe();
+   this.bbddProyectos.deleteTarea(this.tarea.id).subscribe(
+     () => {
+
+     }, (error)=>{
+       Swal.fire("ERROR", "Error al eliminar la tarea", "error");
+     }
+   );
    
-   let indiceTarea:number = -1;
-   let indiceLista:number = -1;
-   for (let i = 0; i < this.proyecto.listas.length && indiceTarea == -1; i++) {
-      if(this.lista.id == this.proyecto.listas[i].id){
-
-        for (let j = 0; j < this.proyecto.listas[i].tareas.length; j++) {
-          if(this.tarea.id == this.proyecto.listas[i].tareas[j].id){
-            indiceTarea = j;
-            indiceLista = i;
-            break;
-          }          
-        }
-      }      
-    }
-
-    if(indiceTarea != -1){
-      this.proyecto.listas[indiceLista].tareas.splice(indiceTarea, 1);
-    }
+   this.actualizar.emit(true);
   }
 
   buscarMiembro(email:string){
@@ -102,62 +93,18 @@ export class TareaComponent implements OnInit {
     }
     return listas; 
   }
-
-  moverTarea(listaId:string){
-    let id = parseInt(listaId);
-    let indiceNuevaLista = -1;
-    for (let i = 0; i < this.proyecto.listas.length; i++) {
-      if(listaId == this.proyecto.listas[i].id){
-        indiceNuevaLista = i;
-        break;
-      }
-      
-    }
-
-    if(indiceNuevaLista != -1){
-      this.bbddProyectos.moverTarea(this.tarea.id, id);
-      
-      let indiceTarea = -1;
-      let indiceLista = -1;
   
-      for (let i = 0; i < this.proyecto.listas.length && indiceTarea == -1; i++) {
-        if(this.lista.id == this.proyecto.listas[i].id){
-          for (let j = 0; j < this.proyecto.listas[i].tareas.length; j++) {
-            if(this.tarea.id == this.proyecto.listas[i].tareas[j].id){
-              indiceTarea = j;
-              indiceLista = i;
-              break;
-            }
-            
-          }
-        }      
-      }
-  
-  
-      if(indiceTarea != -1){
-        let copiaTarea = this.proyecto.listas[indiceLista].tareas[indiceTarea];
-        this.proyecto.listas[indiceLista].tareas.splice(indiceTarea, 1);
-        this.proyecto.listas[indiceNuevaLista].tareas.push(copiaTarea);
-      }
-
-    }
-
-
-  }
-
   cambiarEditando(){
     this.editando = !this.editando;
   }
-
+  
   editar(nombre:string, prioridad:string, dificultad:string, descripcion:string){
     this.bbddProyectos.editarTarea(this.tarea.id, nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
-    this.tarea.nombre = nombre;
-    this.tarea.prioridad = parseInt(prioridad);
-    this.tarea.dificultad = parseInt(dificultad);
-    this.tarea.descripcion = descripcion;
+    this.bbddProyectos.cargar();
     this.cambiarEditando();
+    this.actualizar.emit(true);
   }
-
+  
   cancelarEdicion(nombre:any, prioridad:any, dificultad:any, descripcion:any){
     nombre.value = this.tarea.nombre;
     prioridad.value = this.tarea.prioridad;
@@ -166,9 +113,21 @@ export class TareaComponent implements OnInit {
     this.cambiarEditando();
   }
 
-  
- 
+  cambiarMoviendo(){
+    this.moviendo = !this.moviendo;
+    this.detalles = true;
+  }
 
+  moverTarea(listaId:string){    
+      this.detalles = false;
+      this.bbddProyectos.moverTarea(this.tarea.id, parseInt(listaId));
+      this.bbddProyectos.cargar();
+      this.actualizar.emit(true);
+  }
+  
+  
+  
+  
 
 
 }

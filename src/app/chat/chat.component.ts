@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 export class ChatComponent implements OnInit {
   @Input() proyecto: any;
 
-  constructor(private bbddProyectos: BbddProyectosService) {
+  constructor(private bbddProyectos: BbddProyectosService, private route:Router) {
     let interval = window.setInterval(() => { this.recargarProyecto() }, 30000)
     
     
@@ -31,6 +33,8 @@ export class ChatComponent implements OnInit {
         (respuesta) => {
           this.proyecto = respuesta;
           this.bajarScroll();
+        }, (error)=>{
+          Swal.fire('ERROR', 'Error al enviar el mensaje', 'error');
         }
       )
       texto.value = "";
@@ -44,6 +48,9 @@ export class ChatComponent implements OnInit {
           this.proyecto = respuesta;
           this.bajarScroll();
         }
+      }, (error) => {
+        Swal.fire('ERROR', 'Error al cargar el proyecto', 'error');
+        this.route.navigate(['/error']);
       }
     )
   }

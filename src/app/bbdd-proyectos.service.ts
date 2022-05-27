@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +39,14 @@ export class BbddProyectosService {
       (respuesta: any) => {
         this.proyectos = respuesta;
         this.noCargar();
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
+  }
+
+  setUsuarioId(id:number){
+    this.usuarioId = id;
   }
 
   isCargando() { return this.cargando }
@@ -71,12 +78,20 @@ export class BbddProyectosService {
     this.http.post(this.url + "proyecto/add_lista/" + proyectoId, body).subscribe(
       (respuesta) => {
         this.cargarDatos();
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }
 
   deleteLista(listaId: number) {
-    this.http.post(this.url + "proyecto/remove_lista/" + listaId, null).subscribe();
+    this.http.post(this.url + "proyecto/remove_lista/" + listaId, null).subscribe(
+      ()=>{
+
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
+      }
+    );
   }
 
   renombrarLista(idLista: number, nombre: string) {
@@ -87,6 +102,8 @@ export class BbddProyectosService {
     this.http.post(this.url + "edit_lista/" + idLista, body).subscribe(
       (respuesta) => {
         this.cargarDatos();
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }
@@ -100,6 +117,8 @@ export class BbddProyectosService {
     this.http.post(this.url + "edit_proyecto/" + id, body).subscribe(
       (respuesta) => {
         this.cargarDatos();
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }
@@ -108,6 +127,8 @@ export class BbddProyectosService {
     this.http.post(this.url + "proyecto/remove_proyecto/" + id, null).subscribe(
       (respuesta) => {
         this.cargarDatos()
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }
@@ -122,6 +143,8 @@ export class BbddProyectosService {
           this.addUsuarioProyecto(proyecto.id, u.id);
         });
         this.cargarDatos()
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }
@@ -130,6 +153,8 @@ export class BbddProyectosService {
     this.http.post(this.url + "proyecto/add_user/" + idProyecto + "/" + id, null).subscribe(
       (respuesta) => {
         this.cargarDatos()
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }
@@ -158,7 +183,13 @@ export class BbddProyectosService {
   }
 
   moverTarea(idTarea:number, idLista:number){
-    this.http.get(this.url+'proyecto/change_tarea/'+idTarea+'/'+idLista).subscribe();
+    this.http.get(this.url+'proyecto/change_tarea/'+idTarea+'/'+idLista).subscribe(
+      ()=>{
+
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
+      }
+    );
   }
 
   editarTarea(id: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {
@@ -174,6 +205,9 @@ export class BbddProyectosService {
     this.http.post(this.url + 'edit_tarea/' + id, body).subscribe(
       (respuesta: any) => {
         this.cargarDatos();
+      }, (error)=>{
+        console.log(error)
+        Swal.fire('ERROR', error.message, 'error');
       }
     )
   }
@@ -193,6 +227,8 @@ export class BbddProyectosService {
       (respuesta: any) => {
         this.proyectos = respuesta;
         this.noCargar()
+      }, (error)=>{
+        Swal.fire('ERROR', error.message, 'error');
       }
     );
   }

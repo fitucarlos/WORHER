@@ -1,5 +1,5 @@
-<app-cargando *ngIf="isCargando()"></app-cargando>
-<ng-container *ngIf="!isCargando()">
+<app-cargando *ngIf="isCargando() || !proyecto"></app-cargando>
+<ng-container *ngIf="!isCargando() && proyecto">
     <div class="container-fluid" *ngIf="!isChat()">
         <div class="cabecera row">
             <h1 class="col-12 col-md">{{proyecto.nombre}}</h1>
@@ -8,19 +8,12 @@
                 <div class="miembro" *ngIf="proyecto.usuarios.length>3">
                     <div class="circulo col">+{{proyecto.usuarios.length - 3}}</div>
                 </div>
-<!--
-                <div class="nombres">
-                    <ul>
-                        <li *ngFor="let u of proyecto.usuarios">{{u.nombre}} {{u.apellido}}</li>
-                    </ul>
-                </div>   -->
             </div>
         </div>
 
 
         <div class="botones row">
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#moverTarea">Mover tarea</button>
-          <!--  <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#editarTarea">Editar tarea</button>  -->
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#crearTarea">Crear tarea</button>
             <button class="btn boton botonChat col-12" (click)="mostrarChat()">Chat</button>
             <button *ngIf="!filtrando" class="btn boton col-12" (click)="filtrar()">Filtro</button>
@@ -147,63 +140,7 @@
 </div>
 
 
-<!-- -------------------MODAL EDITAR TAREA
-<div class="modal fade" id="editarTarea" tabindex="-1" #editar aria-labelledby="editarTareaLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarTareaLabel">Editar tarea</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label for="listaEditar">¿En qué lista se encuentra la tarea?</label>
-                <select name="listaEditar" id="listaEditar" class="form-select" #listaEditar
-                    (change)="getTareasListaEditar(listaEditar.value, tareaEditar, nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar, botonEditar)">
-                    <option value="-1">Selecciona una lista</option>
-                    <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
-                </select>
-                <label for="tareaEditar">¿Qué tarea quiere editar?</label>
-                <select name="tareaEditar" id="tareaEditar" class="form-select" #tareaEditar disabled
-                    (change)="habilitarEditar(tareaEditar.value, nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar, botonEditar)">
-                    <option value="-1">Selecciona una tarea</option>
-                    <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
-                </select>
-                <div class="txt_field form-control mt-4">
-                    <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar
-                        id="nombreEditar" disabled>
-                    <span class="span"></span>
-                    <label for="nombreEditar" class="control-label required">Nombre de tarea</label>
-                </div>
-                <label for="prioridadEditar">Prioridad</label>
-                <select name="prioridadEditar" id="prioridadEditar" class="form-select" #prioridadEditar disabled>
-                    <option value="1">Muy baja</option>
-                    <option value="2">Baja</option>
-                    <option value="3">Normal</option>
-                    <option value="4">Alta</option>
-                    <option value="5">Muy alta</option>
-                </select>
-                <label for="dificultadEditar">Dificultad</label>
-                <select name="dificultadEditar" id="dificultadEditar" class="form-select" #dificultadEditar disabled>
-                    <option value="1">Fácil</option>
-                    <option value="2">Normal</option>
-                    <option value="3">Difícil</option>
-                </select>
-                <div class="txt_field form-control mt-4">
-                    <textarea required aria-label="descripción de tarea" name="descripcionEditar" #descripcionEditar
-                        id="descripcionEditar" disabled></textarea>
-                    <span class="span"></span>
-                    <label for="descripcionEditar" class="control-label required">Descripción de tarea</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn boton" data-bs-dismiss="modal"
-                    (click)="editarTarea(tareaEditar.value, nombreEditar.value, prioridadEditar.value, dificultadEditar.value, descripcionEditar.value)"
-                    #botonEditar disabled>Guardar cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
--------------------- -->
+
 
 <!-- -------------------MODAL CREAR TAREA-------------------- -->
 <div class="modal fade" id="crearTarea" tabindex="-1" aria-labelledby="crearTareaLabel" aria-hidden="true" #modal>

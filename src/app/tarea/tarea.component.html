@@ -1,5 +1,7 @@
 <div class="container tarea" (click)="mostrarDetalles()">
-  <ng-container *ngIf="editando; then thenBlock; else elseBlock"></ng-container>
+  <ng-container *ngIf="editando; then thenBlock"></ng-container>
+  <ng-container *ngIf="moviendo; then moviendoBlock"></ng-container>
+  <ng-container *ngIf="!editando && !moviendo; then elseBlock"></ng-container>
   <ng-template #thenBlock>
     <div class="txt_field form-control mt-4">
       <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar
@@ -7,6 +9,12 @@
       <span class="span"></span>
       <label for="nombreEditar" class="control-label required">Nombre de tarea</label>
   </div>
+  <label for="dificultadEditar">Dificultad</label>
+  <select name="dificultadEditar" id="dificultadEditar" class="form-select" #dificultadEditar value="{{tarea.dificultad}}">
+      <option value="1">Fácil</option>
+      <option value="2">Normal</option>
+      <option value="3">Difícil</option>
+  </select>
   <label for="prioridadEditar">Prioridad</label>
   <select name="prioridadEditar" id="prioridadEditar" class="form-select" #prioridadEditar value="{{tarea.prioridad}}">
       <option value="1">Muy baja</option>
@@ -15,24 +23,31 @@
       <option value="4">Alta</option>
       <option value="5">Muy alta</option>
   </select>
-  <label for="dificultadEditar">Dificultad</label>
-  <select name="dificultadEditar" id="dificultadEditar" class="form-select" #dificultadEditar value="{{tarea.dificultad}}">
-      <option value="1">Fácil</option>
-      <option value="2">Normal</option>
-      <option value="3">Difícil</option>
-  </select>
   <div class="txt_field form-control mt-4">
       <textarea required aria-label="descripción de tarea" name="descripcionEditar" #descripcionEditar
           id="descripcionEditar" value="{{tarea.descripcion}}"></textarea>
       <span class="span"></span>
       <label for="descripcionEditar" class="control-label required">Descripción de tarea</label>
   </div>
-  <button type="button" class="btn boton mt-2 mb-1" data-bs-dismiss="modal"
+  <button type="button" class="btn boton mt-2 mb-1" 
                     (click)="editar(nombreEditar.value, prioridadEditar.value, dificultadEditar.value, descripcionEditar.value)"
                     #botonEditar>Guardar cambios</button>
-  <button type="button" class="btn btn-danger boton mt-1 mb-2" data-bs-dismiss="modal"
+  <button type="button" class="btn btn-danger boton mt-1 mb-2"
                     (click)="cancelarEdicion(nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar)"
                     #botonEditar>Cancelar</button>
+  </ng-template>
+
+  <ng-template #moviendoBlock>
+    <form>
+      <label for="nuevaListaId">¿A qué lista quiere mover la tarea?</label>
+      <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId>
+          <option value="-1">Selecciona una lista</option>
+          <ng-container *ngFor="let r of getListas()">
+            <option *ngIf="lista.id != r.id" value="{{r.id}}">{{r.nombre}}</option>
+          </ng-container>
+      </select>
+      <button class="btn boton" (click)="moverTarea(nuevaListaId.value)">Mover tarea</button>
+    </form>
   </ng-template>
 
 
@@ -68,9 +83,11 @@
       <div class="descripcion">
         <p>{{tarea.descripcion}}</p>
       </div>
+      
       <div class="botones">
-        <button class="btn boton" (click)="cambiarEditando()">Editar tarea</button>
-        <button class="btn boton eliminar" (click)="borrarTarea()">
+        <button class="btn boton" (click)="cambiarEditando()" *ngIf="!moviendo">Editar tarea</button>
+        <button class="btn boton" (click)="cambiarMoviendo()" *ngIf="!moviendo">Mover tarea</button>
+        <button class="btn boton eliminar" (click)="borrarTarea()" *ngIf="!moviendo">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash"
             viewBox="0 0 16 16">
             <path

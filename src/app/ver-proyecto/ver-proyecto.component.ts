@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 
 @Component({
@@ -10,7 +11,6 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 export class VerProyectoComponent implements OnInit {
   static escritorio = false;
   private id: any;
-  private constante: string = "modal-backdrop fade show";
   proyecto: any;
   cargando: boolean = true;
   filtrando: boolean = false;
@@ -20,13 +20,24 @@ export class VerProyectoComponent implements OnInit {
   edicion: boolean = false;
   filtro: any[] = [];
 
-  constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService) { }
+  constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
+    let interval = window.setInterval(() => { this.cargarDatos() }, 10000)
+  }
 
   ngOnInit(): void {
     this.actRoute.params.subscribe(
       (respuesta: any) => {
         this.id = respuesta.id;
-        this.cargarDatos();
+        this.bbddProyectos.getProyectoById(this.id).subscribe(
+          (datos: any) => {
+            this.cargando = false;
+            this.proyecto = datos;
+
+          }, (error) => {
+            Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
+            this.route.navigate(['/error']);
+          }
+        )
       }
     )
 
@@ -88,18 +99,45 @@ export class VerProyectoComponent implements OnInit {
   }
 
   cargarDatos() {
-    this.cargando = true;
-    let sos = this.bbddProyectos.getProyectoById(this.id).subscribe(
+    this.bbddProyectos.getProyectoById(this.id).subscribe(
       (datos: any) => {
-        this.cargando = false;
-        this.proyecto = datos;
+        this.bbddProyectos.noCargar();
+        let distinto = false;
+        if (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length) {
+          distinto = true;
+        } else {
+          for (let i = 0; i < datos.listas.length && !distinto; i++) {
+            if (datos.listas[i].nombre != this.proyecto.listas[i].nombre || 
+              datos.listas[i].id != this.proyecto.listas[i].id || 
+              datos.listas[i].tareas.length != this.proyecto.listas[i].tareas.length) {
+              distinto = true;
+            }
+            else {
+              for (let j = 0; j < datos.listas[i].tareas.length && !distinto; j++) {
+                if (datos.listas[i].tareas[j].id != this.proyecto.listas[i].tareas[j].id || 
+                  datos.listas[i].tareas[j].nombre != this.proyecto.listas[i].tareas[j].nombre || 
+                  datos.listas[i].tareas[j].dificultad != this.proyecto.listas[i].tareas[j].dificultad || 
+                  datos.listas[i].tareas[j].prioridad != this.proyecto.listas[i].tareas[j].prioridad || 
+                  datos.listas[i].tareas[j].descripcion != this.proyecto.listas[i].tareas[j].descripcion) {
+                  distinto = true;
+                }
+              }
+            }
+          }
+        }
+        if (distinto) {
+          this.proyecto = datos;
+        } else {
+        }
+      }, (error) => {
+        Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
+        this.route.navigate(['/error']);
       }
     )
   }
 
   isCargando() {
-    if (!this.cargando) return false
-    else return true;
+    return this.bbddProyectos.isCargando()
   }
 
   filtrar() {
@@ -122,7 +160,7 @@ export class VerProyectoComponent implements OnInit {
   addLista(nombre: string) {
     if (nombre == "") nombre = "(Sin nombre)";
     this.bbddProyectos.addLista(this.proyecto.id, nombre);
-    this.cargarDatos();
+    this.bbddProyectos.cargar()
   }
 
   getTareasListaMover(original: string, tarea: any, lista: any, boton: any) {
@@ -168,41 +206,8 @@ export class VerProyectoComponent implements OnInit {
   moverTarea(tareaId: string, listaId: string, original: string) {
     let idLista = parseInt(listaId);
     let idTarea = parseInt(tareaId);
-    let originalId = parseInt(original);
-    let indiceNuevaLista = -1;
-    for (let i = 0; i < this.proyecto.listas.length; i++) {
-      if (listaId == this.proyecto.listas[i].id) {
-        indiceNuevaLista = i;
-        break;
-      }
-    }
-
-    if (indiceNuevaLista != -1) {
-      this.bbddProyectos.moverTarea(idTarea, idLista);
-
-      let indiceTarea = -1;
-      let indiceLista = -1;
-
-      for (let i = 0; i < this.proyecto.listas.length && indiceTarea == -1; i++) {
-        if (originalId == this.proyecto.listas[i].id) {
-          for (let j = 0; j < this.proyecto.listas[i].tareas.length; j++) {
-            if (idTarea == this.proyecto.listas[i].tareas[j].id) {
-              indiceTarea = j;
-              indiceLista = i;
-              break;
-            }
-
-          }
-        }
-      }
-
-      if (indiceTarea != -1) {
-        let copiaTarea = this.proyecto.listas[indiceLista].tareas[indiceTarea];
-        this.proyecto.listas[indiceLista].tareas.splice(indiceTarea, 1);
-        this.proyecto.listas[indiceNuevaLista].tareas.push(copiaTarea);
-      }
-
-    }
+    this.bbddProyectos.moverTarea(idTarea, idLista);
+    this.bbddProyectos.cargar();
   }
 
   getListas() {
@@ -219,89 +224,21 @@ export class VerProyectoComponent implements OnInit {
     }
   }
 
-  /*
-    getTareasListaEditar(lista:string, tarea:any,nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
-      if(lista !='-1'){
-        let listaId = parseInt(lista);
-        for (let i = 0; i < this.proyecto.listas.length; i++) {
-          if(this.proyecto.listas[i].id == listaId){
-            this.tareas = this.proyecto.listas[i].tareas;
-            break;
-          }
-          
-        }
-  
-        tarea.disabled = false;
-      } else {
-        tarea.value = '-1';
-        nombre.value = '';
-        prioridad.value = '1';
-        dificultad.value = '1';
-        descripcion.value = '';
-        tarea.disabled = true;
-        nombre.disabled = true;
-        prioridad.disabled = true;
-        dificultad.disabled = true;
-        descripcion.disabled = true;
-        boton.disabled = true;
-        descripcion.style.height = '28px';
-      }
-    }
-  
-    habilitarEditar(id:string, nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
-      if(id !='-1'){
-        let tarea:any = this.buscarTareaId(parseInt(id));
-        nombre.value = tarea.nombre;
-        prioridad.value = tarea.prioridad;
-        dificultad.value = tarea.dificultad;
-        descripcion.value = tarea.descripcion;
-        nombre.disabled = false;
-        prioridad.disabled = false;
-        dificultad.disabled = false;
-        descripcion.disabled = false;
-        boton.disabled = false;
-        descripcion.style.height = '100px';
-      }
-      else {
-        nombre.value = '';
-        prioridad.value = '1';
-        dificultad.value = '1';
-        descripcion.value = '';
-        nombre.disabled = true;
-        prioridad.disabled = true;
-        dificultad.disabled = true;
-        descripcion.disabled = true;
-        boton.disabled = true;
-        descripcion.style.height = '28px';
-      }
-    }
-  
-    editarTarea(tareaId:string, nombre:string, prioridad:string, dificultad:string, descripcion:string){
-      this.bbddProyectos.editarTarea(parseInt(tareaId), nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
-      
-    }
-  */
-
   crearTarea(modal: any, lista: string, nombre: string, descripcion: string, dificultad: string, prioridad: string) {
-    modal.style.display = 'none';
-    var el = document.querySelector(".modal-open");
-    if (el) {
-      el.removeAttribute("class");
-      el.removeAttribute("style");
+    if (nombre == '') {
+      Swal.fire("Atención", "Debes introducir un nombre para la tarea", "warning");
+    } else {
+      let dif: number = parseInt(dificultad);
+      let prio: number = parseInt(prioridad);
+      this.cargando = true;
+      this.bbddProyectos.addTarea(parseInt(lista), nombre, descripcion, parseInt(dificultad), parseInt(prioridad)).subscribe(
+        (respuesta) => {
+          this.cargarDatos();
+        }, (error) => {
+          Swal.fire("ERROR", "Error al crear la tarea", "error");
+        }
+      )
     }
-    var ele = document.querySelector("#crearTarea");
-    if (ele) {
-      ele.classList.remove('show');
-    }
-
-    let dif: number = parseInt(dificultad);
-    let prio: number = parseInt(prioridad);
-    this.cargando = true;
-    this.bbddProyectos.addTarea(parseInt(lista), nombre, descripcion, parseInt(dificultad), parseInt(prioridad)).subscribe(
-      (respuesta) => {
-        this.cargarDatos();
-      }
-    )
   }
 
   habilitarCrear(lista: string, nombre: any, prioridad: any, dificultad: any, descripcion: any, boton: any) {
@@ -328,7 +265,7 @@ export class VerProyectoComponent implements OnInit {
 
   filtrarPrioridad(prioridad: string, checked: any) {
     for (let i = 0; i < this.filtro.length; i++) {
-      if(this.filtro[i].prioridad == parseInt(prioridad)){
+      if (this.filtro[i].prioridad == parseInt(prioridad)) {
         this.filtro[i].valor = checked.currentTarget.checked;
       }
     }
