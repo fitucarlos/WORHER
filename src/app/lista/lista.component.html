@@ -45,8 +45,9 @@
             </div>
         </div>
     </div>
+    
 
-    <app-tarea (actualizar)="actualizarTarea($event)" [proyecto]="proyecto" [lista]="lista" [tarea]="tarea" *ngFor="let tarea of lista.tareas"></app-tarea>
+    <app-tarea (actualizar)="actualizarTarea($event)" [proyecto]="proyecto" [lista]="lista" [tarea]="tarea" *ngFor="let tarea of lista.tareas | prioridadFilter:filtro[0].valor:filtro[1].valor:filtro[2].valor:filtro[3].valor:filtro[4].valor"></app-tarea>
 
 
 

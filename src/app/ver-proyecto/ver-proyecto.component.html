@@ -8,19 +8,19 @@
                 <div class="miembro" *ngIf="proyecto.usuarios.length>3">
                     <div class="circulo col">+{{proyecto.usuarios.length - 3}}</div>
                 </div>
-
+<!--
                 <div class="nombres">
                     <ul>
                         <li *ngFor="let u of proyecto.usuarios">{{u.nombre}} {{u.apellido}}</li>
                     </ul>
-                </div>
+                </div>   -->
             </div>
         </div>
 
 
         <div class="botones row">
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#moverTarea">Mover tarea</button>
-            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#editarTarea">Editar tarea</button>
+          <!--  <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#editarTarea">Editar tarea</button>  -->
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#crearTarea">Crear tarea</button>
             <button class="btn boton botonChat col-12" (click)="mostrarChat()">Chat</button>
             <button *ngIf="!filtrando" class="btn boton col-12" (click)="filtrar()">Filtro</button>
@@ -34,28 +34,38 @@
                 </svg>
             </button>
         </div>
-
-        <div class="filtro" *ngIf="filtrando">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="prioridad_baja">Prioridad baja</label>
-                <input class="form-check-input" type="checkbox" id="prioridad_baja" checked value="1">
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="prioridad_media">Prioridad media</label>
-                <input class="form-check-input" type="checkbox" id="prioridad_media" checked value="2">
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="prioridad_alta">Prioridad alta</label>
-                <input class="form-check-input" type="checkbox" id="prioridad_alta" checked value="3">
+        <div class="container filtro">
+            <div class="row" *ngIf="filtrando">
+                <div class="form-check col-6 fil ">
+                    <label class="form-check-label" for="prioridad_muyBaja">Prioridad muy baja</label>
+                    <input class="form-check-input" type="checkbox" id="prioridad_muyBaja" value="1" #prioridadMuyBaja (click)="filtrarPrioridad(prioridadMuyBaja.value, $event)" checked/>
+                </div>
+                <div class="form-check col-6 fil">
+                    <label class="form-check-label" for="prioridad_baja">Prioridad baja</label>
+                    <input class="form-check-input" type="checkbox" id="prioridad_baja" value="2" #prioridadBaja (click)="filtrarPrioridad(prioridadBaja.value, $event)" checked />
+                </div>
+                <div class="form-check col-6 fil">
+                    <label class="form-check-label" for="prioridad_media">Prioridad media</label>
+                    <input class="form-check-input" type="checkbox" id="prioridad_media" value="3" #prioridadMedia (click)="filtrarPrioridad(prioridadMedia.value, $event)" checked/>
+                </div>
+                <div class="form-check col-6 fil">
+                    <label class="form-check-label" for="prioridad_alta">Prioridad alta</label>
+                    <input class="form-check-input" type="checkbox" id="prioridad_alta" value="4" #prioridadAlta (click)="filtrarPrioridad(prioridadAlta.value, $event)" checked />
+                </div>
+                <div class="form-check col-6 fil">
+                    <label class="form-check-label" for="prioridad_muyAlta">Prioridad muy alta</label>
+                    <input class="form-check-input" type="checkbox" id="prioridad_muyAlta" value="5" #prioridadMuyAlta (click)="filtrarPrioridad(prioridadMuyAlta.value, $event)" checked />
+                </div>
             </div>
         </div>
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-9 container">
                     <div class="listas row">
 
                         <app-lista (actualizar)="isActualizar($event)" class="col-sm-12 col-md-6 col-lg-4 mt-2"
-                            [proyecto]="proyecto" [lista]="lista" *ngFor="let lista of proyecto.listas"></app-lista>
+                            [proyecto]="proyecto" [lista]="lista" [filtro]="filtro" *ngFor="let lista of proyecto.listas"></app-lista>
 
                         <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
 
@@ -137,7 +147,7 @@
 </div>
 
 
-<!-- -------------------MODAL EDITAR TAREA-------------------- -->
+<!-- -------------------MODAL EDITAR TAREA
 <div class="modal fade" id="editarTarea" tabindex="-1" #editar aria-labelledby="editarTareaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -193,7 +203,7 @@
         </div>
     </div>
 </div>
-
+-------------------- -->
 
 <!-- -------------------MODAL CREAR TAREA-------------------- -->
 <div class="modal fade" id="crearTarea" tabindex="-1" aria-labelledby="crearTareaLabel" aria-hidden="true" #modal>

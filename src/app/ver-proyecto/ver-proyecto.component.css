@@ -70,7 +70,14 @@ h1::first-letter, li::first-letter {
     text-transform: uppercase;
 }
 
-.filtro,
+.filtro {
+    max-width: 400px;
+    text-align: center;
+}
+.fil{
+    text-align: start;
+}
+
 .miembros {
     display: flex;
     width: 100%;

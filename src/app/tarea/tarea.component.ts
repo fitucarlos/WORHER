@@ -14,8 +14,7 @@ export class TareaComponent implements OnInit {
 
   detalles:boolean = false;
   miembros:any[] = [];
-  modalMover:boolean = false;
-  dificultad:boolean = false;
+  editando:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
@@ -146,13 +145,28 @@ export class TareaComponent implements OnInit {
 
   }
 
-  seleccionarDificultad(){
-    this.dificultad = true;
+  cambiarEditando(){
+    this.editando = !this.editando;
   }
 
-  cambiarDificultad(dif:string){
-    this.tarea.dificultad = parseInt(dif);
+  editar(nombre:string, prioridad:string, dificultad:string, descripcion:string){
+    this.bbddProyectos.editarTarea(this.tarea.id, nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
+    this.tarea.nombre = nombre;
+    this.tarea.prioridad = parseInt(prioridad);
+    this.tarea.dificultad = parseInt(dificultad);
+    this.tarea.descripcion = descripcion;
+    this.cambiarEditando();
   }
+
+  cancelarEdicion(nombre:any, prioridad:any, dificultad:any, descripcion:any){
+    nombre.value = this.tarea.nombre;
+    prioridad.value = this.tarea.prioridad;
+    dificultad.value = this.tarea.dificultad;
+    descripcion.value = this.tarea.descripcion;
+    this.cambiarEditando();
+  }
+
+  
  
 
 

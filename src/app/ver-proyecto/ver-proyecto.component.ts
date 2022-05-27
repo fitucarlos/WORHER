@@ -10,20 +10,21 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 export class VerProyectoComponent implements OnInit {
   static escritorio = false;
   private id: any;
-  private constante:string = "modal-backdrop fade show";
+  private constante: string = "modal-backdrop fade show";
   proyecto: any;
   cargando: boolean = true;
   filtrando: boolean = false;
   usuarios: boolean = false;
   chat = false;
-  tareas:any[]=[]
-  edicion:boolean = false;
+  tareas: any[] = []
+  edicion: boolean = false;
+  filtro: any[] = [];
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService) { }
 
   ngOnInit(): void {
     this.actRoute.params.subscribe(
-      (respuesta:any) => {
+      (respuesta: any) => {
         this.id = respuesta.id;
         this.cargarDatos();
       }
@@ -39,6 +40,28 @@ export class VerProyectoComponent implements OnInit {
       }
     });
 
+    this.filtro = [
+      {
+        prioridad: 1,
+        valor: true
+      },
+      {
+        prioridad: 2,
+        valor: true
+      },
+      {
+        prioridad: 3,
+        valor: true
+      },
+      {
+        prioridad: 4,
+        valor: true
+      },
+      {
+        prioridad: 5,
+        valor: true
+      },
+    ]
 
   }
 
@@ -46,8 +69,8 @@ export class VerProyectoComponent implements OnInit {
     this.chat = false;
   }
 
-  isActualizar(actualizar:boolean){
-    if(actualizar){
+  isActualizar(actualizar: boolean) {
+    if (actualizar) {
       this.cargarDatos();
     }
   }
@@ -66,8 +89,8 @@ export class VerProyectoComponent implements OnInit {
 
   cargarDatos() {
     this.cargando = true;
-    let sos= this.bbddProyectos.getProyectoById(this.id).subscribe(
-      (datos:any)=> {
+    let sos = this.bbddProyectos.getProyectoById(this.id).subscribe(
+      (datos: any) => {
         this.cargando = false;
         this.proyecto = datos;
       }
@@ -75,7 +98,7 @@ export class VerProyectoComponent implements OnInit {
   }
 
   isCargando() {
-    if(!this.cargando) return false
+    if (!this.cargando) return false
     else return true;
   }
 
@@ -97,20 +120,20 @@ export class VerProyectoComponent implements OnInit {
   }
 
   addLista(nombre: string) {
-    if(nombre=="") nombre = "(Sin nombre)";
+    if (nombre == "") nombre = "(Sin nombre)";
     this.bbddProyectos.addLista(this.proyecto.id, nombre);
     this.cargarDatos();
-  }  
+  }
 
-  getTareasListaMover(original:string, tarea:any, lista:any, boton:any){
-    if(original !='-1'){
+  getTareasListaMover(original: string, tarea: any, lista: any, boton: any) {
+    if (original != '-1') {
       let listaId = parseInt(original);
       for (let i = 0; i < this.proyecto.listas.length; i++) {
-        if(this.proyecto.listas[i].id == listaId){
+        if (this.proyecto.listas[i].id == listaId) {
           this.tareas = this.proyecto.listas[i].tareas;
           break;
         }
-        
+
       }
 
       tarea.disabled = false;
@@ -123,57 +146,57 @@ export class VerProyectoComponent implements OnInit {
     }
   }
 
-  habilitarResto(tarea:string, lista:any, boton:any){
-    if(tarea != '-1'){
+  habilitarResto(tarea: string, lista: any, boton: any) {
+    if (tarea != '-1') {
       lista.disabled = false;
     }
-    else{
+    else {
       lista.value = '-1';
       lista.disabled = true;
       boton.disabled = true;
     }
   }
 
-  habilitarBoton(lista:string, original:string, boton:any){
-    if(lista != '-1' && lista != original){
+  habilitarBoton(lista: string, original: string, boton: any) {
+    if (lista != '-1' && lista != original) {
       boton.disabled = false;
     } else {
       boton.disabled = true;
     }
   }
 
-  moverTarea(tareaId:string, listaId:string, original:string){
+  moverTarea(tareaId: string, listaId: string, original: string) {
     let idLista = parseInt(listaId);
     let idTarea = parseInt(tareaId);
     let originalId = parseInt(original);
     let indiceNuevaLista = -1;
     for (let i = 0; i < this.proyecto.listas.length; i++) {
-      if(listaId == this.proyecto.listas[i].id){
+      if (listaId == this.proyecto.listas[i].id) {
         indiceNuevaLista = i;
         break;
-      }      
+      }
     }
 
-    if(indiceNuevaLista != -1){
+    if (indiceNuevaLista != -1) {
       this.bbddProyectos.moverTarea(idTarea, idLista);
-      
+
       let indiceTarea = -1;
       let indiceLista = -1;
-  
+
       for (let i = 0; i < this.proyecto.listas.length && indiceTarea == -1; i++) {
-        if(originalId == this.proyecto.listas[i].id){
+        if (originalId == this.proyecto.listas[i].id) {
           for (let j = 0; j < this.proyecto.listas[i].tareas.length; j++) {
-            if(idTarea == this.proyecto.listas[i].tareas[j].id){
+            if (idTarea == this.proyecto.listas[i].tareas[j].id) {
               indiceTarea = j;
               indiceLista = i;
               break;
             }
-            
+
           }
-        }      
-      }  
-  
-      if(indiceTarea != -1){
+        }
+      }
+
+      if (indiceTarea != -1) {
         let copiaTarea = this.proyecto.listas[indiceLista].tareas[indiceTarea];
         this.proyecto.listas[indiceLista].tareas.splice(indiceTarea, 1);
         this.proyecto.listas[indiceNuevaLista].tareas.push(copiaTarea);
@@ -182,104 +205,107 @@ export class VerProyectoComponent implements OnInit {
     }
   }
 
-  getListas(){
-    return this.proyecto.listas;
+  getListas() {
+
+    return (this.proyecto) ? this.proyecto.listas : [];
   }
 
-  buscarTareaId(id:number){
+  buscarTareaId(id: number) {
     for (let i = 0; i < this.tareas.length; i++) {
-      if(this.tareas[i].id == id){
+      if (this.tareas[i].id == id) {
         return this.tareas[i];
       }
+
+    }
+  }
+
+  /*
+    getTareasListaEditar(lista:string, tarea:any,nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
+      if(lista !='-1'){
+        let listaId = parseInt(lista);
+        for (let i = 0; i < this.proyecto.listas.length; i++) {
+          if(this.proyecto.listas[i].id == listaId){
+            this.tareas = this.proyecto.listas[i].tareas;
+            break;
+          }
+          
+        }
+  
+        tarea.disabled = false;
+      } else {
+        tarea.value = '-1';
+        nombre.value = '';
+        prioridad.value = '1';
+        dificultad.value = '1';
+        descripcion.value = '';
+        tarea.disabled = true;
+        nombre.disabled = true;
+        prioridad.disabled = true;
+        dificultad.disabled = true;
+        descripcion.disabled = true;
+        boton.disabled = true;
+        descripcion.style.height = '28px';
+      }
+    }
+  
+    habilitarEditar(id:string, nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
+      if(id !='-1'){
+        let tarea:any = this.buscarTareaId(parseInt(id));
+        nombre.value = tarea.nombre;
+        prioridad.value = tarea.prioridad;
+        dificultad.value = tarea.dificultad;
+        descripcion.value = tarea.descripcion;
+        nombre.disabled = false;
+        prioridad.disabled = false;
+        dificultad.disabled = false;
+        descripcion.disabled = false;
+        boton.disabled = false;
+        descripcion.style.height = '100px';
+      }
+      else {
+        nombre.value = '';
+        prioridad.value = '1';
+        dificultad.value = '1';
+        descripcion.value = '';
+        nombre.disabled = true;
+        prioridad.disabled = true;
+        dificultad.disabled = true;
+        descripcion.disabled = true;
+        boton.disabled = true;
+        descripcion.style.height = '28px';
+      }
+    }
+  
+    editarTarea(tareaId:string, nombre:string, prioridad:string, dificultad:string, descripcion:string){
+      this.bbddProyectos.editarTarea(parseInt(tareaId), nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
       
     }
-  }
+  */
 
-  getTareasListaEditar(lista:string, tarea:any,nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
-    if(lista !='-1'){
-      let listaId = parseInt(lista);
-      for (let i = 0; i < this.proyecto.listas.length; i++) {
-        if(this.proyecto.listas[i].id == listaId){
-          this.tareas = this.proyecto.listas[i].tareas;
-          break;
-        }
-        
-      }
-
-      tarea.disabled = false;
-    } else {
-      tarea.value = '-1';
-      nombre.value = '';
-      prioridad.value = '1';
-      dificultad.value = '1';
-      descripcion.value = '';
-      tarea.disabled = true;
-      nombre.disabled = true;
-      prioridad.disabled = true;
-      dificultad.disabled = true;
-      descripcion.disabled = true;
-      boton.disabled = true;
-      descripcion.style.height = '28px';
-    }
-  }
-
-  habilitarEditar(id:string, nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
-    if(id !='-1'){
-      let tarea:any = this.buscarTareaId(parseInt(id));
-      nombre.value = tarea.nombre;
-      prioridad.value = tarea.prioridad;
-      dificultad.value = tarea.dificultad;
-      descripcion.value = tarea.descripcion;
-      nombre.disabled = false;
-      prioridad.disabled = false;
-      dificultad.disabled = false;
-      descripcion.disabled = false;
-      boton.disabled = false;
-      descripcion.style.height = '100px';
-    }
-    else {
-      nombre.value = '';
-      prioridad.value = '1';
-      dificultad.value = '1';
-      descripcion.value = '';
-      nombre.disabled = true;
-      prioridad.disabled = true;
-      dificultad.disabled = true;
-      descripcion.disabled = true;
-      boton.disabled = true;
-      descripcion.style.height = '28px';
-    }
-  }
-
-  editarTarea(tareaId:string, nombre:string, prioridad:string, dificultad:string, descripcion:string){
-    this.bbddProyectos.editarTarea(parseInt(tareaId), nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
-    
-  }
-
-  crearTarea(modal:any, lista:string, nombre:string, descripcion:string, dificultad:string, prioridad:string) {
+  crearTarea(modal: any, lista: string, nombre: string, descripcion: string, dificultad: string, prioridad: string) {
     modal.style.display = 'none';
     var el = document.querySelector(".modal-open");
-    if(el){
+    if (el) {
       el.removeAttribute("class");
       el.removeAttribute("style");
     }
     var ele = document.querySelector("#crearTarea");
-    if(ele){
+    if (ele) {
       ele.classList.remove('show');
     }
 
-    let dif:number = parseInt(dificultad);
-    let prio:number = parseInt(prioridad);
+    let dif: number = parseInt(dificultad);
+    let prio: number = parseInt(prioridad);
     this.cargando = true;
     this.bbddProyectos.addTarea(parseInt(lista), nombre, descripcion, parseInt(dificultad), parseInt(prioridad)).subscribe(
-      (respuesta)=>{
+      (respuesta) => {
         this.cargarDatos();
       }
     )
   }
 
-  habilitarCrear(lista:string, nombre:any, prioridad:any, dificultad:any, descripcion:any, boton:any){
-    if(lista!='-1'){
+  habilitarCrear(lista: string, nombre: any, prioridad: any, dificultad: any, descripcion: any, boton: any) {
+    if (lista != '-1') {
       nombre.disabled = false;
       prioridad.disabled = false;
       dificultad.disabled = false;
@@ -298,6 +324,17 @@ export class VerProyectoComponent implements OnInit {
       boton.disabled = true;
     }
   }
+
+
+  filtrarPrioridad(prioridad: string, checked: any) {
+    for (let i = 0; i < this.filtro.length; i++) {
+      if(this.filtro[i].prioridad == parseInt(prioridad)){
+        this.filtro[i].valor = checked.currentTarget.checked;
+      }
+    }
+  }
+
+
 
 
 

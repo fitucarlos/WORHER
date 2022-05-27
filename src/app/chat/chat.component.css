@@ -1,3 +1,4 @@
+
 .contenedorNombre {
     background-color: rgb(166, 163, 163);
     border-radius: 10px 10px 0 0;
@@ -11,5 +12,119 @@
     border: 2px solid black;
     padding: 0 12px;
     width: 100%;
-    height: 80vh;
+    height: 550px;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+}
+
+.texto {
+    position: relative;
+}
+
+.mensajes {
+    height: 70%;
+    background-color:rgb(221, 215, 215);
+    width: calc(100%+12px);
+    margin: 0 -12px;
+    border-bottom: 5px solid gray;
+    padding: 15px;
+    overflow-y: scroll;
+    position: relative;
+}
+
+/*************************************
+        AREA PARA ESCRIBIR MENSAJE
+**************************************/
+
+#sendmessage{
+    height:100%;
+    border-top:1px solid #e7ebee; 
+    border:5px solid gray;
+    border-radius: 15px;
+    width:100%;
+    background:#fff;
+    position:relative;
+    top: 10px;
+    padding: 10px;
+  }
+  
+  #sendmessage textarea{
+    background:#fff;
+    border:none;
+    padding:0;
+    font-size:14px;
+    font-family:"Open Sans", sans-serif;
+    color:rgb(73, 72, 72);
+    width: calc(100% - 45px);
+    height: 80%;
+    resize: none;
+
+    border-right:3px solid rgb(73, 72, 72);
+  }
+  #sendmessage textarea:focus{
+     outline: 0;
+  }
+  #sendmessage button{
+      background-color: #fff;
+    width:30px;
+    height:30px;
+    position:absolute;
+    right: 15px;
+    top: 23px;
+    border:none;
+  }
+  #sendmessage button:hover{
+    cursor:pointer;
+    color:blueviolet;
+  }
+  #sendmessage button:focus{
+     outline: 0;   
+  }
+
+  /*************************************
+                MENSAJES
+**************************************/
+.mensaje {
+    border:1px solid white;
+    width: fit-content;
+    margin: 5px 0;
+}
+
+.mio {
+    background-color: rgb(138, 190, 207);
+    margin-right: 0px;
+    margin-left: auto;
+    border-radius: 25px 25px 0px 25px;
+}
+
+.mio .nombre {
+    display: none;
+}
+
+.mio .fecha_hora {
+    text-align: right;
+}
+
+.otros {
+    background-color: rgb(212, 181, 240);
+    border-radius: 25px 25px 25px 0px;
+}
+
+.nombre {
+    margin: 10px;
+    font-weight: bold;
+}
+
+.msg {
+    margin:10px;
+    max-width: 80%;
+}
+
+.fecha_hora{
+    font-size: .75rem;
+    font-style: italic;
+    margin:10px;
 }

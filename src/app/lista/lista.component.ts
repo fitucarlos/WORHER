@@ -11,6 +11,7 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 export class ListaComponent implements OnInit {
   @Input() lista: any;
   @Input() proyecto:any;
+  @Input() filtro:any;
   @Output() actualizar = new EventEmitter<boolean>();
   menu: boolean = false;
   editar: boolean = false;
@@ -19,7 +20,8 @@ export class ListaComponent implements OnInit {
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+   }
 
 
   mostrarMenu() {
@@ -92,6 +94,11 @@ export class ListaComponent implements OnInit {
       this.actualizar.emit(true);
     }
   }
+
+  
+
+
+  
 
 
 }

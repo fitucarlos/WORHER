@@ -8,26 +8,57 @@ export class BbddProyectosService {
 
   private url: string = "/api/";
   private proyectos: any[] = [];
-  private cargando: boolean;
+  private cargando: boolean = true;
+  private usuarioId:number = 1;
+  private filtro:any[] = [
+    {
+      prioridad: 1,
+      valor: true
+    },
+    {
+      prioridad: 2,
+      valor: true
+    },
+    {
+      prioridad: 3,
+      valor: true
+    },
+    {
+      prioridad: 4,
+      valor: true
+    },
+    {
+      prioridad: 5,
+      valor: true
+    },
+  ]
 
   constructor(private http: HttpClient) {
-    this.cargando = true;
-    this.http.get(this.url + 'proyectos').subscribe(
+    this.http.get(this.url + 'proyectos/' + this.usuarioId).subscribe(
       (respuesta: any) => {
         this.proyectos = respuesta;
-        this.cargando = false;
+        this.noCargar();
       }
     );
   }
 
   isCargando() { return this.cargando }
 
+  cargar(){
+    this.cargando = true;
+  }
+
+  noCargar(){
+    this.cargando = false;
+  }
+
+
   getProyectos(): any {
 
     return this.proyectos
   }
 
-  getProyectoById(id: number) { return this.http.get(this.url + 'proyecto/' + id); }
+  getProyectoById(id: number) { return this.http.get(this.url + 'proyecto/' + id + '/' + this.usuarioId); }
 
   addLista(proyectoId: number, nombreLista: string) {
     let body = {
@@ -61,7 +92,7 @@ export class BbddProyectosService {
   }
 
   renombrarProyecto(id: number, nombre: string) {
-    this.cargando = true;
+    this.cargar()
     let body = {
       "nombre": nombre
     };
@@ -85,7 +116,7 @@ export class BbddProyectosService {
     let body = {
       "nombre": nombre
     }
-    this.http.post(this.url + "proyecto", body).subscribe(
+    this.http.post(this.url + "proyecto/"+this.usuarioId, body).subscribe(
       (proyecto: any) => {
         usuarios.forEach(u => {
           this.addUsuarioProyecto(proyecto.id, u.id);
@@ -95,8 +126,8 @@ export class BbddProyectosService {
     );
   }
 
-  addUsuarioProyecto(idProyecto: number, idUsuario: number) {
-    this.http.post(this.url + "proyecto/add_user/" + idProyecto + "/" + idUsuario, null).subscribe(
+  addUsuarioProyecto(idProyecto: number, id: number) {
+    this.http.post(this.url + "proyecto/add_user/" + idProyecto + "/" + id, null).subscribe(
       (respuesta) => {
         this.cargarDatos()
       }
@@ -104,11 +135,11 @@ export class BbddProyectosService {
   }
 
   buscarMiembro(email: string) {
-    return this.http.get(this.url + "proyecto/search_user/" + email);
+    return this.http.get(this.url + "search_user/" + email);
   }
 
   addTarea(idLista: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {
-    this.cargando = true;
+    this.cargar();
     let body = {
       "tareas": [
         {
@@ -131,14 +162,14 @@ export class BbddProyectosService {
   }
 
   editarTarea(id: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {
-    this.cargando = true;
+    this.cargar();
     let body = 
         {
           "nombre": nombre,
           "descripcion": descripcion,
           "dificultad": dificultad,
           "prioridad": prioridad
-        }
+        };
       
     this.http.post(this.url + 'edit_tarea/' + id, body).subscribe(
       (respuesta: any) => {
@@ -157,13 +188,41 @@ export class BbddProyectosService {
 
 
   cargarDatos() {
-    this.cargando = true;
-    this.http.get(this.url + 'proyectos').subscribe(
+    this.cargar();
+    this.http.get(this.url + 'proyectos/' + this.usuarioId).subscribe(
       (respuesta: any) => {
         this.proyectos = respuesta;
-        this.cargando = false;
+        this.noCargar()
       }
     );
+  }
+
+
+  setFiltro(prioridad:number, valor:boolean){
+    for (let i = 0; i < this.filtro.length; i++) {
+      if(this.filtro[i].prioridad == prioridad){
+        this.filtro[i].valor = valor;
+        break;
+      }
+    }
+  }
+
+  getFiltro(){
+    return this.filtro;
+  }
+
+  getMiUsuario(){
+    return this.usuarioId;
+  }
+
+  enviarMensaje(idproyecto:number, texto:string){
+    let body = 
+    {
+      "texto": texto
+    };
+
+     return this.http.post(this.url + 'proyecto/add_mensaje/' + idproyecto + '/' + this.usuarioId, body)
+
   }
 
  
