@@ -21,7 +21,7 @@ export class VerProyectoComponent implements OnInit {
   filtro: any[] = [];
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
-    let interval = window.setInterval(() => { this.cargarDatos() }, 10000)
+   // let interval = window.setInterval(() => { this.cargarDatos() }, 10000)
   }
 
   ngOnInit(): void {
@@ -261,7 +261,6 @@ export class VerProyectoComponent implements OnInit {
       boton.disabled = true;
     }
   }
-
 
   filtrarPrioridad(prioridad: string, checked: any) {
     for (let i = 0; i < this.filtro.length; i++) {

@@ -10,9 +10,10 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 })
 export class ChatComponent implements OnInit {
   @Input() proyecto: any;
+  actualizar:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService, private route:Router) {
-    let interval = window.setInterval(() => { this.recargarProyecto() }, 30000)
+    window.setInterval(() => { this.recargarProyecto() }, 10000)
     
     
   }
@@ -32,7 +33,8 @@ export class ChatComponent implements OnInit {
       this.bbddProyectos.enviarMensaje(this.proyecto.id, texto.value).subscribe(
         (respuesta) => {
           this.proyecto = respuesta;
-          this.bajarScroll();
+          this.actualizar = true;
+
         }, (error)=>{
           Swal.fire('ERROR', 'Error al enviar el mensaje', 'error');
         }
@@ -44,9 +46,10 @@ export class ChatComponent implements OnInit {
   recargarProyecto() {
     this.bbddProyectos.getProyectoById(this.proyecto.id).subscribe(
       (respuesta:any) => {
-        if(this.proyecto.mensajes.length != respuesta.mensajes.length){
+        if(this.proyecto.mensajes.length != respuesta.mensajes.length || this.actualizar){
           this.proyecto = respuesta;
           this.bajarScroll();
+          this.actualizar = false;
         }
       }, (error) => {
         Swal.fire('ERROR', 'Error al cargar el proyecto', 'error');

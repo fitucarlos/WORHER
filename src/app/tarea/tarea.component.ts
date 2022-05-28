@@ -13,19 +13,15 @@ export class TareaComponent implements OnInit {
   @Input() proyecto:any;
   @Output() actualizar = new EventEmitter<boolean>();
 
-  detalles:boolean = false;
   miembros:any[] = [];
   editando:boolean = false;
-  moviendo:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
   ngOnInit(): void {
   }
 
-  mostrarDetalles(){
-    this.detalles = !this.detalles
-  }  
+    
 
   getDificultad(){
     let dificultad:string;
@@ -113,17 +109,7 @@ export class TareaComponent implements OnInit {
     this.cambiarEditando();
   }
 
-  cambiarMoviendo(){
-    this.moviendo = !this.moviendo;
-    this.detalles = true;
-  }
-
-  moverTarea(listaId:string){    
-      this.detalles = false;
-      this.bbddProyectos.moverTarea(this.tarea.id, parseInt(listaId));
-      this.bbddProyectos.cargar();
-      this.actualizar.emit(true);
-  }
+  
   
   
   

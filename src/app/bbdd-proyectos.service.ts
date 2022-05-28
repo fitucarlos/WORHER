@@ -40,7 +40,7 @@ export class BbddProyectosService {
         this.proyectos = respuesta;
         this.noCargar();
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', 'Se ha producido un error al cargar los proyectos', 'error');
       }
     );
   }
@@ -216,8 +216,8 @@ export class BbddProyectosService {
     
   }
 
-  buscarMiembroProyecto(email: string) {
-    return this.http.get(this.url + 'proyecto/search_user/' + email);
+  buscarMiembroProyecto(id:number, email: string) {
+    return this.http.get(this.url + 'proyecto/search_user/' + id + '/' + email);
   }
 
 

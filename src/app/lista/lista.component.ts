@@ -1,5 +1,6 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 
 
@@ -62,7 +63,7 @@ export class ListaComponent implements OnInit {
   }
 
   buscarMiembro(email: string) {
-    let datos = this.bbddProyectos.buscarMiembroProyecto(email).subscribe(
+    this.bbddProyectos.buscarMiembroProyecto(this.proyecto.id, email).subscribe(
       (m: any) => {
         let encontrado: boolean = false;
         for (let i = 0; i < this.miembros.length && !encontrado; i++) {
@@ -70,6 +71,7 @@ export class ListaComponent implements OnInit {
 
         }
         if (!encontrado) this.miembros.push(m[0]);
+        else Swal.fire('Información', 'El usuario ya tiene asignada la tarea', 'info');
       }
     )
   }
