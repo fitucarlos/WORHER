@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit {
         (respuesta) => {
           this.proyecto = respuesta;
           this.actualizar = true;
+          this.bajarScroll();
 
         }, (error)=>{
           Swal.fire('ERROR', 'Error al enviar el mensaje', 'error');

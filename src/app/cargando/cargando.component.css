@@ -1,17 +1,18 @@
 .loader-wrapper {
-    width:60px;
-    height: 60px;
+    width:100px;
+    height: 100px;
 }
 
 .loader {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 5px solid #ffff;
+    border: 10px solid transparent;
     border-top-color: #813bff;
     border-bottom-color: #000;
     border-radius: 50%;
     animation: rotate 7s linear infinite;
+    padding: 5px;
 }
 
 .loader-inner {
@@ -33,5 +34,13 @@
     100% {
         transform: scale(1) rotate(360deg);
     }
+}
+
+
+.contenedor {
+    height: 100vh;
+    background:linear-gradient(to bottom, rgb(123, 117, 117), rgb(35, 34, 34));
+    width: 100vw;
+    margin:0;
 }
 

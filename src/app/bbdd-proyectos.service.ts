@@ -79,7 +79,7 @@ export class BbddProyectosService {
       (respuesta) => {
         this.cargarDatos();
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al añadir la lista.", 'error');
       }
     );
   }
@@ -89,7 +89,7 @@ export class BbddProyectosService {
       ()=>{
 
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR',"Error al eliminar la lista.", 'error');
       }
     );
   }
@@ -103,7 +103,7 @@ export class BbddProyectosService {
       (respuesta) => {
         this.cargarDatos();
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al editar la lista", 'error');
       }
     );
   }
@@ -118,7 +118,7 @@ export class BbddProyectosService {
       (respuesta) => {
         this.cargarDatos();
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al editar el proyecto", 'error');
       }
     );
   }
@@ -128,7 +128,7 @@ export class BbddProyectosService {
       (respuesta) => {
         this.cargarDatos()
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al eliminar el proyecto", 'error');
       }
     );
   }
@@ -144,7 +144,7 @@ export class BbddProyectosService {
         });
         this.cargarDatos()
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al añadir el proyecto", 'error');
       }
     );
   }
@@ -154,7 +154,7 @@ export class BbddProyectosService {
       (respuesta) => {
         this.cargarDatos()
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al añadir usuario al proyecto", 'error');
       }
     );
   }
@@ -187,7 +187,7 @@ export class BbddProyectosService {
       ()=>{
 
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al mover la tarea", 'error');
       }
     );
   }
@@ -207,7 +207,7 @@ export class BbddProyectosService {
         this.cargarDatos();
       }, (error)=>{
         console.log(error)
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al editar la tarea.", 'error');
       }
     )
   }
@@ -228,7 +228,7 @@ export class BbddProyectosService {
         this.proyectos = respuesta;
         this.noCargar()
       }, (error)=>{
-        Swal.fire('ERROR', error.message, 'error');
+        Swal.fire('ERROR', "Error al cargar los proyectos", 'error');
       }
     );
   }

@@ -7,16 +7,14 @@
     padding: 2%;
     text-align: center;
     height: 35px;
-    border: 2px solid black;
+    border: 1px solid black;
     margin-bottom: 2%;
-    margin-left: auto;
-    margin-right: auto; 
 }
 
 p {
     font-size: 0.75rem;
     margin-bottom: 0.25rem;
-    visibility:hidden;
+    display:none;
 }
 
 .contenedor {
@@ -26,5 +24,5 @@ p {
     flex-direction: column;
 }
 .contenedor:hover p {
-    visibility: visible;
+    display: block;
 }

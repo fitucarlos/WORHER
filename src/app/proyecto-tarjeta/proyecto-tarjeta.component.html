@@ -1,43 +1,61 @@
 <div class="tarjeta container">
     <h1 (click)="editar()" id="nombre" class="row-cols-1">{{p.nombre}}</h1>
-    <div *ngIf="editando" >
+    <div *ngIf="editando">
         <div class="txt_field form-control mt-4">
-            <input type="text" required aria-label="Introducir nuevo nombre al proyecto"
-                name="nombreProyecto" #nombreProyecto id="nombreProyecto" value="{{p.nombre}}">
+            <input type="text" required aria-label="Introducir nuevo nombre al proyecto" name="nombreProyecto"
+                #nombreProyecto id="nombreProyecto" value="{{p.nombre}}">
             <span class="span"></span>
             <label for="nombreProyecto" class="control-label required">Nombre de proyecto</label>
         </div>
         <button class="btn boton guardar" (click)="actualizarNombre(nombreProyecto.value); nombreProyecto.value=''">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-              </svg> Guardar
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+                viewBox="0 0 16 16">
+                <path
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+            </svg> Guardar
         </button>
         <button class="btn boton cancelar" (click)="noActualizar()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-              </svg> Cancelar
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+                viewBox="0 0 16 16">
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg> Cancelar
         </button>
     </div>
     <div class="row">
-        <p class="col-12 col-md-6 " *ngIf="p.descripcion">{{p.descripcion}}</p>
-        <div class="col-12 col-md-6 container">
-            <div class="row usuarios ">                
-                <app-usuario class="usuario" [usuario]="m" *ngFor="let m of get3Miembros()"></app-usuario>
-                <div class="miembro col" *ngIf="p.usuarios.length>3">
-                    <div class="circulo">+{{p.usuarios.length - 3}}</div>
+        <div class="col-6">
+
+            <a class="col-12 boton btn" [routerLink]="['/proyecto', p.id]">Ver proyecto</a>
+            <button class="col-12 boton btn" (click)="editar()">Renombrar</button>
+            
+            <button class="col-12 btn boton eliminar" (click)="eliminar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-trash" viewBox="0 0 16 16">
+                        <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                        <path fill-rule="evenodd"
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                    Eliminar</button>
+            
+        </div>
+        <div class="col-6">
+            <div class="col-12 ">
+                <div class="usuarios ">
+                    <div class="usuario row" *ngFor="let m of get3Miembros()">
+                        <div class="circulo col-2">{{getIniciales(m)}}</div>
+                        <p class="col-9">{{m.nombre}} {{m.apellido}}</p>
+                    </div>
+                    <div class="usuario  row" *ngIf="p.usuarios.length>3">
+                        <div class="circulo otro pb-4 col-2">
+                            <img src="assets/images/grupo.svg" width="25px" height="25px"/>
+                        </div>
+                        <p class="col-9"><i>Participantes: {{p.usuarios.length}}</i></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-    <div class="row-cols-2 botones">
-        <a class="boton btn" [routerLink]="['/proyecto', p.id]">Ver proyecto</a>
-        <button class="boton btn" (click)="editar()">Renombrar proyecto</button>
-    </div>
-    <button class="w-100 btn boton eliminar" (click)="eliminar()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-          </svg>
-        Eliminar proyecto</button>
+
 </div>

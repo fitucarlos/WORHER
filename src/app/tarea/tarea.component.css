@@ -10,6 +10,8 @@ details summary > * {
     margin-bottom: 7.5%;
     border-radius: 15px;
     min-height: 45px;
+    background-color: #a9a0a0;
+    color:black;
 }
 #dificultad {
     position:absolute;
@@ -25,28 +27,9 @@ details summary > * {
     position: absolute;
     bottom: -20px;
     right: 10px;
-    background-color: white;
+    background-color: transparent;
 }
 
-svg.muyBaja {
-    color: rgb(16, 160, 208);
-}
-
-svg.baja {
-    color: rgb(0,194,1);
-}
-
-svg.media {
-    color: rgb(255,219,0);
-}
-
-svg.alta {
-    color: rgb(229,111,1);
-}
-
-svg.muyAlta {
-    color: rgb(255, 41, 41);
-}
 
 .usuarios {
     display: flex;
@@ -59,7 +42,6 @@ svg.muyAlta {
 }
 
 .datos {
-    font-size: small;
     line-height: .5rem;
 }
 
@@ -69,14 +51,15 @@ svg.muyAlta {
 
 .boton {
     border: 1px solid gray;
-    margin:.5%;
+    width: 100%;
+    margin:1%;
     font-weight: bold;
-    width: 90%;
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
 }
 
 .eliminar {
-    background-color: rgb(221, 7, 7);
-    color:white;
+    background-color: rgba(221, 7, 7, .6);
 }
 
 .txt_field {

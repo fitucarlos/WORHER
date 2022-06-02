@@ -1,14 +1,18 @@
+* {
+    box-sizing: border-box;
+}
 .tarjeta {
     border: 2px solid gray;
     border-radius: 15px;
     padding: 2%;
-    width: auto;
+    width: 80%;
     height: auto;
 }
 
+
 #nombre {
     width: 100%;
-    border-bottom: 1px solid gray;
+    border-bottom: 3px solid white;
     text-align: center;
     text-transform:lowercase;
     font-variant: small-caps;
@@ -20,35 +24,27 @@
     text-transform: uppercase;
 }
 
-
-
-.botones {
-    display: flex;
-    justify-content: space-around;
-}
-
 .boton {
     border: 1px solid gray;
-    margin:.5%;
+    margin:1%;
     font-weight: bold;
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
 }
 
 .eliminar {
-    margin:auto;
-    background-color: rgb(221, 7, 7);
-    color:white;
-    margin-top:5%;
+    background-color: rgba(221, 7, 7, .6);
 }
 
-.usuarios {
-    justify-content: end;
+.botonEliminar {
+    text-align: center;
 }
+
+
 
 .usuario {
     width: auto;
-    display: flex;
-    align-content: center;
-    justify-content: center;
+    color:white;
 }
 
 .txt_field {
@@ -98,6 +94,27 @@
     width: 100%;
 }
 
+
+
+.guardar, .cancelar {
+    border: 1px solid gray;
+    margin: 1%;
+}
+
+
+/*
+COLORES
+*/
+
+.tarjeta {    
+    background: rgba(123, 117, 117, 0.6);
+    clip-path: circle(400px at center);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    border-radius:20px ;
+    backdrop-filter: blur(50px);
+    color:white;
+}
+
 .circulo {
     border-radius: 50%;
     background-color: #813bff;
@@ -107,12 +124,18 @@
     padding: 2%;
     text-align: center;
     height: 35px;
-    border: 2px solid black;
+    border: 1px solid black;
     margin-bottom: 2%;
 }
 
-.guardar, .cancelar {
-    border: 1px solid gray;
-    margin: 1%;
+.otro {
+    background-color: #637efa;
+    font-size: 1.5rem;
+    padding: 0;
 }
+
+.otro img {
+    margin-bottom: 10px;
+}
+
 

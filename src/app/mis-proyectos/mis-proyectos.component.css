@@ -2,14 +2,28 @@
     border: 2px solid gray;
     border-radius: 15px;
     padding: 2%;
-    width: auto;
+    width: 80%;
     height: auto;
     margin: auto;
+
+    background: rgba(165, 136, 219, 0.7);
+    clip-path: circle(400px at center);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 25px rgba(0, 0, 0, 0.5);
+    border-radius:20px ;
+    backdrop-filter: blur(50px);
+}
+
+h1 {
+    font-variant: small-caps;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 #nombre {
     width: 100%;
-    border-bottom: 1px solid gray;
+    border-bottom: 3px solid white;
     text-align: center;
     font-variant: small-caps;
     margin-bottom: 5%;
@@ -20,6 +34,8 @@
     border: 1px solid gray;
     margin: .5%;
     font-weight: bold;
+    background-color: #616161;
+    color:white;
 }
 
 .txt_field {
@@ -68,4 +84,17 @@
 .txt_field input:valid~.span::before {
     width: 100%;
 }
+
+
+/*
+        COLORES
+*/
+
+
+.proyectos {
+    color:black;
+    height: 100vh;
+    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
+}
+
 

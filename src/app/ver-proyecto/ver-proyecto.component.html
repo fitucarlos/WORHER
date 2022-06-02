@@ -1,15 +1,22 @@
 <app-cargando *ngIf="isCargando() || !proyecto"></app-cargando>
 <ng-container *ngIf="!isCargando() && proyecto">
-    <div class="container-fluid" *ngIf="!isChat()">
+    <div class="container-fluid proyecto" *ngIf="!isChat()">
         <div class="cabecera row">
             <h1 class="col-12 col-md">{{proyecto.nombre}}</h1>
             <div class="miembros col">
+                <p>Total de participantes: {{proyecto.usuarios.length}}</p>
+                <div class="nombres">
+                    <p *ngFor="let u of proyecto.usuarios"><span class="circulo">{{getIniciales(u)}}</span>{{u.nombre}} {{u.apellido}}</p>
+                </div>
+                <!--
                 <app-usuario class="miembro" [usuario]="m" *ngFor="let m of get3Miembros()"></app-usuario>
                 <div class="miembro" *ngIf="proyecto.usuarios.length>3">
                     <div class="circulo col">+{{proyecto.usuarios.length - 3}}</div>
                 </div>
+            -->
             </div>
         </div>
+
 
 
         <div class="botones row">

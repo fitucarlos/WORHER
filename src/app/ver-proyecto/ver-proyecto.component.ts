@@ -270,6 +270,13 @@ export class VerProyectoComponent implements OnInit {
     }
   }
 
+  getIniciales(usuario:any){
+    let iniciales:string;
+    iniciales=usuario.nombre[0]+usuario.apellido[0];
+    iniciales = iniciales.toUpperCase();
+    return iniciales;
+  }
+
 
 
 

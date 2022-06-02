@@ -43,6 +43,13 @@ export class ProyectoTarjetaComponent implements OnInit {
     return miembros;
   }
 
+  getIniciales(usuario:any){
+    let iniciales:string;
+    iniciales=usuario.nombre[0]+usuario.apellido[0];
+    iniciales = iniciales.toUpperCase();
+    return iniciales;
+  }
+
 
 
 }

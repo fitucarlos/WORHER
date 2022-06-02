@@ -6,10 +6,14 @@
 
 .boton {
     border: 1px solid gray;
-    margin: 2%;
+    margin: 1%;
     font-weight: bold;
     width: 150px;
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
 }
+
+
 
 .mostrarChat > .botones > .boton {
     width:200px;
@@ -43,22 +47,24 @@ h1 {
 .cabecera {
     border-bottom: 1px solid gray;
 }
-.miembro:hover ~ .nombres {
-    visibility: visible;
-} 
+
 
 .nombres {
-    visibility: hidden;
     border: 1px solid gray;
     border-radius: 5px;
     font-size: 1.2rem;
     position:absolute;
     top:45px;
     z-index: 1000;
-    background-color: white;
+    background-color: rgb(128, 120, 120);
     padding: 1%;
     overflow-x: hidden;
-    max-width: 300px;
+    width: 350px;
+    color:white;
+}
+
+.nombres span {
+    margin:auto 10px;
 }
 
 li {
@@ -87,6 +93,18 @@ h1::first-letter, li::first-letter {
 .miembro {
     margin: 1%;
 }
+
+.miembros p {
+    margin-top: 20px;
+}
+.nombres {
+    display: none;
+}
+
+.miembros p:hover ~ .nombres {
+    display: block;
+}
+
 
 
 
@@ -159,7 +177,7 @@ h1::first-letter, li::first-letter {
     width: 100%;
     margin-top: 10%;
     margin-bottom: 7.5%;
-    border-radius: 15px;
+    border-radius: 7px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -171,6 +189,7 @@ h1::first-letter, li::first-letter {
 .chat {
     display: none;
 }
+
 
 @media(min-width:1224px){
     .chat {
@@ -185,3 +204,33 @@ h1::first-letter, li::first-letter {
         display: none;
     }
 }
+
+
+    /*
+            COLORES
+    */
+    
+    .proyecto {        
+    color:black;
+    height: 100%;
+    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
+    }
+
+    .circulo {
+        border-radius: 50%;
+        background-color: #813bff;
+        color:white;
+        font-weight: bold;
+        width: 35px;
+        padding: 2%;
+        text-align: center;
+        height: 35px;
+        border: 1px solid black;
+        margin-bottom: 2%;
+    }
+    
+    .otro {
+        background-color: #637efa;
+        font-size: 1.5rem;
+        padding: 0;
+    }
