@@ -1,18 +1,22 @@
+/*
+    POSICIONAMIENTO Y TAMAÑO
+*/
+
 * {
     box-sizing: border-box;
 }
+
 .tarjeta {
-    border: 2px solid gray;
-    border-radius: 15px;
     padding: 2%;
     width: 80%;
     height: auto;
+    clip-path: circle(400px at center);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(50px);
 }
-
 
 #nombre {
     width: 100%;
-    border-bottom: 3px solid white;
     text-align: center;
     text-transform:lowercase;
     font-variant: small-caps;
@@ -25,26 +29,16 @@
 }
 
 .boton {
-    border: 1px solid gray;
     margin:1%;
     font-weight: bold;
-    background-color: rgba(77, 73, 73, 0.5);
-    color:white;
 }
 
 .eliminar {
-    background-color: rgba(221, 7, 7, .6);
-}
-
-.botonEliminar {
     text-align: center;
 }
 
-
-
 .usuario {
     width: auto;
-    color:white;
 }
 
 .txt_field {
@@ -56,8 +50,6 @@
     padding: 0 5px;
     height: 28px;
     font-size: 16px;
-    border: none;
-    background: none;
     outline: none;
 }
 
@@ -65,7 +57,6 @@
     position: absolute;
     top: 60%;
     left: 5px;
-    color: #616161;
     transform: translateY(-70%);
     font-size: 16px;
     pointer-events: none;
@@ -79,14 +70,12 @@
     left: 0;
     width: 0%;
     height: 0;
-    background: grey;
     transition: .5s;
 }
 
 .txt_field input:focus~label,
 .txt_field input:valid~label {
     top: -5px;
-    color: grey;
 }
 
 .txt_field input:focus~.span::before,
@@ -94,42 +83,20 @@
     width: 100%;
 }
 
-
-
 .guardar, .cancelar {
-    border: 1px solid gray;
     margin: 1%;
 }
 
-
-/*
-COLORES
-*/
-
-.tarjeta {    
-    background: rgba(123, 117, 117, 0.6);
-    clip-path: circle(400px at center);
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-    border-radius:20px ;
-    backdrop-filter: blur(50px);
-    color:white;
-}
-
 .circulo {
-    border-radius: 50%;
-    background-color: #813bff;
-    color:white;
     font-weight: bold;
     width: 35px;
     padding: 2%;
     text-align: center;
     height: 35px;
-    border: 1px solid black;
     margin-bottom: 2%;
 }
 
 .otro {
-    background-color: #637efa;
     font-size: 1.5rem;
     padding: 0;
 }
@@ -138,4 +105,81 @@ COLORES
     margin-bottom: 10px;
 }
 
+/*
+    BORDES
+*/
 
+.tarjeta {
+    border: 2px solid gray;
+    border-radius: 20px;
+}
+
+#nombre {
+    border-bottom: 3px solid white;
+}
+
+.boton {
+    border: 1px solid gray;
+}
+
+.txt_field input {
+    border: none;
+}
+
+.guardar, .cancelar {
+    border: 1px solid gray;
+}
+
+.circulo {
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+
+/*
+    COLORES
+*/
+
+.tarjeta {    
+    background: rgba(123, 117, 117, 0.6);
+    color:white;
+}
+
+.boton {
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
+}
+
+.eliminar {
+    background-color: rgba(221, 7, 7, .6);
+}
+
+.usuario {
+    color:white;
+}
+
+.txt_field input {
+    background: none;
+}
+
+.txt_field label {
+    color: #616161;
+}
+
+.txt_field .span::before {
+    background: grey;
+}
+
+.txt_field input:focus~label,
+.txt_field input:valid~label {
+    color: black;
+}
+
+.circulo {
+    background-color: #813bff;
+    color:white;
+}
+
+.otro {
+    background-color: #637efa;
+}

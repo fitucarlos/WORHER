@@ -1,3 +1,7 @@
+/*
+    POSICIONAMIENTO Y TAMAÑO
+*/
+
 .botones {
     display: flex;
     justify-content: center;
@@ -5,15 +9,10 @@
 }
 
 .boton {
-    border: 1px solid gray;
     margin: 1%;
     font-weight: bold;
     width: 150px;
-    background-color: rgba(77, 73, 73, 0.5);
-    color:white;
 }
-
-
 
 .mostrarChat > .botones > .boton {
     width:200px;
@@ -24,15 +23,11 @@
 }
 
 .circulo {
-    border-radius: 50%;
-    background-color: #813bff;
-    color:white;
     font-weight: bold;
     width: 35px;
     padding: 2%;
     text-align: center;
     height: 35px;
-    border: 2px solid black;
     margin-bottom: 2%;
 }
 
@@ -44,23 +39,14 @@ h1 {
     padding-bottom: 1%;
 }
 
-.cabecera {
-    border-bottom: 1px solid gray;
-}
-
-
 .nombres {
-    border: 1px solid gray;
-    border-radius: 5px;
     font-size: 1.2rem;
     position:absolute;
     top:45px;
     z-index: 1000;
-    background-color: rgb(128, 120, 120);
     padding: 1%;
     overflow-x: hidden;
     width: 350px;
-    color:white;
 }
 
 .nombres span {
@@ -105,12 +91,8 @@ h1::first-letter, li::first-letter {
     display: block;
 }
 
-
-
-
 .txt_field {
     position: relative;
-    border-bottom: 2px solid #616161;
 }
 
 .txt_field input, .txt_field textarea {
@@ -118,8 +100,6 @@ h1::first-letter, li::first-letter {
     padding: 0 5px;
     height: 28px;
     font-size: 16px;
-    border: none;
-    background: none;
     outline: none;
 }
 
@@ -127,7 +107,6 @@ h1::first-letter, li::first-letter {
     position: absolute;
     top: 60%;
     left: 5px;
-    color: #616161;
     transform: translateY(-70%);
     font-size: 16px;
     pointer-events: none;
@@ -141,7 +120,6 @@ h1::first-letter, li::first-letter {
     left: 0;
     width: 0%;
     height: 0;
-    background: grey;
     transition: .5s;
 }
 
@@ -150,7 +128,6 @@ h1::first-letter, li::first-letter {
 .txt_field textarea:focus~label,
 .txt_field textarea:valid~label {
     top: -5px;
-    color: grey;
 }
 
 .txt_field input:focus~.span::before,
@@ -161,36 +138,46 @@ h1::first-letter, li::first-letter {
 }
 
 .botonAdd {
-    color: white;
     width: 100%;
 }
 
 .botonAdd svg {
-    background-color: black;
-    border-radius: 50%;
     margin-bottom: 2%;
     padding: 1.5%;
 }
 
 .lista {
-    border: 1px solid black;
-    width: 100%;
+    padding: 5%;
+    width: 400px;
     margin-top: 10%;
     margin-bottom: 7.5%;
-    border-radius: 7px;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background-color: white;
-    padding: 2%;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(50px);
 }
 
 .chat {
     display: none;
 }
 
+ .proyecto {
+    min-height: 100vh;
+    height: 100%;
+}
 
+.otro {
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+/******************************************************************************************
+**************************************DESKTOP**********************************************
+******************************************************************************************/
 @media(min-width:1224px){
     .chat {
         display: block;
@@ -205,32 +192,94 @@ h1::first-letter, li::first-letter {
     }
 }
 
+/*
+    BORDES
+*/
 
-    /*
-            COLORES
-    */
-    
-    .proyecto {        
+.boton {
+    border: 1px solid gray;
+}
+
+.circulo {
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.cabecera {
+    border-bottom: 1px solid gray;
+}
+
+.nombres {
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.txt_field {
+    border-bottom: 2px solid #616161;
+}
+
+.txt_field input, .txt_field textarea {
+    border: none;
+}
+
+.botonAdd svg {
+    border-radius: 50%;
+}
+
+.lista {
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+/*
+    COLORES
+*/
+
+.boton {
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
+}
+
+.circulo {
+    background-color: #813bff;
+    color:white;
+}
+
+.nombres {
+    background-color: rgb(128, 120, 120);
+    color:white;
+}
+
+.txt_field input, .txt_field textarea {
+    background: none;
+}
+
+.txt_field .span::before {
+    background: grey;
+}
+
+.botonAdd {
+    color: white;
+}
+
+.botonAdd svg {
+    background-color: black;
+}
+
+.lista {
+    background: rgba(123, 117, 117, 0.6);
+    color:white;
+}
+
+ .proyecto {        
     color:black;
-    height: 100%;
     background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
-    }
+}
 
-    .circulo {
-        border-radius: 50%;
-        background-color: #813bff;
-        color:white;
-        font-weight: bold;
-        width: 35px;
-        padding: 2%;
-        text-align: center;
-        height: 35px;
-        border: 1px solid black;
-        margin-bottom: 2%;
-    }
-    
-    .otro {
-        background-color: #637efa;
-        font-size: 1.5rem;
-        padding: 0;
-    }
+.otro {
+    background-color: #637efa;
+}
+
+.eliminar {
+    background-color: rgba(221, 7, 7, .6);
+}

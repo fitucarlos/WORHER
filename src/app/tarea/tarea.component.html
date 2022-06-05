@@ -1,5 +1,6 @@
 <div class="container tarea">
   <ng-container *ngIf="editando; then thenBlock; else elseBlock"></ng-container>
+
   <ng-template #thenBlock>
     <div class="txt_field form-control mt-4">
       <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar
@@ -21,6 +22,7 @@
       <option value="4">Alta</option>
       <option value="5">Muy alta</option>
   </select>
+
   <div class="txt_field form-control mt-4">
       <textarea required aria-label="descripción de tarea" name="descripcionEditar" #descripcionEditar
           id="descripcionEditar" value="{{tarea.descripcion}}"></textarea>
@@ -36,53 +38,99 @@
   </ng-template>
 
   <ng-template #elseBlock> 
-    <div id="dificultad">
-      <img src="assets/images/facil.png" width="30" height="30" *ngIf="tarea.dificultad==1" />
-      <img src="assets/images/normal.png" width="30" height="30" *ngIf="tarea.dificultad==2" />
-      <img src="assets/images/muy_dificil.png" width="30" height="30" *ngIf="tarea.dificultad==3" />
-    </div>
-    <div id="prioridad">
-      <img src="assets/images/prioridad_muyBaja.png" width="30" height="30" *ngIf="tarea.prioridad==1" />
-      <img src="assets/images/prioridad_baja.png" width="30" height="30" *ngIf="tarea.prioridad==2" />
-      <img src="assets/images/prioridad_media.png" width="30" height="30" *ngIf="tarea.prioridad==3" />
-      <img src="assets/images/prioridad_alta.png" width="30" height="30" *ngIf="tarea.prioridad==4" />
-      <img src="assets/images/prioridad_muyAlta.png" width="30" height="30" *ngIf="tarea.prioridad==5" />
-    </div>
-    
-  
-    
-    <details>
-      <summary><h4 id="nombre">{{tarea.nombre}}</h4></summary>
-    
-    
-    
-      <div class="mt-3">
-        <div class="datos">
-          <p>Dificultad: {{getDificultad()}}</p>
-          <p>Prioridad: {{getPrioridad()}}</p>
-        </div>
-        <div class="usuarios">
-          <app-usuario [usuario]="u" *ngFor="let u of tarea.usuarios" class="usuario"></app-usuario>
-        </div>
-        <div class="descripcion">
-          <p>{{tarea.descripcion}}</p>
-        </div>
-        
-        <div class="botones">
-          <button class="btn boton" (click)="cambiarEditando()">Editar tarea</button>
-          <button class="btn boton eliminar" (click)="borrarTarea()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash"
-              viewBox="0 0 16 16">
-              <path
-                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-              <path fill-rule="evenodd"
-                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-            </svg>
-            Eliminar tarea</button>
-        </div>
-      </div>
+    <ng-container *ngIf="!asignando">
 
-    </details>   
+      <div id="dificultad">
+        <img src="assets/images/facil.png" width="30" height="30" *ngIf="tarea.dificultad==1" />
+        <img src="assets/images/normal.png" width="30" height="30" *ngIf="tarea.dificultad==2" />
+        <img src="assets/images/muy_dificil.png" width="30" height="30" *ngIf="tarea.dificultad==3" />
+      </div>
+      <div id="prioridad">
+        <img src="assets/images/prioridad_muyBaja.png" width="30" height="30" *ngIf="tarea.prioridad==1" />
+        <img src="assets/images/prioridad_baja.png" width="30" height="30" *ngIf="tarea.prioridad==2" />
+        <img src="assets/images/prioridad_media.png" width="30" height="30" *ngIf="tarea.prioridad==3" />
+        <img src="assets/images/prioridad_alta.png" width="30" height="30" *ngIf="tarea.prioridad==4" />
+        <img src="assets/images/prioridad_muyAlta.png" width="30" height="30" *ngIf="tarea.prioridad==5" />
+      </div>
+      
+    
+      
+      <details>
+        <summary><h4 id="nombre">{{tarea.nombre}}</h4></summary>
+      
+      
+      
+        <div class="mt-3">
+          <div class="datos">
+            <p>Dificultad: {{getDificultad()}}</p>
+            <p>Prioridad: {{getPrioridad()}}</p>
+          </div>
+            <div class="nombres">
+              <p *ngFor="let u of tarea.usuarios"><span class="circulo">{{getIniciales(u)}}</span>{{u.nombre}} {{u.apellido}}</p>
+          </div>
+          <div class="descripcion">
+            <p>{{tarea.descripcion}}</p>
+          </div>
+          
+          <div class="botones">
+            <button class="btn boton" (click)="cambiarEditando()">Editar tarea</button>
+            <button class="btn boton" (click)="cambiarAsignar()">Asignar tarea</button>
+            <button class="btn boton eliminar" (click)="borrarTarea()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash"
+                viewBox="0 0 16 16">
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+              </svg>
+              Eliminar tarea</button>
+          </div>
+        </div>
+  
+      </details>   
+    </ng-container>
+
+    <ng-container  *ngIf="asignando">
+      <h4>{{tarea.nombre}}</h4>
+      <div class="txt_field form-control mt-4">
+        <input type="text" required aria-label="Buscar miembro por email"
+            name="buscarMiembro" #buscar id="buscarMiembro"
+            (keyup.enter)="buscarMiembro(buscar)">
+        <span class="span"></span>
+        <label for="buscarMiembro" class="control-label required">Email de
+            usuario</label>
+    </div>
+    <button class="btn boton" type="button" id="searchUser" (click)="buscarMiembro(buscar)">Buscar</button>
+    
+    <h5>Usuarios con tarea asignada</h5>
+    <table class="table">
+    <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Eliminar</th>
+    </tr>
+    <tr *ngIf="tarea.usuarios.length == 0">
+        <td colspan="3">No se le ha asignado la tarea a ningún usuario</td>
+    </tr>
+    <tr *ngFor="let m of tarea.usuarios">
+        <td>{{m.nombre}} {{m.apellido}}</td>
+        <td>{{m.email}}</td>
+        <td>
+            <button type="button" class="btn boton eliminar" (click)="quitarMiembro(m)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-person-x-fill"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </button>
+        </td>
+    </tr>
+    </table>
+    <button type="button" class="btn boton " (click)="asignarTarea()">Guardar cambios</button>
+    </ng-container>
+    
+    
   </ng-template>
 
 </div>

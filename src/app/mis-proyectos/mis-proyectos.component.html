@@ -5,9 +5,9 @@
     <div class="proyectos container-fluid">
         <h1 class="col-12">Mis proyectos</h1>
         <div class="row">
-            <app-proyecto-tarjeta class="col-sm-12 col-md-6 col-lg-4 m-1 m-md-0 mb-md-1 mt-md-1" [p]="proy"
+            <app-proyecto-tarjeta class="col-sm-12 col-md-6 m-1 m-md-0 mb-md-1 mt-md-1" [p]="proy"
                 *ngFor="let proy of getProyectos()"></app-proyecto-tarjeta>
-            <div class="col-sm-12 col-md-6 col-lg-4 m-1 m-md-0 mb-md-1 mt-md-1">
+            <div class="col-sm-12 col-md-6  m-1 m-md-0 mb-md-1 mt-md-1">
                 <div class="tarjeta container d-flex justify-content-center flex-column">
                     <h1 id="nombre" class="row-cols-1">Nuevo proyecto</h1>
                     <button class="btn boton" data-bs-toggle="modal" data-bs-target="#nuevoProyecto">

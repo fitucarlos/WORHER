@@ -1,29 +1,65 @@
+/*
+    POSICIONAMIENTO Y TAMAÑO
+*/
 .loader-wrapper {
     width:100px;
     height: 100px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
 }
 
 .loader {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 10px solid transparent;
-    border-top-color: #813bff;
-    border-bottom-color: #000;
-    border-radius: 50%;
     animation: rotate 7s linear infinite;
     padding: 5px;
 }
 
 .loader-inner {
-    border-top-color: #ba83f5;
-    border-bottom-color: #637efa;
     animation-duration: 3s;
+}
 
+.contenedor {
+    height: 90vh;
+    width: 100%;
+    margin:0;
+    position: relative;
 }
 
 
+/*
+    BORDES
+*/
 
+.loader {
+    border: 10px solid transparent;
+    border-radius: 50%;
+}
+
+/*
+    COLORES
+*/
+
+.loader {
+    border-top-color: #813bff;
+    border-bottom-color: #000;
+}
+
+.loader-inner {
+    border-top-color: #f1eff3;
+    border-bottom-color: #fa63e1;
+}
+
+.contenedor {
+    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
+}
+
+
+/*
+    ANIMACIÓN
+*/
 @keyframes rotate {
     0% {
         transform: scale(1) rotate(360deg);
@@ -35,12 +71,3 @@
         transform: scale(1) rotate(360deg);
     }
 }
-
-
-.contenedor {
-    height: 100vh;
-    background:linear-gradient(to bottom, rgb(123, 117, 117), rgb(35, 34, 34));
-    width: 100vw;
-    margin:0;
-}
-

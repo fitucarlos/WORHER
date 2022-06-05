@@ -1,16 +1,13 @@
+/*
+    POSICIONAMIENTO Y TAMAÑO
+*/
+
 .tarjeta {
-    border: 2px solid gray;
-    border-radius: 15px;
     padding: 2%;
     width: 80%;
     height: auto;
-    margin: auto;
-
-    background: rgba(165, 136, 219, 0.7);
     clip-path: circle(400px at center);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 25px 25px rgba(0, 0, 0, 0.5);
-    border-radius:20px ;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(50px);
 }
 
@@ -23,7 +20,6 @@ h1 {
 
 #nombre {
     width: 100%;
-    border-bottom: 3px solid white;
     text-align: center;
     font-variant: small-caps;
     margin-bottom: 5%;
@@ -31,11 +27,8 @@ h1 {
 }
 
 .boton {
-    border: 1px solid gray;
-    margin: .5%;
+    margin:1%;
     font-weight: bold;
-    background-color: #616161;
-    color:white;
 }
 
 .txt_field {
@@ -47,8 +40,6 @@ h1 {
     padding: 0 5px;
     height: 28px;
     font-size: 16px;
-    border: none;
-    background: none;
     outline: none;
 }
 
@@ -56,7 +47,6 @@ h1 {
     position: absolute;
     top: 60%;
     left: 5px;
-    color: #616161;
     transform: translateY(-70%);
     font-size: 16px;
     pointer-events: none;
@@ -70,14 +60,12 @@ h1 {
     left: 0;
     width: 0%;
     height: 0;
-    background: grey;
     transition: .5s;
 }
 
 .txt_field input:focus~label,
 .txt_field input:valid~label {
     top: -5px;
-    color: grey;
 }
 
 .txt_field input:focus~.span::before,
@@ -85,16 +73,64 @@ h1 {
     width: 100%;
 }
 
+.proyectos {
+    min-height: 100vh;
+}
 
 /*
-        COLORES
+    BORDES
 */
 
+.tarjeta {
+    border: 2px solid gray;
+    border-radius: 20px;
+}
 
-.proyectos {
-    color:black;
-    height: 100vh;
-    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
+#nombre {
+    border-bottom: 3px solid white;
+}
+
+.boton {
+    border: 1px solid gray;
+}
+
+.txt_field input {
+    border: none;
 }
 
 
+/*
+    COLORES
+*/
+
+.tarjeta {    
+    background: rgba(123, 117, 117, 0.6);
+    color:white;
+}
+
+.boton {
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
+}
+
+.txt_field input {
+    background: none;
+}
+
+.txt_field label {
+    color: #616161;
+}
+
+.txt_field .span::before {
+    background: grey;
+}
+
+.txt_field input:focus~label,
+.txt_field input:valid~label {
+    color: grey;
+}
+
+.proyectos {
+    color:black;
+    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
+}

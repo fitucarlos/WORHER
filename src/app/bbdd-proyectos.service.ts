@@ -75,13 +75,7 @@ export class BbddProyectosService {
         }
       ]
     };
-    this.http.post(this.url + "proyecto/add_lista/" + proyectoId, body).subscribe(
-      (respuesta) => {
-        this.cargarDatos();
-      }, (error)=>{
-        Swal.fire('ERROR', "Error al añadir la lista.", 'error');
-      }
-    );
+    return this.http.post(this.url + "proyecto/add_lista/" + proyectoId, body);
   }
 
   deleteLista(listaId: number) {
@@ -212,8 +206,15 @@ export class BbddProyectosService {
     )
   }
 
-  addUsuarioTarea() {
-    
+  addUsuarioTarea(id_tarea:number, id_usuario:number) {
+    this.cargar();
+    this.http.post(this.url+'proyecto/add_user_tarea/'+id_tarea+'/'+id_usuario, null).subscribe(
+      (respuesta) => {
+        this.cargarDatos()
+      }, (error)=>{
+        Swal.fire('ERROR', "Error al añadir usuario a la tarea", 'error');
+      }
+    );
   }
 
   buscarMiembroProyecto(id:number, email: string) {
@@ -259,6 +260,17 @@ export class BbddProyectosService {
 
      return this.http.post(this.url + 'proyecto/add_mensaje/' + idproyecto + '/' + this.usuarioId, body)
 
+  }
+
+  quitarMiembroTarea(tareaId:number, usuarioId:number){
+    this.cargar();
+    this.http.post(this.url+'proyecto/remove_user_tarea/'+tareaId+'/'+usuarioId, null).subscribe(
+      (respuesta: any) => {
+        this.cargarDatos();
+      }, (error)=>{
+        Swal.fire('ERROR', "Error al eliminar el usuario de la tarea.", 'error');
+      }
+    )
   }
 
  

@@ -13,8 +13,8 @@ export class TareaComponent implements OnInit {
   @Input() proyecto:any;
   @Output() actualizar = new EventEmitter<boolean>();
 
-  miembros:any[] = [];
   editando:boolean = false;
+  asignando:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
@@ -59,21 +59,48 @@ export class TareaComponent implements OnInit {
    this.actualizar.emit(true);
   }
 
-  buscarMiembro(email:string){
+  buscarMiembro(email:any){
+    let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+    if (email.value == '') {
+      Swal.fire('Aviso', 'No ha introducido ningún email en el buscador. Por favor, introduzca un email de un usuario del proyecto para asignar la tarea.', 'warning')
+    } else if (!expReg.test(email.value)) {
+      Swal.fire('ERROR', 'No ha introducido un email válido en el buscador. Por favor, introduzca un email de un usuario del proyecto para asignar la tarea.', 'error')
+      email.value = '';
+      email.focus();
+    } else {
+      this.bbddProyectos.buscarMiembroProyecto(this.proyecto.id, email.value).subscribe(
+        (m: any) => {
+          let encontrado: boolean = false;
+          for (let i = 0; i < this.tarea.usuarios.length && !encontrado; i++) {
+            if (this.tarea.usuarios[i].id == m.id) encontrado = true;
+            
+          }
+          if (!encontrado) this.tarea.usuarios.push(m);
+          email.value = '';
+        }, (error) => {
+          Swal.fire('ERROR', 'El email introducido no pertenece al proyecto', 'error');
+          email.value = '';
+          email.focus();
+        }
+      )
 
+    }
   }
 
   quitarMiembro(miembro:any){
     let encontrado: boolean = false;
     let indice: number = -1;
-    for (let i = 0; i < this.miembros.length && !encontrado; i++) {
-      if (this.miembros[i] == miembro) {
+    for (let i = 0; i < this.tarea.usuarios.length && !encontrado; i++) {
+      if (this.tarea.usuarios[i] == miembro) {
         encontrado = true;
         indice = i;
       }
     }
 
-    if (indice != -1) this.miembros.splice(indice, 1);
+    if (indice != -1) {
+      this.bbddProyectos.quitarMiembroTarea(this.tarea.id, miembro.id);
+      this.tarea.usuarios.splice(indice, 1);
+    }
 
   }
 
@@ -92,6 +119,9 @@ export class TareaComponent implements OnInit {
   
   cambiarEditando(){
     this.editando = !this.editando;
+    if(this.editando && this.asignando) this.asignando = false;
+    if(this.editando) this.actualizar.emit(false);
+    else this.actualizar.emit(true);
   }
   
   editar(nombre:string, prioridad:string, dificultad:string, descripcion:string){
@@ -109,7 +139,26 @@ export class TareaComponent implements OnInit {
     this.cambiarEditando();
   }
 
-  
+  getIniciales(usuario:any){
+    let iniciales:string;
+    iniciales=usuario.nombre[0]+usuario.apellido[0];
+    iniciales = iniciales.toUpperCase();
+    return iniciales;
+  }
+
+  cambiarAsignar(){
+    this.asignando = !this.asignando;
+    if(this.asignando && this.editando) this.editando = false;
+    if(this.asignando) this.actualizar.emit(false)
+    else this.actualizar.emit(true);
+  }
+
+  asignarTarea(){
+    this.cambiarAsignar();
+    this.tarea.usuarios.forEach((u: { id: number; }) => {
+      this.bbddProyectos.addUsuarioTarea(this.tarea.id, u.id)
+    });
+  }
   
   
   

@@ -1,5 +1,5 @@
-<app-cargando *ngIf="isCargando() || !proyecto"></app-cargando>
-<ng-container *ngIf="!isCargando() && proyecto">
+<app-cargando *ngIf="isCargando() || !hayProyecto()"></app-cargando>
+<ng-container *ngIf="!isCargando() && hayProyecto()">
     <div class="container-fluid proyecto" *ngIf="!isChat()">
         <div class="cabecera row">
             <h1 class="col-12 col-md">{{proyecto.nombre}}</h1>
@@ -8,18 +8,13 @@
                 <div class="nombres">
                     <p *ngFor="let u of proyecto.usuarios"><span class="circulo">{{getIniciales(u)}}</span>{{u.nombre}} {{u.apellido}}</p>
                 </div>
-                <!--
-                <app-usuario class="miembro" [usuario]="m" *ngFor="let m of get3Miembros()"></app-usuario>
-                <div class="miembro" *ngIf="proyecto.usuarios.length>3">
-                    <div class="circulo col">+{{proyecto.usuarios.length - 3}}</div>
-                </div>
-            -->
             </div>
         </div>
 
 
 
         <div class="botones row">
+            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#addUsuario">Añadir usuario</button>
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#moverTarea">Mover tarea</button>
             <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#crearTarea">Crear tarea</button>
             <button class="btn boton botonChat col-12" (click)="mostrarChat()">Chat</button>
@@ -64,15 +59,15 @@
                 <div class="col-lg-9 container">
                     <div class="listas row">
 
-                        <app-lista (actualizar)="isActualizar($event)" class="col-sm-12 col-md-6 col-lg-4 mt-2"
+                        <app-lista (actualizar)="isActualizar($event)" class="col-sm-12 col-md-6 mt-2"
                             [proyecto]="proyecto" [lista]="lista" [filtro]="filtro" *ngFor="let lista of proyecto.listas"></app-lista>
 
-                        <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
+                        <div class="col-sm-12 col-md-6 mt-2">
 
                             <div class="mt-2 lista ">
                                 <h3>Nueva lista</h3>
                                 <div class="txt_field form-control mt-4">
-                                    <input type="text" required aria-label="Introducir nombre de nueva lista"
+                                    <input type="text" (keyup.enter)="addLista(nombreNuevaLista.value); nombreNuevaLista.value=''" required aria-label="Introducir nombre de nueva lista"
                                         name="nombreNuevaLista" #nombreNuevaLista id="nombreNuevaLista">
                                     <span class="span"></span>
                                     <label for="nombreNuevaLista" class="control-label required">Nombre de lista</label>
@@ -197,3 +192,46 @@
         </div>
     </div>
 </div>
+
+
+<!-- -------------------MODAL ADD USUARIO-------------------- -->
+<div class="modal fade" id="addUsuario" tabindex="-1" aria-labelledby="addUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUsuarioLabel">Añadir usuario al proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="txt_field form-control mt-4">
+                <input type="text" required aria-label="Buscar miembro por email"
+                    name="buscarMiembro" #buscar id="buscarMiembro"
+                    (keyup.enter)="buscarMiembro(buscar)">
+                <span class="span"></span>
+                <label for="buscarMiembro" class="control-label required">Email de
+                    usuario</label>
+            </div>
+            <button class="btn boton" type="button" id="searchUser" (click)="buscarMiembro(buscar)">Buscar</button>
+        
+        <h4>Miembros del proyecto</h4>
+        <table class="table" *ngIf="hayProyecto()">
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+            </tr>
+            <tr *ngIf="proyecto.usuarios.length == 0">
+                <td colspan="3">No se ha añadido ningún miembro aún al proyecto</td>
+            </tr>
+            <tr *ngFor="let m of proyecto.usuarios">
+                <td>{{m.nombre}} {{m.apellido}}</td>
+                <td>{{m.email}}</td>
+            </tr>
+        </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn boton eliminar" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn boton" data-bs-dismiss="modal" (click)="addMiembro()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

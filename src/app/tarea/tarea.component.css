@@ -1,18 +1,19 @@
+/*
+    POSICIONAMIENTO Y TAMAÑO
+*/
+
 details summary > * { 
     display: inline;
-  }
-  
+}
+
 .tarea {
     position: relative;
-    border: 1px solid black;
     width: 100%;
     margin-top:10%;
     margin-bottom: 7.5%;
-    border-radius: 15px;
-    min-height: 45px;
-    background-color: #a9a0a0;
-    color:black;
+    min-height: 55px;
 }
+
 #dificultad {
     position:absolute;
     bottom: 15px;
@@ -27,9 +28,7 @@ details summary > * {
     position: absolute;
     bottom: -20px;
     right: 10px;
-    background-color: transparent;
 }
-
 
 .usuarios {
     display: flex;
@@ -50,21 +49,13 @@ details summary > * {
 }
 
 .boton {
-    border: 1px solid gray;
     width: 100%;
     margin:1%;
     font-weight: bold;
-    background-color: rgba(77, 73, 73, 0.5);
-    color:white;
-}
-
-.eliminar {
-    background-color: rgba(221, 7, 7, .6);
 }
 
 .txt_field {
     position: relative;
-    border-bottom: 2px solid #616161;
 }
 
 .txt_field input, .txt_field textarea {
@@ -72,8 +63,6 @@ details summary > * {
     padding: 0 5px;
     height: 28px;
     font-size: 16px;
-    border: none;
-    background: none;
     outline: none;
 }
 
@@ -81,7 +70,6 @@ details summary > * {
     position: absolute;
     top: 60%;
     left: 5px;
-    color: #616161;
     transform: translateY(-70%);
     font-size: 16px;
     pointer-events: none;
@@ -95,7 +83,6 @@ details summary > * {
     left: 0;
     width: 0%;
     height: 0;
-    background: grey;
     transition: .5s;
 }
 
@@ -104,7 +91,6 @@ details summary > * {
 .txt_field textarea:focus~label,
 .txt_field textarea:valid~label {
     top: -5px;
-    color: grey;
 }
 
 .txt_field input:focus~.span::before,
@@ -114,3 +100,82 @@ details summary > * {
     width: 100%;
 }
 
+.circulo {
+    font-weight: bold;
+    width: 35px;
+    padding: 2%;
+    text-align: center;
+    height: 35px;
+    margin-bottom: 2%;
+}
+
+.nombres span {
+    margin:auto 10px;
+}
+
+/*
+    BORDES
+*/
+
+.tarea {
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.boton {
+    border: 1px solid gray;
+}
+
+.txt_field {
+    border-bottom: 2px solid #616161;
+}
+
+.txt_field input, .txt_field textarea {
+    border: none;
+}
+
+.circulo {
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+/*
+    COLORES
+*/
+.tarea {
+    background-color: #a9a0a0;
+    color:black;
+}
+
+.boton {
+    background-color: rgba(77, 73, 73, 0.5);
+    color:white;
+}
+
+.eliminar {
+    background-color: rgba(221, 7, 7, .6);
+}
+
+.txt_field input, .txt_field textarea {
+    background: none;
+}
+
+.txt_field label {
+    color: #616161;
+}
+
+.txt_field .span::before {
+    background: grey;
+}
+
+.txt_field input:focus~label,
+.txt_field input:valid~label,
+.txt_field textarea:focus~label,
+.txt_field textarea:valid~label {
+    color: grey;
+}
+
+.circulo {
+    background-color: #813bff;
+    color:white;
+}

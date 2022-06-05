@@ -4,7 +4,8 @@
         <div *ngIf="editar">
             <div class="txt_field form-control mt-4">
                 <input type="text" required aria-label="Introducir nuevo nombre a la lista" name="nombreLista"
-                    #nombreLista id="nombreLista" value="{{lista.nombre}}" (keyup.enter)="actualizarNombre(nombreLista.value); nombreLista.value=''">
+                    #nombreLista id="nombreLista" value="{{lista.nombre}}"
+                    (keyup.enter)="actualizarNombre(nombreLista.value); nombreLista.value=''">
                 <span class="span"></span>
                 <label for="nombreLista" class="control-label required">Nombre de lista</label>
             </div>
@@ -45,9 +46,11 @@
             </div>
         </div>
     </div>
-    
 
-    <app-tarea (actualizar)="actualizarTarea($event)" [proyecto]="proyecto" [lista]="lista" [tarea]="tarea" *ngFor="let tarea of lista.tareas | prioridadFilter:filtro[0].valor:filtro[1].valor:filtro[2].valor:filtro[3].valor:filtro[4].valor"></app-tarea>
+
+    <app-tarea (actualizar)="actualizarTarea($event)" [proyecto]="proyecto" [lista]="lista" [tarea]="tarea"
+        *ngFor="let tarea of lista.tareas | prioridadFilter:filtro[0].valor:filtro[1].valor:filtro[2].valor:filtro[3].valor:filtro[4].valor">
+    </app-tarea>
 
 
 

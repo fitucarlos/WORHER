@@ -1,128 +1,153 @@
+/*
+    POSICIONAMIENTO Y TAMAÑO
+*/
+header {
+    font-size: 20px;
+}
 .navbar {
-    display:flex;
-    justify-content: space-between;
+   display:flex;
+   justify-content: space-between;
 }
 
 #menu-bar {
-    display:none;
+   display:none;
 }
+
 header label {
-    float:right;
-    font-size: 28px;
-    margin:6px;
-    cursor: pointer;
-    color: #813bff;
+   float:right;
+   font-size: 28px;
+   margin:6px;
+   cursor: pointer;
 }
 
 #logo_enlace {
-    margin-left: 1%;
+   margin-left: 1%;
 }
 
 .logo {
-    max-width: 70px;
+   max-width: 70px;
 }
 
 li {
-    margin:0;
+   margin:0;
 }
 
 .menu {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top:70px;
-    left: 0;
-    transition: all 0.5s;
-    transform: translateX(-100%);
-    list-style: none;
-    margin: 0;
-    padding:0;
-    z-index: 100000;
+   position: absolute;
+   width: 100%;
+   height: 100vh;
+   top:70px;
+   left: 0;
+   transition: all 0.5s;
+   transform: translateX(-100%);
+   list-style: none;
+   margin: 0;
+   padding:0;
+   z-index: 100000;
 }
 
 .menu a {
-    display: block;
-    color:inherit;
-    height: 50px;
-    text-decoration: none;
-    padding: 15px;
-    position:relative;
+   display: block;
+   height: 50px;
+   text-decoration: none;
+   padding: 15px;
+   position:relative;
 }
 
 li a::after {
-    content: '';
-    width: 100%;
-    height: 3px;
-    background-color: rgba(129, 59, 255,0.7);
-    border-radius: 4px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .5s ease;
+   content: '';
+   width: 100%;
+   height: 3px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   transform: scaleX(0);
+   transform-origin: left;
+   transition: transform .5s ease;
 }
 
 .menu a:hover::after{
-    transform: scaleX(1);
+   transform: scaleX(1);
 }
 #menu-bar:checked ~ .menu{
-    transform: translateX(0%);
+   transform: translateX(0%);
 }
 
 .active {
-    border-bottom: 5px solid rgba(129, 59, 255,0.7) ;
-    font-weight: bold;
+   font-weight: bold;
+   font-size: 1.5rem;
 }
-
-
 
 /******************************************************************************************
 ***************************************TABLET**********************************************
 ******************************************************************************************/
 @media(min-width:640px){
-    .menu a {
-        text-align: center;
-    }
+   .menu a {
+       text-align: center;
+   }
 }
-
-
 
 /******************************************************************************************
 **************************************DESKTOP**********************************************
 ******************************************************************************************/
 @media(min-width:1224px){
-    .menu{
-        position:static;
-        width: 30%;
-        height: auto;
-        float:right;
-        display: flex;
-        justify-content: space-around;
-        transform: translateX(0%);
-    }
+   .menu{
+       position:static;
+       width: 30%;
+       height: auto;
+       float:right;
+       display: flex;
+       justify-content: space-around;
+       transform: translateX(0%);
+   }
 
-    .menu a {
-        text-align: left;
-    }
+   .menu a {
+       text-align: left;
+   }
 
-    header label, #menu-bar {
-        display:none;
-    }
+   header label, #menu-bar {
+       display:none;
+   }
+}
 
-    .active {
-        border-bottom: 5px solid rgba(129, 59, 255,0.7) ;
-        font-weight: bold;
-    }
+
+
+
+/*
+   BORDES
+*/
+
+li a::after {
+   border-radius: 4px;
 }
 
 
 /*
-    COLORES
+   COLORES
 */
 
 header {
-    background-color: rgba(165, 136, 219, 0.7);
-    color:black;
-    font-size: 20px;
+   background-color: rgba(165, 136, 219, 0.7);;
+}
+
+.menu {
+   background: linear-gradient(to bottom, #c0abe5, rgb(77,73,73) );
+   color:black;
+}
+
+.menu a {
+   color:inherit;
+}
+
+li a::after {
+   background-color: black;
+}
+
+/******************************************************************************************
+**************************************DESKTOP**********************************************
+******************************************************************************************/
+@media(min-width:1224px){
+   .menu{
+       background:transparent;
+   }
 }

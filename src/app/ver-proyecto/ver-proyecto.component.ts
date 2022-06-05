@@ -19,9 +19,11 @@ export class VerProyectoComponent implements OnInit {
   tareas: any[] = []
   edicion: boolean = false;
   filtro: any[] = [];
+  actualizar:boolean=false;
+  
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
-   // let interval = window.setInterval(() => { this.cargarDatos() }, 10000)
+    let interval = window.setInterval(() => { this.cargarDatos() }, 10000)
   }
 
   ngOnInit(): void {
@@ -43,6 +45,7 @@ export class VerProyectoComponent implements OnInit {
 
     window.addEventListener("resize", function () {
       let pantalla = window.innerWidth;
+
       if (pantalla >= 1224) {
         VerProyectoComponent.escritorio = true;
       }
@@ -50,6 +53,7 @@ export class VerProyectoComponent implements OnInit {
         VerProyectoComponent.escritorio = false;
       }
     });
+
 
     this.filtro = [
       {
@@ -81,9 +85,10 @@ export class VerProyectoComponent implements OnInit {
   }
 
   isActualizar(actualizar: boolean) {
-    if (actualizar) {
+    if (actualizar) {      
       this.cargarDatos();
-    }
+    } 
+    this.actualizar = actualizar;
   }
 
   mostrarChat() {
@@ -99,41 +104,46 @@ export class VerProyectoComponent implements OnInit {
   }
 
   cargarDatos() {
-    this.bbddProyectos.getProyectoById(this.id).subscribe(
-      (datos: any) => {
-        this.bbddProyectos.noCargar();
-        let distinto = false;
-        if (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length) {
-          distinto = true;
-        } else {
-          for (let i = 0; i < datos.listas.length && !distinto; i++) {
-            if (datos.listas[i].nombre != this.proyecto.listas[i].nombre || 
-              datos.listas[i].id != this.proyecto.listas[i].id || 
-              datos.listas[i].tareas.length != this.proyecto.listas[i].tareas.length) {
-              distinto = true;
-            }
-            else {
-              for (let j = 0; j < datos.listas[i].tareas.length && !distinto; j++) {
-                if (datos.listas[i].tareas[j].id != this.proyecto.listas[i].tareas[j].id || 
-                  datos.listas[i].tareas[j].nombre != this.proyecto.listas[i].tareas[j].nombre || 
-                  datos.listas[i].tareas[j].dificultad != this.proyecto.listas[i].tareas[j].dificultad || 
-                  datos.listas[i].tareas[j].prioridad != this.proyecto.listas[i].tareas[j].prioridad || 
-                  datos.listas[i].tareas[j].descripcion != this.proyecto.listas[i].tareas[j].descripcion) {
-                  distinto = true;
+    if(this.actualizar){
+      this.bbddProyectos.getProyectoById(this.id).subscribe(
+        (datos: any) => {
+          this.actualizar = false;
+          this.bbddProyectos.noCargar();
+          let distinto = false;
+          if (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length) {
+            distinto = true;
+          } else {
+            for (let i = 0; i < datos.listas.length && !distinto; i++) {
+              if (datos.listas[i].nombre != this.proyecto.listas[i].nombre || 
+                datos.listas[i].id != this.proyecto.listas[i].id || 
+                datos.listas[i].tareas.length != this.proyecto.listas[i].tareas.length) {
+                distinto = true;
+              }
+              else {
+                for (let j = 0; j < datos.listas[i].tareas.length && !distinto; j++) {
+                  if (datos.listas[i].tareas[j].id != this.proyecto.listas[i].tareas[j].id || 
+                    datos.listas[i].tareas[j].nombre != this.proyecto.listas[i].tareas[j].nombre || 
+                    datos.listas[i].tareas[j].dificultad != this.proyecto.listas[i].tareas[j].dificultad || 
+                    datos.listas[i].tareas[j].prioridad != this.proyecto.listas[i].tareas[j].prioridad || 
+                    datos.listas[i].tareas[j].descripcion != this.proyecto.listas[i].tareas[j].descripcion ||
+                    datos.listas[i].tareas[j].usuarios.length != this.proyecto.listas[i].tareas[j].usuarios.length) {
+                    distinto = true;
+                  }
                 }
               }
             }
           }
+          if (distinto) {
+            this.proyecto = datos;
+          } else {
+          }
+        }, (error) => {
+          Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
+          this.route.navigate(['/error']);
         }
-        if (distinto) {
-          this.proyecto = datos;
-        } else {
-        }
-      }, (error) => {
-        Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
-        this.route.navigate(['/error']);
-      }
-    )
+      )
+      
+    }
   }
 
   isCargando() {
@@ -159,8 +169,16 @@ export class VerProyectoComponent implements OnInit {
 
   addLista(nombre: string) {
     if (nombre == "") nombre = "(Sin nombre)";
-    this.bbddProyectos.addLista(this.proyecto.id, nombre);
     this.bbddProyectos.cargar()
+    this.actualizar = true;
+    this.bbddProyectos.addLista(this.proyecto.id, nombre).subscribe(
+      (respuesta) => {
+        this.cargarDatos();
+      }, (error) => {
+        Swal.fire("ERROR", "Error al crear la lista", "error");
+      }
+    )
+    
   }
 
   getTareasListaMover(original: string, tarea: any, lista: any, boton: any) {
@@ -275,6 +293,61 @@ export class VerProyectoComponent implements OnInit {
     iniciales=usuario.nombre[0]+usuario.apellido[0];
     iniciales = iniciales.toUpperCase();
     return iniciales;
+  }
+
+  buscarMiembro(email: any) {
+    let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+    if (email.value == '') {
+      Swal.fire('Aviso', 'No ha introducido ningún email en el buscador. Por favor, introduzca un email registrado en Worher para añadir al usuario al proyecto.', 'warning')
+    } else if (!expReg.test(email.value)) {
+      Swal.fire('ERROR', 'No ha introducido un email válido en el buscador. Por favor, introduzca un email registrado en Worher para añadir al usuario al proyecto.', 'error')
+      email.value = '';
+      email.focus();
+    } else {
+      let datos = this.bbddProyectos.buscarMiembro(email.value).subscribe(
+        (m: any) => {
+          let encontrado: boolean = false;
+          for (let i = 0; i < this.proyecto.usuarios.length && !encontrado; i++) {
+            if (this.proyecto.usuarios[i].id == m[0].id) encontrado = true;
+            
+          }
+          if (!encontrado) this.proyecto.usuarios.push(m[0]);
+          email.value = '';
+        }, (error) => {
+          Swal.fire('ERROR', 'El email introducido no está registrado en Worher', 'error');
+          email.value = '';
+          email.focus();
+        }
+      )
+
+    }
+
+  }
+
+  quitarMiembro(miembro: any) {
+    let encontrado: boolean = false;
+    let indice: number = -1;
+    for (let i = 0; i < this.proyecto.usuarios.length && !encontrado; i++) {
+      if (this.proyecto.usuarios[i] == miembro) {
+        encontrado = true;
+        indice = i;
+      }
+    }
+
+    if (indice != -1) this.proyecto.usuarios.splice(indice, 1);
+    
+
+  }
+
+  addMiembro(){
+    this.cargando = true;
+    this.proyecto.usuarios.forEach((u: { id: number; }) => {
+      this.bbddProyectos.addUsuarioProyecto(this.proyecto.id, u.id)
+    });
+  }
+
+  hayProyecto(){
+    return (this.proyecto)?true:false;
   }
 
 
