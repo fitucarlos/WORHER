@@ -141,7 +141,7 @@
                                 *ngIf="errores && (nuevaListaId.value == '-1' || (original.value != '-1' && nuevaListaId.value==original.value))">*</span>
                         </label>
                         <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId disabled
-                            (change)="validarForm(original.value, nuevaListaId.value)">
+                            (change)="validarForm()">
                             <option value="-1">Selecciona una lista</option>
                             <option *ngFor="let r of getListas()" value="{{r.id}}">{{r.nombre}}</option>
                         </select>

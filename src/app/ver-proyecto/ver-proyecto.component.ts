@@ -363,8 +363,7 @@ export class VerProyectoComponent implements OnInit {
     Swal.fire("Atención", "Debe seleccionar una lista distinta a la original", "warning")
   }
   
-  validarForm(original:string, nueva:string){
-    if(original == nueva) this.crearErroresListasIguales();
+  validarForm(){
   }
 
 
