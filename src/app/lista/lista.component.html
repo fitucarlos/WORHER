@@ -1,6 +1,6 @@
 <div class="tarjeta container" id="lista{{lista.id}}">
     <div class="row">
-        <h3 (click)="renombrarLista()" *ngIf="!editar" id="nombre" class="col-11">{{lista.nombre}}</h3>
+        <h3 (click)="renombrarLista()" *ngIf="!editar" id="nombre" class="col-10">{{lista.nombre}}</h3>
         <div *ngIf="editar">
             <div class="txt_field form-control mt-4">
                 <input type="text" required aria-label="Introducir nuevo nombre a la lista" name="nombreLista"
@@ -24,26 +24,27 @@
                 </svg> Cancelar
             </button>
         </div>
-        <button class="col-1 btn pe-0 ps-0 " *ngIf="!editar" (click)="mostrarMenu()">
-            <svg xmlns="http://www.w3.org/2000/svg" *ngIf="!menu" width="20" height="20" fill="currentColor"
-                class="bi bi-three-dots" viewBox="0 0 16 16">
-                <path
-                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-            </svg>
-            <svg *ngIf="menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
-                <path fill-rule="evenodd"
-                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
-            </svg>
-        </button>
-        <div class="container" *ngIf="menu">
+        <div class="dropdown col-2 pe-1 ps-0">
+            <button class="btn dropbtn" *ngIf="!editar" (click)="mostrarMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" *ngIf="!menu" width="20" height="20" fill="currentColor"
+                    class="bi bi-three-dots" viewBox="0 0 16 16">
+                    <path
+                        d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                </svg>
+                <svg *ngIf="menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                    <path fill-rule="evenodd"
+                        d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                </svg>
+            </button>
             <div class="dropdown-content row">
                 <button class="btn col-12" *ngIf="!editar" (click)="renombrarLista()">Renombrar lista</button>
                 <button class="btn col-12 disabled" *ngIf="editar" (click)="renombrarLista()">Renombrar lista</button>
                 <button class="btn col-12" (click)="borrarLista()">Borrar lista</button>
             </div>
+
         </div>
     </div>
 

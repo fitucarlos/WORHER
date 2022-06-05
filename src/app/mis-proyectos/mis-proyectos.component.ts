@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { switchAll } from 'rxjs';
 import swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 

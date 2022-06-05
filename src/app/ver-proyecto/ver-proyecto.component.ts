@@ -106,13 +106,12 @@ export class VerProyectoComponent implements OnInit {
   }
 
   cargarDatos() {
-    if(this.actualizar){
       this.bbddProyectos.getProyectoById(this.id).subscribe(
         (datos: any) => {
           this.actualizar = false;
           this.bbddProyectos.noCargar();
           let distinto = false;
-          if (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length) {
+          if (this.actualizar || (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length)) {
             distinto = true;
           } else {
             for (let i = 0; i < datos.listas.length && !distinto; i++) {
@@ -145,7 +144,7 @@ export class VerProyectoComponent implements OnInit {
         }
       )
       
-    }
+    
   }
 
   isCargando() {

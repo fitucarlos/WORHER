@@ -37,7 +37,7 @@
   <button type="button" *ngIf="nombreEditar.value.trim()==''" class="btn boton mt-2 mb-1" 
                     (click)="crearErrores()"
                     #botonEditar>Guardar cambios</button>
-  <button type="button" class="btn btn-danger boton mt-1 mb-2"
+  <button type="button" class="btn eliminar boton mt-1 mb-2"
                     (click)="cancelarEdicion(nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar)"
                     #botonEditar>Cancelar</button>
   </ng-template>

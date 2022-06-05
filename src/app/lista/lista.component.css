@@ -30,12 +30,12 @@
 }
 
 .dropdown-content {
-    display: block;
+    display: none;
     position: absolute;
     width: 200px;
     top: 40px;
     right: 20px;
-    z-index: 10000;
+    z-index: 1;
 }
 
 .dropdown-content button {
@@ -45,6 +45,10 @@
 
 .dropdown-content button:hover {
     font-weight: bolder;
+}
+
+.dropdown:hover .dropdown-content {
+    display:block;
 }
 
 .txt_field {
@@ -203,3 +207,4 @@
     background: rgba(123, 117, 117, 0.6);
     color:white;
 }
+
