@@ -15,6 +15,7 @@ export class TareaComponent implements OnInit {
 
   editando:boolean = false;
   asignando:boolean = false;
+  errores:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
@@ -54,9 +55,10 @@ export class TareaComponent implements OnInit {
      }, (error)=>{
        Swal.fire("ERROR", "Error al eliminar la tarea", "error");
      }
-   );
+     );
+     this.bbddProyectos.cargar();
+     this.actualizar.emit(true);
    
-   this.actualizar.emit(true);
   }
 
   buscarMiembro(email:any){
@@ -125,6 +127,7 @@ export class TareaComponent implements OnInit {
   }
   
   editar(nombre:string, prioridad:string, dificultad:string, descripcion:string){
+    this.errores = false;
     this.bbddProyectos.editarTarea(this.tarea.id, nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
     this.bbddProyectos.cargar();
     this.cambiarEditando();
@@ -158,6 +161,15 @@ export class TareaComponent implements OnInit {
     this.tarea.usuarios.forEach((u: { id: number; }) => {
       this.bbddProyectos.addUsuarioTarea(this.tarea.id, u.id)
     });
+  }
+
+  crearErrores(){
+    this.errores = true;
+    Swal.fire("Atención", "Debe completar los campos obligatorios", "warning")
+  }
+
+  validarForm(){
+    
   }
   
   

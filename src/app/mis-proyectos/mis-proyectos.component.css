@@ -118,7 +118,7 @@ h1 {
 }
 
 .txt_field label {
-    color: #616161;
+    color: black;
 }
 
 .txt_field .span::before {
@@ -127,10 +127,14 @@ h1 {
 
 .txt_field input:focus~label,
 .txt_field input:valid~label {
-    color: grey;
+    color: black;
 }
 
 .proyectos {
     color:black;
     background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
+}
+
+.obligatorio {
+    color:rgb(221, 7, 7);
 }

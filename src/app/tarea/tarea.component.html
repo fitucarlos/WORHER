@@ -3,10 +3,12 @@
 
   <ng-template #thenBlock>
     <div class="txt_field form-control mt-4">
-      <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar
+      <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar (keyup)="validarForm()"
           id="nombreEditar" value="{{tarea.nombre}}">
       <span class="span"></span>
-      <label for="nombreEditar" class="control-label required">Nombre de tarea</label>
+      <label for="nombreEditar" class="control-label required">Nombre de tarea
+        <span class='obligatorio' *ngIf="errores && nombreEditar.value.trim() == ''">*</span>
+      </label>
   </div>
   <label for="dificultadEditar">Dificultad</label>
   <select name="dificultadEditar" id="dificultadEditar" class="form-select" #dificultadEditar value="{{tarea.dificultad}}">
@@ -29,8 +31,11 @@
       <span class="span"></span>
       <label for="descripcionEditar" class="control-label required">Descripción de tarea</label>
   </div>
-  <button type="button" class="btn boton mt-2 mb-1" 
+  <button type="button" *ngIf="nombreEditar.value.trim()!=''" class="btn boton mt-2 mb-1" 
                     (click)="editar(nombreEditar.value, prioridadEditar.value, dificultadEditar.value, descripcionEditar.value)"
+                    #botonEditar>Guardar cambios</button>
+  <button type="button" *ngIf="nombreEditar.value.trim()==''" class="btn boton mt-2 mb-1" 
+                    (click)="crearErrores()"
                     #botonEditar>Guardar cambios</button>
   <button type="button" class="btn btn-danger boton mt-1 mb-2"
                     (click)="cancelarEdicion(nombreEditar, prioridadEditar, dificultadEditar, descripcionEditar)"

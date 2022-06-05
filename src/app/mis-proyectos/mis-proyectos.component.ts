@@ -31,6 +31,7 @@ export class MisProyectosComponent implements OnInit {
   isModoCrear() { return this.modoCrear; }
 
   addProyecto(nombre: string) {
+    if(nombre.trim()=='') nombre = '(Proyecto sin nombre)';
     this.bbddProyectos.addProyecto(nombre, this.miembros);
   }
 

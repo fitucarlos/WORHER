@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
@@ -20,6 +21,7 @@ export class VerProyectoComponent implements OnInit {
   edicion: boolean = false;
   filtro: any[] = [];
   actualizar:boolean=false;
+  errores: boolean = false;
   
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
@@ -181,7 +183,7 @@ export class VerProyectoComponent implements OnInit {
     
   }
 
-  getTareasListaMover(original: string, tarea: any, lista: any, boton: any) {
+  getTareasListaMover(original: string, tarea: any, lista: any) {
     if (original != '-1') {
       let listaId = parseInt(original);
       for (let i = 0; i < this.proyecto.listas.length; i++) {
@@ -198,34 +200,32 @@ export class VerProyectoComponent implements OnInit {
       tarea.disabled = true;
       lista.value = '-1';
       lista.disabled = true;
-      boton.disabled = true;
     }
   }
 
-  habilitarResto(tarea: string, lista: any, boton: any) {
+  habilitarResto(tarea: string, lista: any) {
     if (tarea != '-1') {
       lista.disabled = false;
     }
     else {
       lista.value = '-1';
       lista.disabled = true;
-      boton.disabled = true;
-    }
-  }
-
-  habilitarBoton(lista: string, original: string, boton: any) {
-    if (lista != '-1' && lista != original) {
-      boton.disabled = false;
-    } else {
-      boton.disabled = true;
     }
   }
 
   moverTarea(tareaId: string, listaId: string, original: string) {
+    this.errores = false;
     let idLista = parseInt(listaId);
     let idTarea = parseInt(tareaId);
-    this.bbddProyectos.moverTarea(idTarea, idLista);
     this.bbddProyectos.cargar();
+    this.actualizar= true;
+    this.bbddProyectos.moverTarea(idTarea, idLista).subscribe(
+      (respuesta)=>{
+        this.cargarDatos();
+      }, (error)=>{
+        Swal.fire('ERROR', "Error al mover la tarea", 'error');
+      }
+    );
   }
 
   getListas() {
@@ -243,16 +243,19 @@ export class VerProyectoComponent implements OnInit {
   }
 
   crearTarea(modal: any, lista: string, nombre: string, descripcion: string, dificultad: string, prioridad: string) {
+    this.errores=false;
     if (nombre == '') {
       Swal.fire("Atención", "Debes introducir un nombre para la tarea", "warning");
     } else {
       let dif: number = parseInt(dificultad);
       let prio: number = parseInt(prioridad);
-      this.cargando = true;
+      this.bbddProyectos.cargar();
+      this.actualizar= true;
       this.bbddProyectos.addTarea(parseInt(lista), nombre, descripcion, parseInt(dificultad), parseInt(prioridad)).subscribe(
         (respuesta) => {
           this.cargarDatos();
         }, (error) => {
+          this.bbddProyectos.noCargar();
           Swal.fire("ERROR", "Error al crear la tarea", "error");
         }
       )
@@ -350,7 +353,19 @@ export class VerProyectoComponent implements OnInit {
     return (this.proyecto)?true:false;
   }
 
+  crearErrores(){
+    this.errores = true;
+    Swal.fire("Atención", "Debe completar los campos obligatorios", "warning")
+  }
 
+  crearErroresListasIguales(){
+    this.errores = true;
+    Swal.fire("Atención", "Debe seleccionar una lista distinta a la original", "warning")
+  }
+  
+  validarForm(original:string, nueva:string){
+    if(original == nueva) this.crearErroresListasIguales();
+  }
 
 
 

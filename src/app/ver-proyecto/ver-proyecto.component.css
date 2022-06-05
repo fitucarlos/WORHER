@@ -283,3 +283,7 @@ h1::first-letter, li::first-letter {
 .eliminar {
     background-color: rgba(221, 7, 7, .6);
 }
+
+.obligatorio {
+    color:rgb(221, 7, 7);
+}

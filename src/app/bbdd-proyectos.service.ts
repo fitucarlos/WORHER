@@ -177,13 +177,7 @@ export class BbddProyectosService {
   }
 
   moverTarea(idTarea:number, idLista:number){
-    this.http.get(this.url+'proyecto/change_tarea/'+idTarea+'/'+idLista).subscribe(
-      ()=>{
-
-      }, (error)=>{
-        Swal.fire('ERROR', "Error al mover la tarea", 'error');
-      }
-    );
+    return this.http.get(this.url+'proyecto/change_tarea/'+idTarea+'/'+idLista)
   }
 
   editarTarea(id: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {

@@ -172,10 +172,14 @@ details summary > * {
 .txt_field input:valid~label,
 .txt_field textarea:focus~label,
 .txt_field textarea:valid~label {
-    color: grey;
+    color: black;
 }
 
 .circulo {
     background-color: #813bff;
     color:white;
+}
+
+.obligatorio {
+    color:rgb(221, 7, 7);
 }
