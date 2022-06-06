@@ -10,7 +10,7 @@ export class BbddProyectosService {
   private url: string = "/api/";
   private proyectos: any[] = [];
   private cargando: boolean = true;
-  private usuarioId:number = 1;
+  private usuarioId:any
   private filtro:any[] = [
     {
       prioridad: 1,
@@ -35,19 +35,13 @@ export class BbddProyectosService {
   ]
 
   constructor(private http: HttpClient) {
-    this.http.get(this.url + 'proyectos/' + this.usuarioId).subscribe(
-      (respuesta: any) => {
-        this.proyectos = respuesta;
-        this.noCargar();
-      }, (error)=>{
-        Swal.fire('ERROR', 'Se ha producido un error al cargar los proyectos', 'error');
-      }
-    );
+    if(sessionStorage.getItem('id')){
+      this.usuarioId = sessionStorage.getItem('id');  
+      this.cargarDatos();
+    }
   }
 
-  setUsuarioId(id:number){
-    this.usuarioId = id;
-  }
+ 
 
   isCargando() { return this.cargando }
 

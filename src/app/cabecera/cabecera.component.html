@@ -7,9 +7,13 @@
           <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
         </svg>
       </label>
-      <ul class="menu">
+      <ul class="menu" *ngIf="!isLoggedIn">
+        <li><a href="#" routerLinkActive="active" routerLink="registro">Registro</a></li>
+        <li><a href="#" routerLinkActive="active" routerLink="login">Login</a></li>
+    </ul>
+      <ul class="menu" *ngIf="isLoggedIn">
           <li><a href="#" routerLink="inicio" routerLinkActive="active">Mis proyectos</a></li>
-          <li><a href="#" routerLinkActive="active">Cerrar sesión</a></li>
+          <li><a href="#" routerLinkActive="active" (click)="logout()">Cerrar sesión</a></li>
       </ul>
   </nav>        
 </header>

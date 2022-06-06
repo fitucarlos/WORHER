@@ -17,6 +17,10 @@ import { TareaComponent } from './tarea/tarea.component';
 import { PrioridadFilterPipe } from './prioridad-filter.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegistroComponent } from './registro/registro.component';
+import { HomeComponent } from './home/home.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 @NgModule({
@@ -32,6 +36,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChatComponent,
     ListaComponent,
     TareaComponent,
+    LoginComponent,
+    RegistroComponent,
+    HomeComponent,
+    PerfilComponent,
     PrioridadFilterPipe
   ],
   imports: [

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from '../servicios/token-storage.service';
 
 @Component({
   selector: 'app-cabecera',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cabecera.component.css']
 })
 export class CabeceraComponent implements OnInit {
+  isLoggedIn = false;
+  email? : string;
+  
 
-  constructor() { }
+  constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    console.log(this.isLoggedIn)
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.email = user.email;
+    }
   }
 
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
 }
