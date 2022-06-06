@@ -405,42 +405,5 @@ class ProyectoController extends AbstractFOSRestController{
       $em->flush();
    }
 
-/**
-     * @Rest\Get(path="/proyecto/session/{id}")
-     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
-     */
-
-    public function session(
-      int $id
-   ){
-      session_start();
-
-      $_SESSION['id'] = $id;
-
-   }
-/**
-     * @Rest\Get(path="/proyecto/get_session")
-     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
-     */
-
-    public function getSession(
-      int $id
-   ){
-      return $_SESSION['id'];
-
-   }
-/**
-     * @Rest\Get(path="/proyecto/destroy_session")
-     * @Rest\View(serializerGroups={"proyecto"}, serializerEnableMaxDepthChecks=true)
-     */
-
-    public function destroySession(
-      int $id
-   ){
-      session_destroy();
-
-   }
- 
-
 }
    
