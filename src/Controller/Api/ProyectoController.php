@@ -157,6 +157,7 @@ class ProyectoController extends AbstractFOSRestController{
         public function removeListaActions(
          int $id,
          TareaRepository $tareaRepository,
+         EntityManagerInterface $em,
          ListaRepository $listaRepository
          ){
          $lista = $listaRepository->find($id);
@@ -164,12 +165,19 @@ class ProyectoController extends AbstractFOSRestController{
          throw $this->createNotFoundException('Esta lista no existe');
       }
       else{
-         if(count($lista->getTareas())>0){
-         foreach($lista->getTareas() as $tarea);{
-            if($tarea) $tareaRepository->remove($tarea);
+         if(count($lista->getTareas()) >= 0){
+            $tareas = $lista->getTareas();
+            $i = 0;
+            if($tareas){
+               while(count($tareas)>0){
+                  $tareaRepository->remove($tareas[$i]);
+                  $i++;
+               }
+               $listaRepository->remove($lista);
+               $em->persist($lista);
+               $em->flush();
+            }
          }
-      }
-         $listaRepository->remove($lista);
       }
       }
 
