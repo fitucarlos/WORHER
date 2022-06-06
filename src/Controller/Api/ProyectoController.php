@@ -174,8 +174,6 @@ class ProyectoController extends AbstractFOSRestController{
                   $i++;
                }
                $listaRepository->remove($lista);
-               $em->persist($lista);
-               $em->flush();
             }
          }
       }
