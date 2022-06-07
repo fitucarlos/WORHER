@@ -7,7 +7,7 @@ Instrucciones cómo usar API de Worher
 
 Method = POST
 
-  url = http://localhost:8000/api/proyecto
+  url = http://localhost:8000/api/proyecto/{ id de usuario}
   body = {
           "nombre":"Nombre proyecto"
          }
@@ -151,7 +151,7 @@ Method = POST
 
 Method = GET
 
-  url = http://localhost:8000/api/proyectos
+  url = http://localhost:8000/api/proyectos/{ id de usuario}
 
 
 #########################################################################
@@ -162,7 +162,7 @@ Method = GET
 
 Method = GET
 
-  url = http://localhost:8000/api/proyecto/{ id de proyecto }
+  url = http://localhost:8000/api/proyecto/{ id de proyecto }/{ id de usuario}
 
 
 #########################################################################
@@ -218,3 +218,44 @@ Method = GET
 Method = GET
 
   url = http://localhost:8000/api/proyecto/change_tarea/{ id de tarea}/{ id nueva lista}
+
+
+
+#########################################################################
+          
+                            ##################
+                            Abandonar proyecto
+                            ##################
+
+Method = GET
+
+  url = http://localhost:8000/api/proyecto/exit_proyecto/{ id de proyecto }/{ id de usuario }
+
+
+
+
+
+#########################################################################
+          
+                            #####################
+                            Añadir usuario a tarea
+                            #####################
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/add_user_tarea/{ id de tarea }/{ id de usuario }
+
+
+
+
+#########################################################################
+          
+                            #####################
+                            Eliminar usuario de tarea
+                            #####################
+
+Method = POST
+
+  url = http://localhost:8000/api/proyecto/remove_user_tarea/{ id de tarea }/{ id de usuario }
+
+
