@@ -50,64 +50,9 @@ details summary > * {
 
 .boton {
     width: 100%;
-    margin:1%;
-    font-weight: bold;
 }
 
-.txt_field {
-    position: relative;
-}
 
-.txt_field input, .txt_field textarea {
-    width: 100%;
-    padding: 0 5px;
-    height: 28px;
-    font-size: 16px;
-    outline: none;
-}
-
-.txt_field label {
-    position: absolute;
-    top: 60%;
-    left: 5px;
-    transform: translateY(-70%);
-    font-size: 16px;
-    pointer-events: none;
-    transition: .5s;
-}
-
-.txt_field .span::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 0%;
-    height: 0;
-    transition: .5s;
-}
-
-.txt_field input:focus~label,
-.txt_field input:valid~label,
-.txt_field textarea:focus~label,
-.txt_field textarea:valid~label {
-    top: -5px;
-}
-
-.txt_field input:focus~.span::before,
-.txt_field input:valid~.span::before,
-.txt_field textarea:focus~.span::before,
-.txt_field textarea:valid~.span::before {
-    width: 100%;
-}
-
-.circulo {
-    font-weight: bold;
-    width: 35px;
-    padding: 2%;
-    text-align: center;
-    height: 35px;
-    margin-bottom: 2%;
-}
 
 .nombres span {
     margin:auto 10px;
@@ -122,77 +67,15 @@ details summary > * {
     border-radius: 15px;
 }
 
-.boton {
-    border: 1px solid gray;
-}
 
-.txt_field {
-    border-bottom: 2px solid #616161;
-}
 
-.txt_field input, .txt_field textarea {
-    border: none;
-}
 
-.circulo {
-    border-radius: 50%;
-    border: 1px solid black;
-}
 
 /*
     COLORES
 */
 .tarea {
-    background-color: #a9a0a0;
+    background-color: rgba(255,255,255, .7);
     color:black;
 }
 
-.boton {
-    background-color: rgba(77, 73, 73, 0.5);
-    color:white;
-}
-
-.eliminar {
-    background-color: rgba(221, 7, 7, .6);
-}
-
-.txt_field input, .txt_field textarea {
-    background: none;
-}
-
-.txt_field label {
-    color: #616161;
-}
-
-.txt_field .span::before {
-    background: grey;
-}
-
-.txt_field input:focus~label,
-.txt_field input:valid~label,
-.txt_field textarea:focus~label,
-.txt_field textarea:valid~label {
-    color: black;
-}
-
-.circulo {
-    background-color: #813bff;
-    color:white;
-}
-
-.obligatorio {
-    color:rgb(221, 7, 7);
-}
-
-.boton:hover {
-    background-color: rgb(245, 239, 239);
-    color:black;
-    transition:all .3s;
-    box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.75);
-    outline:3px solid black;
-}
-
-.eliminar:hover {
-    background-color: rgb(245, 239, 239);
-    color: rgb(221,7,7);
-}

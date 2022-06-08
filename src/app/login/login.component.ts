@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 import { AuthService } from '../servicios/auth.service';
 import { TokenStorageService } from '../servicios/token-storage.service';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,10 +33,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: data => {
         this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        sessionStorage.setItem('id', data.id);
+        let enc = CryptoJS.AES.encrypt((data.id).toString(), 'id').toString();
+        sessionStorage.setItem('id', enc);
+        this.service.setUsuarioId(data.id)
         this.service.cargarDatos();
         this.route.navigate(['/inicio']);
       },

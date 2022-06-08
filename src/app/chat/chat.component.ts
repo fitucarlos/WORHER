@@ -13,7 +13,7 @@ export class ChatComponent implements OnInit {
   actualizar:boolean = false;
 
   constructor(private bbddProyectos: BbddProyectosService, private route:Router) {
-    window.setInterval(() => { this.recargarProyecto() }, 10000)
+    //window.setInterval(() => { this.recargarProyecto() }, 1000)
     
     
   }
@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit {
         (respuesta) => {
           this.proyecto = respuesta;
           this.actualizar = true;
-          this.bajarScroll();
+          this.recargarProyecto();
 
         }, (error)=>{
           Swal.fire('ERROR', 'Error al enviar el mensaje', 'error');

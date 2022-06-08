@@ -1,7 +1,7 @@
+<app-cabecera></app-cabecera>
 <div class="col-md-4 contenedor">
     <div class="card card-container p-4">
-        <img id="profile-img" src="../../assets/img/worher.png" class="profile-img-card" />
-        <!-- //ssl.gstatic.com/accounts/ui/avatar_2x.png -->
+        <img id="profile-img" src="assets/images/logo.png" class="profile-img-card" />
         <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 
             <div class="form-group">
@@ -36,3 +36,4 @@
         </div>
     </div>
 </div>
+<app-footer></app-footer>

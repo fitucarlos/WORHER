@@ -25,7 +25,7 @@ export class VerProyectoComponent implements OnInit {
   
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
-    let interval = window.setInterval(() => { this.cargarDatos() }, 10000)
+   // let interval = window.setInterval(() => { this.cargarDatos() }, 60000)
   }
 
   ngOnInit(): void {
@@ -108,7 +108,7 @@ export class VerProyectoComponent implements OnInit {
   cargarDatos() {
       this.bbddProyectos.getProyectoById(this.id).subscribe(
         (datos: any) => {
-          this.actualizar = false;
+          
           this.bbddProyectos.noCargar();
           let distinto = false;
           if (this.actualizar || (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length)) {
@@ -136,8 +136,8 @@ export class VerProyectoComponent implements OnInit {
           }
           if (distinto) {
             this.proyecto = datos;
-          } else {
-          }
+          } 
+          this.actualizar = false;
         }, (error) => {
           Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
           this.route.navigate(['/error']);

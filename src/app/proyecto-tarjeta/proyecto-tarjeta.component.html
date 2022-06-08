@@ -7,22 +7,18 @@
             <span class="span"></span>
             <label for="nombreProyecto" class="control-label required">Nombre de proyecto</label>
         </div>
-        <button class="btn boton guardar" (click)="actualizarNombre(nombreProyecto.value); nombreProyecto.value=''">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
-                viewBox="0 0 16 16">
-                <path
-                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-            </svg> Guardar
-        </button>
-        <button class="btn boton cancelar" (click)="noActualizar()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
-                viewBox="0 0 16 16">
-                <path
-                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg> Cancelar
-        </button>
+        <button class="btn boton editar" (click)="actualizarNombre(nombreProyecto.value); nombreProyecto.value=''"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+            viewBox="0 0 16 16">
+            <path
+                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </svg> Guardar</button>
+        <button class="btn boton editar eliminar" (click)="noActualizar()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+            viewBox="0 0 16 16">
+            <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg> Cancelar</button>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!editando">
         <div class="col-6">
 
             <a class="col-12 boton btn" [routerLink]="['/proyecto', p.id]">Ver proyecto</a>
@@ -48,7 +44,11 @@
                     </div>
                     <div class="usuario  row" *ngIf="p.usuarios.length>3">
                         <div class="circulo otro pb-4 col-2">
-                            <img src="assets/images/grupo.svg" width="25px" height="25px"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                              </svg>
                         </div>
                         <p class="col-9"><i>Participantes: {{p.usuarios.length}}</i></p>
                     </div>

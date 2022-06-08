@@ -9,14 +9,14 @@
                 <span class="span"></span>
                 <label for="nombreLista" class="control-label required">Nombre de lista</label>
             </div>
-            <button class="btn boton guardar" (click)="actualizarNombre(nombreLista.value); nombreLista.value=''">
+            <button class="btn boton" (click)="actualizarNombre(nombreLista.value); nombreLista.value=''">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
                     viewBox="0 0 16 16">
                     <path
                         d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                 </svg> Guardar
             </button>
-            <button class="btn boton cancelar" (click)="noActualizar()">
+            <button class="btn boton eliminar" (click)="noActualizar()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
                     viewBox="0 0 16 16">
                     <path
@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="dropdown col-2 pe-1 ps-0">
-            <button class="btn dropbtn" *ngIf="!editar" (click)="mostrarMenu()">
+            <button class="btn dropbtn" *ngIf="!editar" >
                 <svg xmlns="http://www.w3.org/2000/svg" *ngIf="!menu" width="20" height="20" fill="currentColor"
                     class="bi bi-three-dots" viewBox="0 0 16 16">
                     <path

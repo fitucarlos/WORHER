@@ -1,1 +1,148 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
+body {
+    background-image: url(assets/images/wave.svg);
+    background-repeat: no-repeat;
+    background-position:bottom;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.tarjeta {
+    background: rgba( 255, 255, 255, 0.7 );
+    box-shadow: 0 8px 20px 0 black;
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 20px;
+    border: 3px solid rgba( 255, 255, 255, 0.3 );
+    color:black;
+}
+
+.boton {
+    margin: 1%;
+    font-weight: bold;
+    width: 150px;
+    background-color: #813bff;
+    color:white;
+}
+
+.boton:hover {
+    background-color: white;
+    color:black;
+    transition:all .3s;
+    box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.75);
+    outline:3px solid black;
+}
+
+.eliminar {
+    background-color: rgb(221,7,7);
+}
+
+.eliminar:hover {
+    background-color: white;
+    color: rgb(221,7,7);
+}
+
+.obligatorio {
+    color:rgb(221, 7, 7);
+}
+
+.error {
+    font-size: .65rem;
+}
+
+
+.txt_field {
+    position: relative;
+}
+
+.txt_field input, .txt_field textarea {
+    width: 100%;
+    padding: 0 5px;
+    height: 28px;
+    font-size: 16px;
+    outline: none;
+}
+
+.txt_field label {
+    position: absolute;
+    top: 60%;
+    left: 5px;
+    transform: translateY(-70%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.txt_field .span::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 0;
+    transition: .5s;
+}
+
+.txt_field input:focus~label,
+.txt_field input:valid~label,
+.txt_field textarea:focus~label,
+.txt_field textarea:valid~label {
+    top: -5px;
+}
+
+.txt_field input:focus~.span::before,
+.txt_field input:valid~.span::before,
+.txt_field textarea:focus~.span::before,
+.txt_field textarea:valid~.span::before {
+    width: 100%;
+}
+
+
+.txt_field {
+    border-bottom: 2px solid #616161;
+}
+
+.txt_field input, .txt_field textarea {
+    border: none;
+}
+
+.txt_field input, .txt_field textarea {
+    background: none;
+}
+
+.txt_field .span::before {
+    background: grey;
+}
+
+.txt_field input:focus~label,
+.txt_field input:valid~label,
+.txt_field textarea:focus~label,
+.txt_field textarea:valid~label {
+    color:black;
+}
+
+.circulo {
+    font-weight: bold;
+    width: 35px;
+    padding: 2%;
+    text-align: center;
+    height: 35px;
+    margin-bottom: 2%;
+    border-radius: 50%;
+    border: 3px solid black;
+    background-color: #813bff;
+    color:white;
+    
+}
+
+.circulo:not(.otro){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+

@@ -16,6 +16,7 @@ export class TareaComponent implements OnInit {
   editando:boolean = false;
   asignando:boolean = false;
   errores:boolean = false;
+  miembros:any[]=[];
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
@@ -62,6 +63,7 @@ export class TareaComponent implements OnInit {
   }
 
   buscarMiembro(email:any){
+    this.actualizar.emit(false);
     let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     if (email.value == '') {
       Swal.fire('Aviso', 'No ha introducido ningún email en el buscador. Por favor, introduzca un email de un usuario del proyecto para asignar la tarea.', 'warning')
@@ -73,11 +75,10 @@ export class TareaComponent implements OnInit {
       this.bbddProyectos.buscarMiembroProyecto(this.proyecto.id, email.value).subscribe(
         (m: any) => {
           let encontrado: boolean = false;
-          for (let i = 0; i < this.tarea.usuarios.length && !encontrado; i++) {
-            if (this.tarea.usuarios[i].id == m.id) encontrado = true;
-            
+          for (let i = 0; i < this.miembros.length && !encontrado; i++) {
+            if (this.miembros[i].id == m.id) encontrado = true;            
           }
-          if (!encontrado) this.tarea.usuarios.push(m);
+          if (!encontrado) this.miembros.push(m);
           email.value = '';
         }, (error) => {
           Swal.fire('ERROR', 'El email introducido no pertenece al proyecto', 'error');
@@ -154,12 +155,15 @@ export class TareaComponent implements OnInit {
     if(this.asignando && this.editando) this.editando = false;
     if(this.asignando) this.actualizar.emit(false)
     else this.actualizar.emit(true);
+    this.miembros=this.tarea.usuarios;
   }
 
   asignarTarea(){
     this.cambiarAsignar();
-    this.tarea.usuarios.forEach((u: { id: number; }) => {
+    this.tarea.usuarios=[];
+    this.miembros.forEach((u: { id: number; }) => {
       this.bbddProyectos.addUsuarioTarea(this.tarea.id, u.id)
+      this.actualizar.emit(true);
     });
   }
 

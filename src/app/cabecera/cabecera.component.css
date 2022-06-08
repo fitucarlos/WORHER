@@ -127,11 +127,11 @@ li a::after {
 */
 
 header {
-   background-color: rgba(165, 136, 219, 0.7);;
+   background-color: white;
 }
 
 .menu {
-   background: linear-gradient(to bottom, #c0abe5, rgb(77,73,73) );
+   background: white;
    color:black;
 }
 
@@ -140,7 +140,7 @@ header {
 }
 
 li a::after {
-   background-color: black;
+   background-color: #813bff;
 }
 
 /******************************************************************************************

@@ -8,28 +8,18 @@
     width: 90vw;
 }
 
-.boton {
-    margin: 1%;
-    font-weight: bold;
-    width: 150px;
-}
+
 
 .mostrarChat > .botones > .boton {
     width:200px;
 }
 
 .miembros {
+
     position: relative;
 }
 
-.circulo {
-    font-weight: bold;
-    width: 35px;
-    padding: 2%;
-    text-align: center;
-    height: 35px;
-    margin-bottom: 2%;
-}
+
 
 h1 {
     width: 100%;
@@ -63,8 +53,11 @@ h1::first-letter, li::first-letter {
 }
 
 .filtro {
-    max-width: 400px;
+    width: 70%;
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
 }
 .fil{
     text-align: start;
@@ -91,51 +84,7 @@ h1::first-letter, li::first-letter {
     display: block;
 }
 
-.txt_field {
-    position: relative;
-}
 
-.txt_field input, .txt_field textarea {
-    width: 100%;
-    padding: 0 5px;
-    height: 28px;
-    font-size: 16px;
-    outline: none;
-}
-
-.txt_field label {
-    position: absolute;
-    top: 60%;
-    left: 5px;
-    transform: translateY(-70%);
-    font-size: 16px;
-    pointer-events: none;
-    transition: .5s;
-}
-
-.txt_field .span::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 0%;
-    height: 0;
-    transition: .5s;
-}
-
-.txt_field input:focus~label,
-.txt_field input:valid~label,
-.txt_field textarea:focus~label,
-.txt_field textarea:valid~label {
-    top: -5px;
-}
-
-.txt_field input:focus~.span::before,
-.txt_field input:valid~.span::before,
-.txt_field textarea:focus~.span::before,
-.txt_field textarea:valid~.span::before {
-    width: 100%;
-}
 
 .botonAdd {
     width: 100%;
@@ -157,8 +106,6 @@ h1::first-letter, li::first-letter {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(50px);
 }
 
 .chat {
@@ -170,10 +117,7 @@ h1::first-letter, li::first-letter {
     height: 100%;
 }
 
-.otro {
-    font-size: 1.5rem;
-    padding: 0;
-}
+
 
 /******************************************************************************************
 **************************************DESKTOP**********************************************
@@ -196,14 +140,6 @@ h1::first-letter, li::first-letter {
     BORDES
 */
 
-.boton {
-    border: 1px solid gray;
-}
-
-.circulo {
-    border-radius: 50%;
-    border: 2px solid black;
-}
 
 .cabecera {
     border-bottom: 1px solid gray;
@@ -214,13 +150,6 @@ h1::first-letter, li::first-letter {
     border-radius: 5px;
 }
 
-.txt_field {
-    border-bottom: 2px solid #616161;
-}
-
-.txt_field input, .txt_field textarea {
-    border: none;
-}
 
 
 .botonAdd svg {
@@ -228,7 +157,6 @@ h1::first-letter, li::first-letter {
 }
 
 .lista {
-    border: 2px solid gray;
     border-radius: 5px;
 }
 
@@ -236,35 +164,14 @@ h1::first-letter, li::first-letter {
     COLORES
 */
 
-.boton {
-    background-color: rgba(77, 73, 73, 0.5);
-    color:white;
-}
 
-.circulo {
-    background-color: #813bff;
-    color:white;
-}
 
 .nombres {
     background-color: rgb(128, 120, 120);
     color:white;
 }
 
-.txt_field input, .txt_field textarea {
-    background: none;
-}
 
-.txt_field .span::before {
-    background: grey;
-}
-
-.txt_field input:focus~label,
-.txt_field input:valid~label,
-.txt_field textarea:focus~label,
-.txt_field textarea:valid~label {
-    color:white;
-}
 
 .botonAdd {
     color: white;
@@ -279,43 +186,6 @@ h1::first-letter, li::first-letter {
     color: black;
     outline: 3px solid black;
     transition: all .3s;
-}
-
-.lista {
-    background: rgba(123, 117, 117, 0.6);
-    color:white;
-}
-
- .proyecto {        
-    color:black;
-    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
-}
-
-.otro {
-    background-color: #637efa;
-}
-
-.eliminar {
-    background-color: rgba(221, 7, 7, .6);
-}
-
-.obligatorio {
-    color:rgb(221, 7, 7);
-}
-
-.botones .boton:hover {
-    background-color: rgb(245, 239, 239);
-    color:black;
-    transition:all .3s;
-    outline:3px solid black;
-}
-
-.boton:hover {
-    background-color: #c0abe5;
-    color:black;
-    transition:all .3s;
-    box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.75);
-    outline:3px solid black;
 }
 
 .mostrarChat {

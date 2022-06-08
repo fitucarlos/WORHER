@@ -1,7 +1,7 @@
+<app-cabecera></app-cabecera>
 <div class="col-md-4 contenedor">
     <div class="card card-container p-4">
-        <img id="profile-img" src="../../assets/img/worher.png" alt="Le Paco">
-        <!-- //ssl.gstatic.com/accounts/ui/avatar_2x.png -->
+        <img id="profile-img" src="assets/images/logo.png">
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 
             <!-- NOMBRE + CONDICIÓN DE ERROR 3 <= NOMBRE <= 20 -->
@@ -74,3 +74,4 @@
         </div>
     </div>
 </div>
+<app-footer></app-footer>

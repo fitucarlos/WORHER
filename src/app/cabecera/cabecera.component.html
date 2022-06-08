@@ -1,6 +1,7 @@
 <header>
   <nav class="navbar">
-      <a href="#" routerLink="inicio" id="logo_enlace"><img src="assets/images/logo.png" class="logo"></a>
+      <a href="#" routerLink="/inicio" id="logo_enlace" *ngIf="isLoggedIn"><img src="assets/images/logo.png" class="logo"></a>
+      <a href="#" routerLink="/login" id="logo_enlace" *ngIf="!isLoggedIn"><img src="assets/images/logo.png" class="logo"></a>
       <input type="checkbox" id="menu-bar">
       <label for="menu-bar">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -8,11 +9,11 @@
         </svg>
       </label>
       <ul class="menu" *ngIf="!isLoggedIn">
-        <li><a href="#" routerLinkActive="active" routerLink="registro">Registro</a></li>
-        <li><a href="#" routerLinkActive="active" routerLink="login">Login</a></li>
+        <li><a href="#" routerLinkActive="active" routerLink="/registro">Registro</a></li>
+        <li><a href="#" routerLinkActive="active" routerLink="/login">Login</a></li>
     </ul>
       <ul class="menu" *ngIf="isLoggedIn">
-          <li><a href="#" routerLink="inicio" routerLinkActive="active">Mis proyectos</a></li>
+          <li><a href="#" routerLink="/inicio" routerLinkActive="active">Mis proyectos</a></li>
           <li><a href="#" routerLinkActive="active" (click)="logout()">Cerrar sesión</a></li>
       </ul>
   </nav>        

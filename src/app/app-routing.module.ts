@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'perfil', component: PerfilComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   //{path:"", redirectTo:"/inicio", pathMatch:"full"},
   {path:"**", component:ErrorComponent}
 ];

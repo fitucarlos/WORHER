@@ -51,59 +51,6 @@
     display:block;
 }
 
-.txt_field {
-    position: relative;
-}
-
-.txt_field input {
-    width: 100%;
-    padding: 0 5px;
-    height: 28px;
-    font-size: 16px;
-    outline: none;
-}
-
-.txt_field textarea {
-    width: 100%;
-    padding: 0 5px;
-    height: 100px;
-    font-size: 16px;
-    outline: none;
-}
-
-.txt_field label {
-    position: absolute;
-    top: 60%;
-    left: 5px;
-    transform: translateY(-70%);
-    font-size: 16px;
-    pointer-events: none;
-    transition: .5s;
-}
-
-.txt_field .span::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 0%;
-    height: 0;
-    transition: .5s;
-}
-
-.txt_field input:focus~label,
-.txt_field input:valid~label,
-.txt_field textarea:focus~label,
-.txt_field textarea:valid~label {
-    top: -5px;
-}
-
-.txt_field input:focus~.span::before,
-.txt_field input:valid~.span::before,
-.txt_field textarea:focus~.span::before,
-.txt_field textarea:valid~.span::before {
-    width: 100%;
-}
 
 .guardar, .cancelar {
     margin: 1%;
@@ -118,10 +65,6 @@
     text-transform: uppercase;
 }
 
-.tarjeta {
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(50px);
-}
 
 
 /*
@@ -129,7 +72,6 @@
 */
 
 .tarjeta {
-    border: 2px solid gray;
     border-radius: 5px;
 }
 
@@ -156,17 +98,7 @@
     border-width: 3px 3px 0px 3px;
 }
 
-.txt_field input {
-    border: none;
-}
 
-.txt_field textarea {
-    border: none;
-}
-
-.guardar, .cancelar {
-    border: 1px solid gray;
-}
 
 /*
     COLORES
@@ -191,20 +123,7 @@
     color:black;
 }
 
-.txt_field input {
-    background: none;
-}
 
-.txt_field textarea {
-    background: none;
-}
 
-.txt_field .span::before {
-    background: grey;
-}
 
-.tarjeta {    
-    background: rgba(123, 117, 117, 0.6);
-    color:white;
-}
 

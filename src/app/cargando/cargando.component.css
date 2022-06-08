@@ -48,13 +48,11 @@
 }
 
 .loader-inner {
-    border-top-color: #f1eff3;
+    border-top-color: #ad99c1;
     border-bottom-color: #fa63e1;
 }
 
-.contenedor {
-    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
-}
+
 
 
 /*

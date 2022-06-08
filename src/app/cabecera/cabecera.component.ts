@@ -15,7 +15,6 @@ export class CabeceraComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    console.log(this.isLoggedIn)
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.email = user.email;

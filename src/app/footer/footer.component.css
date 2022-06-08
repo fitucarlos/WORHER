@@ -1,0 +1,9 @@
+footer {
+    margin-top: 20px;
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    background-color: #813bff;
+    color:white;
+    border: 2px solid black;
+}

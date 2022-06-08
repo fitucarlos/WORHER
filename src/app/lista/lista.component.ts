@@ -24,11 +24,6 @@ export class ListaComponent implements OnInit {
   ngOnInit(): void {
    }
 
-
-  mostrarMenu() {
-    this.menu = !this.menu;
-  }
-
   renombrarLista() {
     this.editar = true;
     this.menu = false;

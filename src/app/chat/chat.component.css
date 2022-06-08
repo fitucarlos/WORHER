@@ -75,15 +75,16 @@ form {
 }
 
 .mensaje {
+    max-width: calc(100% - 150px);
     width: fit-content;
-    max-width: calc(100% - 50px);
-    margin: 5px 0;
+    margin: 15px 0;
 }
 
 .mio {
     margin-right: 0px;
     margin-left: auto;
 }
+
 
 .mio .nombre {
     display: none;
@@ -100,7 +101,7 @@ form {
 
 .msg {
     margin:10px;
-    max-width: 80%;
+    max-width: 90%;
     word-wrap: break-word;
 }
 

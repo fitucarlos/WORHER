@@ -114,10 +114,10 @@
         <th>Email</th>
         <th>Eliminar</th>
     </tr>
-    <tr *ngIf="tarea.usuarios.length == 0">
+    <tr *ngIf="miembros.length == 0">
         <td colspan="3">No se le ha asignado la tarea a ningún usuario</td>
     </tr>
-    <tr *ngFor="let m of tarea.usuarios">
+    <tr *ngFor="let m of miembros">
         <td>{{m.nombre}} {{m.apellido}}</td>
         <td>{{m.email}}</td>
         <td>

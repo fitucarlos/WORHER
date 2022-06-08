@@ -6,9 +6,6 @@
     padding: 2%;
     width: 80%;
     height: auto;
-    clip-path: circle(400px at center);
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(50px);
 }
 
 h1 {
@@ -27,8 +24,7 @@ h1 {
 }
 
 .boton {
-    margin:1%;
-    font-weight: bold;
+    width: 100%;
 }
 
 
@@ -82,18 +78,12 @@ h1 {
     BORDES
 */
 
-.tarjeta {
-    border: 2px solid gray;
-    border-radius: 20px;
-}
+
 
 #nombre {
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid black;
 }
 
-.boton {
-    border: 1px solid gray;
-}
 
 .txt_field input {
     border: none;
@@ -104,15 +94,8 @@ h1 {
 COLORES
 */
 
-.tarjeta {    
-    background: rgba(123, 117, 117, 0.6);
-    color:white;
-}
 
-.boton {
-    background-color: rgba(77, 73, 73, 0.5);
-    color:white;
-}
+
 
 .txt_field input {
     background: none;
@@ -133,17 +116,9 @@ COLORES
 
 .proyectos {
     color:black;
-    background:linear-gradient(to bottom, rgba(165, 136, 219, 0.7), rgb(35, 34, 34));
 }
 
 .obligatorio {
     color:rgb(221, 7, 7);
 }
 
-.boton:hover {
-    background-color: rgb(245, 239, 239);
-    color:black;
-    transition:all .3s;
-    box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.75);
-    outline:3px solid black;
-}

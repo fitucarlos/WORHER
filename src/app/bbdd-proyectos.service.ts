@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class BbddProyectosService {
   private url: string = "/api/";
   private proyectos: any[] = [];
   private cargando: boolean = true;
-  private usuarioId:any
+  private usuarioId:number=0;
   private filtro:any[] = [
     {
       prioridad: 1,
@@ -35,10 +36,18 @@ export class BbddProyectosService {
   ]
 
   constructor(private http: HttpClient) {
-    if(sessionStorage.getItem('id')){
-      this.usuarioId = sessionStorage.getItem('id');  
-      this.cargarDatos();
+    if(sessionStorage.getItem('id') && sessionStorage.getItem('id')!=null){
+      let id = sessionStorage.getItem('id');
+      if(id!=null) {
+        let desenc = CryptoJS.AES.decrypt(id, 'id').toString(CryptoJS.enc.Utf8);
+        this.usuarioId = parseInt(desenc);
+        this.cargarDatos();
+      } 
     }
+  }
+
+  setUsuarioId(id:number) {
+    this.usuarioId = id;
   }
 
  

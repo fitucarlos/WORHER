@@ -1,12 +1,13 @@
 <app-cargando *ngIf="isCargando() || !hayProyecto()"></app-cargando>
 <ng-container *ngIf="!isCargando() && hayProyecto()">
+    <app-cabecera></app-cabecera>
     <div class="container-fluid proyecto" *ngIf="!isChat()">
         <div class="cabecera row">
             <h1 class="col-12 col-md">{{proyecto.nombre}}</h1>
             <div class="miembros col">
                 <p>Total de participantes: {{proyecto.usuarios.length}}</p>
                 <div class="nombres">
-                    <p *ngFor="let u of proyecto.usuarios"><span class="circulo">{{getIniciales(u)}}</span>{{u.nombre}}
+                    <p *ngFor="let u of proyecto.usuarios"><span class="circulo otro">{{getIniciales(u)}}</span>{{u.nombre}}
                         {{u.apellido}}</p>
                 </div>
             </div>
@@ -27,37 +28,35 @@
                         d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
                     <path fill-rule="evenodd"
                         d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
-                </svg>
+                </svg> Cerrar filtro
             </button>
         </div>
-        <div class="container filtro">
-            <div class="row" *ngIf="filtrando">
-                <div class="form-check col-6 fil ">
+        <div class="container filtro" *ngIf="filtrando">
+                <div class="form-check col fil ">
                     <label class="form-check-label" for="prioridad_muyBaja">Prioridad muy baja</label>
                     <input class="form-check-input" type="checkbox" id="prioridad_muyBaja" value="1" #prioridadMuyBaja
                         (click)="filtrarPrioridad(prioridadMuyBaja.value, $event)" checked />
                 </div>
-                <div class="form-check col-6 fil">
+                <div class="form-check col fil">
                     <label class="form-check-label" for="prioridad_baja">Prioridad baja</label>
                     <input class="form-check-input" type="checkbox" id="prioridad_baja" value="2" #prioridadBaja
                         (click)="filtrarPrioridad(prioridadBaja.value, $event)" checked />
                 </div>
-                <div class="form-check col-6 fil">
+                <div class="form-check col fil">
                     <label class="form-check-label" for="prioridad_media">Prioridad media</label>
                     <input class="form-check-input" type="checkbox" id="prioridad_media" value="3" #prioridadMedia
                         (click)="filtrarPrioridad(prioridadMedia.value, $event)" checked />
                 </div>
-                <div class="form-check col-6 fil">
+                <div class="form-check col fil">
                     <label class="form-check-label" for="prioridad_alta">Prioridad alta</label>
                     <input class="form-check-input" type="checkbox" id="prioridad_alta" value="4" #prioridadAlta
                         (click)="filtrarPrioridad(prioridadAlta.value, $event)" checked />
                 </div>
-                <div class="form-check col-6 fil">
+                <div class="form-check col fil">
                     <label class="form-check-label" for="prioridad_muyAlta">Prioridad muy alta</label>
                     <input class="form-check-input" type="checkbox" id="prioridad_muyAlta" value="5" #prioridadMuyAlta
                         (click)="filtrarPrioridad(prioridadMuyAlta.value, $event)" checked />
                 </div>
-            </div>
         </div>
 
         <div class="container-fluid">
@@ -71,7 +70,7 @@
 
                         <div class="col-sm-12 col-md-6 mt-2">
 
-                            <div class="mt-2 lista ">
+                            <div class="mt-2 lista tarjeta ">
                                 <h3>Nueva lista</h3>
                                 <div class="txt_field form-control mt-4">
                                     <input type="text"
@@ -121,7 +120,8 @@
                 <div class="modal-body">
                     <form class="form-group">
                         <label for="original">¿En qué lista se encuentra la tarea?
-                            <span class='obligatorio' *ngIf="errores && original.value == '-1'">*</span>
+                            <span class='obligatorio'>*</span>
+                            <span class='obligatorio error' *ngIf="errores && original.value == '-1'">CAMPO OBLIGATORIO</span>
                         </label>
                         <select name="original" id="original" class="form-select" #original
                             (change)="getTareasListaMover(original.value, tareaId, nuevaListaId)">
@@ -129,7 +129,8 @@
                             <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
                         </select>
                         <label for="tareaId">¿Qué tarea quiere mover?
-                            <span class='obligatorio' *ngIf="errores && tareaId.value == '-1'">*</span>
+                            <span class='obligatorio'>*</span>
+                            <span class='obligatorio error' *ngIf="errores && tareaId.value == '-1'">CAMPO OBLIGATORIO</span>
                         </label>
                         <select name="tareaId" id="tareaid" class="form-select" #tareaId disabled
                             (change)="habilitarResto(tareaId.value, nuevaListaId)">
@@ -137,8 +138,9 @@
                             <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
                         </select>
                         <label for="nuevaListaId">¿A qué lista quiere mover la tarea?
-                            <span class='obligatorio'
-                                *ngIf="errores && (nuevaListaId.value == '-1' || (original.value != '-1' && nuevaListaId.value==original.value))">*</span>
+                            <span class='obligatorio'>*</span>
+                            <span class='obligatorio error'
+                                *ngIf="errores && (nuevaListaId.value == '-1' || (original.value != '-1' && nuevaListaId.value==original.value))">CAMPO OBLIGATORIO</span>
                         </label>
                         <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId disabled
                             (change)="validarForm()">
@@ -174,7 +176,8 @@
                 <div class="modal-body">
                     <form>
                         <label for="listaCrear">¿En qué lista quieres crear la tarea?
-                            <span class='obligatorio' *ngIf="errores && listaCrear.value == 'default'">*</span>
+                            <span class='obligatorio'>*</span>
+                            <span class='obligatorio error' *ngIf="errores && listaCrear.value == 'default'">CAMPO OBLIGATORIO</span>
                         </label>
                         <select name="listaCrear" id="listaCrear" class="form-select" #listaCrear>
                             <option value="default">Selecciona una lista</option>
@@ -185,8 +188,9 @@
                                 id="nombreCrear">
                             <span class="span"></span>
                             <label for="nombreCrear" class="control-label required">Nombre de tarea
-                                <span class='obligatorio'
-                                    *ngIf="errores && (nombreCrear.value.trim() == '' || nombreCrear.value.length<3)">*</span>
+                                <span class='obligatorio'>*</span>
+                                <span class='obligatorio error'
+                                    *ngIf="errores && (nombreCrear.value.trim() == '' || nombreCrear.value.length<3)">CAMPO OBLIGATORIO</span>
                             </label>
                         </div>
                         <label for="prioridadCrear">Prioridad</label>
