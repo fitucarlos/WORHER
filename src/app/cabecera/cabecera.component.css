@@ -15,7 +15,7 @@ header {
 
 header label {
    float:right;
-   font-size: 28px;
+   font-size: 1rem;
    margin:6px;
    cursor: pointer;
 }
@@ -75,7 +75,6 @@ li a::after {
 
 .active {
    font-weight: bold;
-   font-size: 1.5rem;
 }
 
 /******************************************************************************************

@@ -6,10 +6,12 @@
             <h1 class="col-12 col-md">{{proyecto.nombre}}</h1>
             <div class="miembros col">
                 <p>Total de participantes: {{proyecto.usuarios.length}}</p>
-                <div class="nombres">
-                    <p *ngFor="let u of proyecto.usuarios"><span class="circulo otro">{{getIniciales(u)}}</span>{{u.nombre}}
-                        {{u.apellido}}</p>
-                </div>
+                <table class="nombres">
+                    <tr *ngFor="let u of proyecto.usuarios">
+                        <td> <span class="circulo">{{getIniciales(u)}}</span></td>
+                        <td>{{u.nombre}} {{u.apellido}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
 
@@ -33,27 +35,47 @@
         </div>
         <div class="container filtro" *ngIf="filtrando">
                 <div class="form-check col fil ">
-                    <label class="form-check-label" for="prioridad_muyBaja">Prioridad muy baja</label>
+                    <label class="form-check-label" for="prioridad_muyBaja">
+                        <span>
+                            <img src="assets/images/prioridad_muyBaja.png" width="30" height="30"/>
+                        </span> Prioridad muy baja 
+                    </label>
                     <input class="form-check-input" type="checkbox" id="prioridad_muyBaja" value="1" #prioridadMuyBaja
                         (click)="filtrarPrioridad(prioridadMuyBaja.value, $event)" checked />
                 </div>
                 <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_baja">Prioridad baja</label>
+                    <label class="form-check-label" for="prioridad_baja">
+                        <span>
+                            <img src="assets/images/prioridad_baja.png" width="30" height="30"/>
+                        </span> Prioridad baja 
+                    </label>
                     <input class="form-check-input" type="checkbox" id="prioridad_baja" value="2" #prioridadBaja
                         (click)="filtrarPrioridad(prioridadBaja.value, $event)" checked />
                 </div>
                 <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_media">Prioridad media</label>
+                    <label class="form-check-label" for="prioridad_media">
+                        <span>
+                            <img src="assets/images/prioridad_media.png" width="30" height="30"/>
+                        </span> Prioridad media 
+                    </label>
                     <input class="form-check-input" type="checkbox" id="prioridad_media" value="3" #prioridadMedia
                         (click)="filtrarPrioridad(prioridadMedia.value, $event)" checked />
                 </div>
                 <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_alta">Prioridad alta</label>
+                    <label class="form-check-label" for="prioridad_alta">
+                        <span>
+                            <img src="assets/images/prioridad_alta.png" width="30" height="30"/>
+                        </span> Prioridad alta 
+                    </label>
                     <input class="form-check-input" type="checkbox" id="prioridad_alta" value="4" #prioridadAlta
                         (click)="filtrarPrioridad(prioridadAlta.value, $event)" checked />
                 </div>
                 <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_muyAlta">Prioridad muy alta</label>
+                    <label class="form-check-label" for="prioridad_muyAlta"> 
+                        <span>
+                            <img src="assets/images/prioridad_muyAlta.png" width="30" height="30"/>
+                        </span> Prioridad muy alta
+                    </label>
                     <input class="form-check-input" type="checkbox" id="prioridad_muyAlta" value="5" #prioridadMuyAlta
                         (click)="filtrarPrioridad(prioridadMuyAlta.value, $event)" checked />
                 </div>

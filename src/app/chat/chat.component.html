@@ -1,5 +1,5 @@
 
-<section class="container chat">
+<section class="container-fluid chat">
     <div class="row">
         <div class="col-12 contenedorNombre text-center">
             <h3>{{proyecto.nombre}}</h3>
@@ -7,7 +7,7 @@
     </div>
     <section id="mensajes" class="mensajes">
         <div class="mensaje " [ngClass]="m.usuario.id==getMiUsuario()?'mio':'otros'" *ngFor="let m of proyecto.mensajes">
-            <p class='nombre' >{{m.usuario.nombre}}</p>
+            <p class='nombre' >{{m.usuario.nombre}} {{m.usuario.apellido}}</p>
             <p class="msg">{{m.texto}}</p>
             <p class="fecha_hora">{{m.fecha | date:'dd/MM/yyyy'}} {{m.hora | date:'HH:mm'}}</p>
         </div>

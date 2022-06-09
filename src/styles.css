@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-* {
+@import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+
+
+*{  
+    font-family: 'Manrope', sans-serif;
     box-sizing: border-box;
 }
+
 body {
     background-image: url(assets/images/wave.svg);
     background-repeat: no-repeat;
@@ -9,6 +16,12 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+
+h1,h2,h3,h4 {
+    font-family: 'Varela', sans-serif;
+}
+
+
 
 .tarjeta {
     background: rgba( 255, 255, 255, 0.7 );
@@ -37,11 +50,11 @@ body {
 }
 
 .eliminar {
-    background-color: rgb(221,7,7);
+    background-color: rgb(221,7,7) !important;
 }
 
 .eliminar:hover {
-    background-color: white;
+    background-color: white !important;
     color: rgb(221,7,7);
 }
 
@@ -126,10 +139,10 @@ body {
 
 .circulo {
     font-weight: bold;
-    width: 35px;
+    width: 40px;
     padding: 2%;
     text-align: center;
-    height: 35px;
+    height: 40px;
     margin-bottom: 2%;
     border-radius: 50%;
     border: 3px solid black;

@@ -110,17 +110,16 @@
 }
 
 .dropdown-content {
-    background-color: rgb(98, 94, 94);
-    color:white;
+    background-color: white;
 }
 
 .dropdown-content button {
-    color:white;
+    color:black;
 }
 
 .dropdown-content button:hover {
-    background-color: #c0abe5;
-    color:black;
+    background-color: rgb(129,59,255);
+    color:white;
 }
 
 
