@@ -155,7 +155,7 @@ export class VerProyectoComponent implements OnInit {
         this.actualizar = false;
       }, (error) => {
         Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
-        this.route.navigate(['/error']);
+        this.route.navigate(['/inicio']);
       }
     )
 

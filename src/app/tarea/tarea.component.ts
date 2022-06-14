@@ -129,6 +129,10 @@ export class TareaComponent implements OnInit {
 
   editar(nombre: string, prioridad: string, dificultad: string, descripcion: string) {
     this.errores = false;
+    this.tarea.nombre = nombre;
+    this.tarea.prioridad = prioridad;
+    this.tarea.dificultad = dificultad;
+    this.tarea.descripcion = descripcion;
     this.bbddProyectos.editarTarea(this.tarea.id, nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
     this.bbddProyectos.cargar();
     this.cambiarEditando();

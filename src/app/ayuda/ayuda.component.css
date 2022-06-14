@@ -1,19 +1,16 @@
-#ayuda {
-    max-width: 400px;
-}
+
 
 label {
     font-size: 1.5rem;
 }
 
 .contenedor {
-    padding: 30px 100px;
     min-height: 70vh;
 }
 
 .tarjeta {
-    margin:50px;
-    padding: 30px;
+    margin:5%;
+    padding: 1%;
 }
 
 p {
@@ -21,8 +18,7 @@ p {
 }
 
 img {
-    max-width: 80%;
-    min-width: 500px;
+    max-width: 100%;
     height: auto;
 }
 
@@ -33,3 +29,20 @@ img {
     right: 30px;
     border: none;
 }
+
+/******************************************************************************************
+***************************************TABLET**********************************************
+******************************************************************************************/
+@media(min-width:640px) {
+    #ayuda {
+        max-width: 400px;
+    }
+
+    img {
+        min-width: 300px;
+    }
+
+    .contenedor {
+        padding: 30px 100px;
+    }
+ }

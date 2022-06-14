@@ -108,15 +108,15 @@
                                     <label for="nombreNuevaLista" class="control-label required">Nombre de lista</label>
                                 </div>
                                 <h4>Añadir lista</h4>
-                                <div class="botonAdd">
-                                    <svg (click)="addLista(nombreNuevaLista.value); nombreNuevaLista.value=''"
-                                        role="button" class="btn" xmlns="http://www.w3.org/2000/svg" width="30"
-                                        height="30" aria-label="Añadir nueva lista" fill="currentColor"
+
+                                
+                                <button class="btn boton w-100" (click)="addLista(nombreNuevaLista.value); nombreNuevaLista.value=''" aria-label="Crear nueva lista">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
                                         class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                                     </svg>
-                                </div>
+                                </button>
 
                             </div>
                         </article>
@@ -153,7 +153,7 @@
                             <span class='obligatorio error' *ngIf="errores && original.value == '-1'">CAMPO
                                 OBLIGATORIO</span>
                         </label>
-                        <select name="original" id="original" class="form-select"
+                        <select name="original" id="original" class="form-select mb-3"
                             aria-label="seleccionar lista en la que se encuentra la tarea" #original
                             (change)="getTareasListaMover(original.value, tareaId, nuevaListaId)">
                             <option value="-1">Selecciona una lista</option>
@@ -164,7 +164,7 @@
                             <span class='obligatorio error' *ngIf="errores && tareaId.value == '-1'">CAMPO
                                 OBLIGATORIO</span>
                         </label>
-                        <select name="tareaId" id="tareaid" class="form-select" #tareaId disabled
+                        <select name="tareaId" id="tareaid" class="form-select mb-3" #tareaId disabled
                             (change)="habilitarResto(tareaId.value, nuevaListaId)" aria-label="seleccionar tarea">
                             <option value="-1">Selecciona una tarea</option>
                             <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
@@ -175,7 +175,7 @@
                                 *ngIf="errores && (nuevaListaId.value == '-1' || (original.value != '-1' && nuevaListaId.value==original.value))">CAMPO
                                 OBLIGATORIO</span>
                         </label>
-                        <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId disabled
+                        <select name="nuevaListaId" id="nuevaListaId" class="form-select mb-3" #nuevaListaId disabled
                             (change)="validarForm()" aria-label="seleccionar lista a la que se quiere mover la tarea">
                             <option value="-1">Selecciona una lista</option>
                             <option *ngFor="let r of getListas()" value="{{r.id}}">{{r.nombre}}</option>
@@ -214,12 +214,12 @@
                             <span class='obligatorio error' *ngIf="errores && listaCrear.value == 'default'">CAMPO
                                 OBLIGATORIO</span>
                         </label>
-                        <select name="listaCrear" id="listaCrear" class="form-select" #listaCrear
+                        <select name="listaCrear" id="listaCrear" class="form-select mb-3" #listaCrear
                             aria-label="seleccionar lista en la que se quiere crear la tarea">
                             <option value="default">Selecciona una lista</option>
                             <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
                         </select>
-                        <div class="txt_field form-control mt-4">
+                        <div class="txt_field form-control mt-4 mb-2">
                             <input type="text" required aria-label="Nombre de tarea" name="nombreCrear" #nombreCrear
                                 id="nombreCrear" (keyup)="validarForm()">
                             <span class="span"></span>
@@ -230,8 +230,8 @@
                                     OBLIGATORIO</span>
                             </label>
                         </div>
-                        <label for="prioridadCrear">Prioridad</label>
-                        <select name="prioridadCrear" id="prioridadCrear" class="form-select"
+                        <label for="prioridadCrear" class="mt-2">Prioridad</label>
+                        <select name="prioridadCrear" id="prioridadCrear" class="form-select mb-2"
                             aria-label="seleccionar prioridad de tarea" #prioridadCrear>
                             <option value="1">Muy baja</option>
                             <option value="2">Baja</option>
@@ -239,8 +239,8 @@
                             <option value="4">Alta</option>
                             <option value="5">Muy alta</option>
                         </select>
-                        <label for="dificultadCrear">Dificultad</label>
-                        <select name="dificultadCrear" id="dificultadCrear" class="form-select"
+                        <label for="dificultadCrear" class="mt-2">Dificultad</label>
+                        <select name="dificultadCrear" id="dificultadCrear" class="form-select mb-2"
                             aria-label="seleccionar dificultad de tarea" #dificultadCrear>
                             <option value="1">Fácil</option>
                             <option value="2">Normal</option>
@@ -283,11 +283,11 @@
                         <label for="buscarMiembro" class="control-label required">Email de
                             usuario</label>
                     </div>
-                    <button class="btn boton" type="button" id="searchUser" (click)="buscarMiembro(buscar)"
+                    <button class="btn boton m-4" type="button" id="searchUser" (click)="buscarMiembro(buscar)"
                         aria-label="Buscar usuario">Buscar</button>
 
                     <h4>Miembros del proyecto</h4>
-                    <table class="table" *ngIf="hayProyecto()">
+                    <table class="table my-4" *ngIf="hayProyecto()">
                         <tr>
                             <th>Nombre</th>
                             <th>Email</th>

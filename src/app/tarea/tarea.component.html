@@ -2,7 +2,7 @@
   <ng-container *ngIf="editando; then thenBlock; else elseBlock"></ng-container>
 
   <ng-template #thenBlock>
-    <div class="txt_field form-control mt-4">
+    <div class="txt_field form-control mt-4 mb-2">
       <input type="text" required aria-label="Nombre de tarea" name="nombreEditar" #nombreEditar (keyup)="validarForm()"
         id="nombreEditar" value="{{tarea.nombre}}">
       <span class="span"></span>
@@ -10,15 +10,15 @@
         <span class='obligatorio' *ngIf="errores && nombreEditar.value.trim() == ''">CAMPO OBLIGATORIO</span>
       </label>
     </div>
-    <label for="dificultadEditar">Dificultad</label>
-    <select name="dificultadEditar" id="dificultadEditar" aria-label="seleccionar dificultad de tarea" class="form-select" #dificultadEditar
+    <label for="dificultadEditar" class="mt-2">Dificultad</label>
+    <select name="dificultadEditar" id="dificultadEditar" aria-label="seleccionar dificultad de tarea" class="form-select mb-2" #dificultadEditar
       value="{{tarea.dificultad}}">
       <option value="1">Fácil</option>
       <option value="2">Normal</option>
       <option value="3">Difícil</option>
     </select>
-    <label for="prioridadEditar">Prioridad</label>
-    <select name="prioridadEditar" id="prioridadEditar" aria-label="seleccionar prioridad de tarea" class="form-select" #prioridadEditar
+    <label for="prioridadEditar" class="mt-2">Prioridad</label>
+    <select name="prioridadEditar" id="prioridadEditar" aria-label="seleccionar prioridad de tarea" class="form-select mb-2" #prioridadEditar
       value="{{tarea.prioridad}}">
       <option value="1">Muy baja</option>
       <option value="2">Baja</option>
@@ -27,7 +27,7 @@
       <option value="5">Muy alta</option>
     </select>
 
-    <div class="txt_field form-control mt-4">
+    <div class="txt_field form-control mt-4 mb-2">
       <textarea required aria-label="descripción de tarea" name="descripcionEditar" #descripcionEditar
         id="descripcionEditar" value="{{tarea.descripcion}}"></textarea>
       <span class="span"></span>
@@ -103,7 +103,7 @@
 
           <div class="botones">
             <button class="btn boton" aria-label="Editar tarea" (click)="cambiarEditando()">Editar tarea</button>
-            <button class="btn boton" aria-label="Asignar tarea a usuario" (click)="cambiarAsignar()">Asignar tarea</button>
+            <button class="btn boton" aria-label="Asignar tarea a usuario" (click)="cambiarAsignar()">Asignar usuario</button>
             <button class="btn boton eliminar" aria-label="Borrar tarea" (click)="borrarTarea()">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash"
                 viewBox="0 0 16 16">
