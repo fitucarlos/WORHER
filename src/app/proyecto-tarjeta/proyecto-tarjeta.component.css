@@ -15,7 +15,7 @@
 #nombre {
     width: 100%;
     text-align: center;
-    text-transform:lowercase;
+    text-transform: lowercase;
     font-variant: small-caps;
     margin-bottom: 5%;
     padding-bottom: 1%;
@@ -30,7 +30,7 @@
 }
 
 .boton.editar {
-    width:150px;
+    width: 150px;
 }
 
 .eliminar {
@@ -83,7 +83,8 @@
     width: 100%;
 }
 
-.guardar, .cancelar {
+.guardar,
+.cancelar {
     margin: 1%;
 }
 
@@ -96,7 +97,7 @@
 
 .otro svg {
     margin-bottom: 10px;
-    color:white;
+    color: white;
 }
 
 /*
@@ -110,7 +111,8 @@
 }
 
 
-.guardar, .cancelar {
+.guardar,
+.cancelar {
     border: 1px solid gray;
 }
 
@@ -121,5 +123,5 @@
 
 
 .usuario {
-    color:black;
+    color: black;
 }

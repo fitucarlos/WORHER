@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 
 @Component({
@@ -8,13 +8,13 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 })
 export class ProyectoTarjetaComponent implements OnInit {
   @Input() p: any;
-  editando:boolean = false;
+  editando: boolean = false;
   constructor(private bbddProyectos: BbddProyectosService) { }
 
   ngOnInit(): void {
   }
 
-  
+
 
   editar() {
     this.editando = true;
@@ -22,15 +22,15 @@ export class ProyectoTarjetaComponent implements OnInit {
 
   eliminar() {
     this.bbddProyectos.deleteProyecto(this.p.id);
-    
+
   }
 
-  actualizarNombre(nombre:string){
-    if(nombre=="") nombre = "(Sin nombre)";
+  actualizarNombre(nombre: string) {
+    if (nombre == "") nombre = "(Sin nombre)";
     this.bbddProyectos.renombrarProyecto(this.p.id, nombre);
   }
 
-  noActualizar(){
+  noActualizar() {
     this.editando = false;
   }
 
@@ -43,9 +43,9 @@ export class ProyectoTarjetaComponent implements OnInit {
     return miembros;
   }
 
-  getIniciales(usuario:any){
-    let iniciales:string;
-    iniciales=usuario.nombre[0]+usuario.apellido[0];
+  getIniciales(usuario: any) {
+    let iniciales: string;
+    iniciales = usuario.nombre[0] + usuario.apellido[0];
     iniciales = iniciales.toUpperCase();
     return iniciales;
   }

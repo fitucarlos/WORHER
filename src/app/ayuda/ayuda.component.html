@@ -1,0 +1,633 @@
+<app-cabecera></app-cabecera>
+<div class="container-fluid contenedor">
+    <h1>Ayuda Worher</h1>
+    <article class="row">
+        <section class="col-12">
+            <label for="ayuda">¿Qué necesitas?</label>
+            <select name="ayuda" id="ayuda" #ayuda class="form-select form-select-lg" (change)="mostrarAyuda(ayuda.value)">
+                <option value="0">Seleccionar una opción</option>
+                <option value="1">Registro de usuario</option>
+                <option value="2">Acceso a mis proyectos</option>
+                <option value="3">Crear un proyecto</option>
+                <option value="4">Renombrar un proyecto</option>
+                <option value="5">Eliminar un proyecto</option>
+                <option value="6">Acceder a un proyecto</option>
+                <option value="7">Añadir usuario a un proyecto</option>
+                <option value="8">Enviar un mensaje</option>
+                <option value="9">Crear una lista</option>
+                <option value="10">Renombrar una lista</option>
+                <option value="11">Eliminar una lista</option>
+                <option value="12">Crear una tarea</option>
+                <option value="13">Mover una tarea</option>
+                <option value="14">Editar una tarea</option>
+                <option value="15">Asignar una tarea</option>
+                <option value="16">Eliminar una tarea</option>
+            </select>
+        </section>
+
+    </article>
+    
+    <article class="row">
+        <section class="col-12">
+            <ng-container *ngIf="valor=='1'">
+                <div class="tarjeta ">
+                    <h2>Registrar un usuario</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Acceder a la aplicación Worher e ir a la página de registro.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/registro/Paso1.png" alt="Indicaciones visuales para el primer paso."/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 text-center">
+                                <p>Rellenar el formulario y pulsar el botón <b><i>Registrarme</i></b>.</p>
+                            </div>
+                            <div class="col-12 ">
+                                <img src="assets/images/registro/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Ya eres un nuevo usuario de Worher.</p>
+                            </div>    
+                        </div>
+
+                    </div>
+
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='2'">
+                <div class="tarjeta">
+                    <h2>Acceso a mis proyectos</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Acceder a la aplicación Worher, rellenar el formulario  y pulsar botón <b><i>Iniciar sesión</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mis-proyectos/Paso1.png" alt="Indicaciones visuales para el primer paso."/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a tus proyectos.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mis-proyectos/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='3'">
+                <div class="tarjeta">
+                    <h2>Crear un proyecto</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a tus proyectos.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mis-proyectos/Paso2.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Nuevo proyecto</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-proyecto/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Rellena el formulario y pulsa el botón <b><i>Crear proyecto</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-proyecto/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>El proyecto aparece en la pantalla <b><i>Mis proyectos</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-proyecto/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='4'">
+                <div class="tarjeta">
+                    <h2>Renombrar un proyecto</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a tus proyectos.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-proyecto/Paso4.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Renombrar</i></b> o sobre el nombre del proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-proyecto/Paso1.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Modifica el nombre del proyecto y pulsa el botón <b><i>Guardar</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-proyecto/Paso2.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>El nombre del proyecto se ha modificado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-proyecto/Paso3.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='5'">
+                <div class="tarjeta">
+                    <h2>Eliminar un proyecto</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a tus proyectos.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-proyecto/Paso4.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Eliminar</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-proyecto/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>El proyecto se ha eliminado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-proyecto/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='6'">
+                <div class="tarjeta">
+                    <h2>Acceder a un proyecto</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a tus proyectos.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-proyecto/Paso4.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Ver proyecto</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/ver-proyecto/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede al proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/ver-proyecto/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='7'">
+                <div class="tarjeta">
+                    <h2>Añadir usuario a un proyecto</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/ver-proyecto/Paso3.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Añadir usuario</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/add-user/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Busca un usuario registrado en Worher.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/add-user/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Guardar</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/add-user/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Se ha añadido el usuario al proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/add-user/Paso5.png" alt="Indicaciones visuales para el quinto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='8'">
+                <div class="tarjeta">
+                    <h2>Enviar un mensaje</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/ver-proyecto/Paso3.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Escribe un mensaje y pulsa el botón <b><i>Enviar</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mensaje/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>El mensaje se ha enviado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mensaje/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p><i>Nota: Los mensajes del resto de usuarios se actualizan en un máximo de 3 minutos.</i></p>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='9'">
+                <div class="tarjeta">
+                    <h2>Crear una lista</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mensaje/Paso3.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Escribe el nombre de la lista y pulsa el botón <b><i>Añadir lista</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-lista/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La lista se ha creado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-lista/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='10'">
+                <div class="tarjeta">
+                    <h2>Renombrar una lista</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-lista/Paso3.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa sobre el nombre de la lista o abre el menú de la lista y pulsa sobre <b><i>Renombrar lista</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-lista/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                                <img src="assets/images/renombrar-lista/Paso2-1.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Modifica el nombre de la lista y pulsa sobre <b><i>Guardar</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-lista/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>El nombre de la lista se ha modificado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-lista/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='11'">
+                <div class="tarjeta">
+                    <h2>Eliminar una lista</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/renombrar-lista/Paso4.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Abre el menú de la lista y pulsa sobre <b><i>Borrar lista</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-lista/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                                <img src="assets/images/eliminar-lista/Paso2-1.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La lista se ha eliminado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-lista/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='12'">
+                <div class="tarjeta">
+                    <h2>Crear una tarea</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-tarea/Paso1.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Crear tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-tarea/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Rellena el formulario y pulsa el botón <b><i>Crear tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-tarea/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La tarea se ha creado y se pueden ver todos sus detalles.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/crear-tarea/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                                <img src="assets/images/crear-tarea/Paso4-1.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='13'">
+                <div class="tarjeta">
+                    <h2>Mover una tarea</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mover-tarea/Paso1.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Mover tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mover-tarea/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Rellena el formulario y pulsa el botón <b><i>Mover tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mover-tarea/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La tarea se ha movido de lista.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mover-tarea/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='14'">
+                <div class="tarjeta">
+                    <h2>Editar una tarea</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/mover-tarea/Paso4.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Abre la tarea y pulsa el botón <b><i>Editar tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/editar-tarea/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Rellena el formulario y pulsa el botón <b><i>Guardar cambios</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/editar-tarea/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La tarea se ha modificado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/editar-tarea/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='15'">
+                <div class="tarjeta">
+                    <h2>Asignar una tarea</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/asignar-tarea/Paso1.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Abre una tarea y pulsa el botón <b><i>Asignar tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/asignar-tarea/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Busca un usuario perteneciente al proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/asignar-tarea/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Pulsa el botón <b><i>Guardar cambios</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/asignar-tarea/Paso4.png" alt="Indicaciones visuales para el cuarto paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La tarea ha sido asignada.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/asignar-tarea/Paso5.png" alt="Indicaciones visuales para el quinto paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="valor=='16'">
+                <div class="tarjeta">
+                    <h2>Eliminar una tarea</h2>
+                    <div class="container">
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Accede a un proyecto.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-tarea/Paso1.png" alt="Indicaciones visuales para el primer paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>Abre la tarea y pulsa el botón <b><i>Eliminar tarea</i></b>.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-tarea/Paso2.png" alt="Indicaciones visuales para el segundo paso"/>    
+                            </div>    
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12 ">
+                                <p>La tarea se ha eliminado.</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="assets/images/eliminar-tarea/Paso3.png" alt="Indicaciones visuales para el tercer paso"/>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </section>        
+    </article>
+    <button class="subir" (click)="subir()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+              </svg>
+    </button>
+</div>
+<app-footer *ngIf="!isLoggedIn"></app-footer>
+

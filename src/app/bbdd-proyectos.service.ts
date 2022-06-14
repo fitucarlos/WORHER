@@ -11,8 +11,8 @@ export class BbddProyectosService {
   private url: string = "/api/";
   private proyectos: any[] = [];
   private cargando: boolean = true;
-  private usuarioId:number=0;
-  private filtro:any[] = [
+  private usuarioId: number = 0;
+  private filtro: any[] = [
     {
       prioridad: 1,
       valor: true
@@ -36,29 +36,29 @@ export class BbddProyectosService {
   ]
 
   constructor(private http: HttpClient) {
-    if(sessionStorage.getItem('id') && sessionStorage.getItem('id')!=null){
+    if (sessionStorage.getItem('id') && sessionStorage.getItem('id') != null) {
       let id = sessionStorage.getItem('id');
-      if(id!=null) {
+      if (id != null) {
         let desenc = CryptoJS.AES.decrypt(id, 'id').toString(CryptoJS.enc.Utf8);
         this.usuarioId = parseInt(desenc);
         this.cargarDatos();
-      } 
+      }
     }
   }
 
-  setUsuarioId(id:number) {
+  setUsuarioId(id: number) {
     this.usuarioId = id;
   }
 
- 
+
 
   isCargando() { return this.cargando }
 
-  cargar(){
+  cargar() {
     this.cargando = true;
   }
 
-  noCargar(){
+  noCargar() {
     this.cargando = false;
   }
 
@@ -83,10 +83,10 @@ export class BbddProyectosService {
 
   deleteLista(listaId: number) {
     this.http.post(this.url + "proyecto/remove_lista/" + listaId, null).subscribe(
-      ()=>{
+      () => {
 
-      }, (error)=>{
-        Swal.fire('ERROR',"Error al eliminar la lista.", 'error');
+      }, (error) => {
+        Swal.fire('ERROR', "Error al eliminar la lista.", 'error');
       }
     );
   }
@@ -99,7 +99,7 @@ export class BbddProyectosService {
     this.http.post(this.url + "edit_lista/" + idLista, body).subscribe(
       (respuesta) => {
         this.cargarDatos();
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al editar la lista", 'error');
       }
     );
@@ -114,7 +114,7 @@ export class BbddProyectosService {
     this.http.post(this.url + "edit_proyecto/" + id, body).subscribe(
       (respuesta) => {
         this.cargarDatos();
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al editar el proyecto", 'error');
       }
     );
@@ -124,7 +124,7 @@ export class BbddProyectosService {
     this.http.post(this.url + "proyecto/remove_proyecto/" + id, null).subscribe(
       (respuesta) => {
         this.cargarDatos()
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al eliminar el proyecto", 'error');
       }
     );
@@ -134,13 +134,13 @@ export class BbddProyectosService {
     let body = {
       "nombre": nombre
     }
-    this.http.post(this.url + "proyecto/"+this.usuarioId, body).subscribe(
+    this.http.post(this.url + "proyecto/" + this.usuarioId, body).subscribe(
       (proyecto: any) => {
         usuarios.forEach(u => {
           this.addUsuarioProyecto(proyecto.id, u.id);
         });
         this.cargarDatos()
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al añadir el proyecto", 'error');
       }
     );
@@ -150,7 +150,7 @@ export class BbddProyectosService {
     this.http.post(this.url + "proyecto/add_user/" + idProyecto + "/" + id, null).subscribe(
       (respuesta) => {
         this.cargarDatos()
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al añadir usuario al proyecto", 'error');
       }
     );
@@ -179,42 +179,42 @@ export class BbddProyectosService {
     return this.http.post(this.url + "proyecto/remove_tarea/" + id, null);
   }
 
-  moverTarea(idTarea:number, idLista:number){
-    return this.http.get(this.url+'proyecto/change_tarea/'+idTarea+'/'+idLista)
+  moverTarea(idTarea: number, idLista: number) {
+    return this.http.get(this.url + 'proyecto/change_tarea/' + idTarea + '/' + idLista)
   }
 
   editarTarea(id: number, nombre: string, descripcion: string, dificultad: number, prioridad: number) {
     this.cargar();
-    let body = 
-        {
-          "nombre": nombre,
-          "descripcion": descripcion,
-          "dificultad": dificultad,
-          "prioridad": prioridad
-        };
-      
+    let body =
+    {
+      "nombre": nombre,
+      "descripcion": descripcion,
+      "dificultad": dificultad,
+      "prioridad": prioridad
+    };
+
     this.http.post(this.url + 'edit_tarea/' + id, body).subscribe(
       (respuesta: any) => {
         this.cargarDatos();
-      }, (error)=>{
+      }, (error) => {
         console.log(error)
         Swal.fire('ERROR', "Error al editar la tarea.", 'error');
       }
     )
   }
 
-  addUsuarioTarea(id_tarea:number, id_usuario:number) {
+  addUsuarioTarea(id_tarea: number, id_usuario: number) {
     this.cargar();
-    this.http.post(this.url+'proyecto/add_user_tarea/'+id_tarea+'/'+id_usuario, null).subscribe(
+    this.http.post(this.url + 'proyecto/add_user_tarea/' + id_tarea + '/' + id_usuario, null).subscribe(
       (respuesta) => {
         this.cargarDatos()
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al añadir usuario a la tarea", 'error');
       }
     );
   }
 
-  buscarMiembroProyecto(id:number, email: string) {
+  buscarMiembroProyecto(id: number, email: string) {
     return this.http.get(this.url + 'proyecto/search_user/' + id + '/' + email);
   }
 
@@ -225,52 +225,52 @@ export class BbddProyectosService {
       (respuesta: any) => {
         this.proyectos = respuesta;
         this.noCargar()
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al cargar los proyectos", 'error');
       }
     );
   }
 
 
-  setFiltro(prioridad:number, valor:boolean){
+  setFiltro(prioridad: number, valor: boolean) {
     for (let i = 0; i < this.filtro.length; i++) {
-      if(this.filtro[i].prioridad == prioridad){
+      if (this.filtro[i].prioridad == prioridad) {
         this.filtro[i].valor = valor;
         break;
       }
     }
   }
 
-  getFiltro(){
+  getFiltro() {
     return this.filtro;
   }
 
-  getMiUsuario(){
+  getMiUsuario() {
     return this.usuarioId;
   }
 
-  enviarMensaje(idproyecto:number, texto:string){
-    let body = 
+  enviarMensaje(idproyecto: number, texto: string) {
+    let body =
     {
       "texto": texto
     };
 
-     return this.http.post(this.url + 'proyecto/add_mensaje/' + idproyecto + '/' + this.usuarioId, body)
+    return this.http.post(this.url + 'proyecto/add_mensaje/' + idproyecto + '/' + this.usuarioId, body)
 
   }
 
-  quitarMiembroTarea(tareaId:number, usuarioId:number){
+  quitarMiembroTarea(tareaId: number, usuarioId: number) {
     this.cargar();
-    this.http.post(this.url+'proyecto/remove_user_tarea/'+tareaId+'/'+usuarioId, null).subscribe(
+    this.http.post(this.url + 'proyecto/remove_user_tarea/' + tareaId + '/' + usuarioId, null).subscribe(
       (respuesta: any) => {
         this.cargarDatos();
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al eliminar el usuario de la tarea.", 'error');
       }
     )
   }
 
- 
 
-  
+
+
 }

@@ -8,61 +8,61 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
   styleUrls: ['./tarea.component.css']
 })
 export class TareaComponent implements OnInit {
-  @Input() tarea:any;
-  @Input() lista:any;
-  @Input() proyecto:any;
+  @Input() tarea: any;
+  @Input() lista: any;
+  @Input() proyecto: any;
   @Output() actualizar = new EventEmitter<boolean>();
 
-  editando:boolean = false;
-  asignando:boolean = false;
-  errores:boolean = false;
-  miembros:any[]=[];
+  editando: boolean = false;
+  asignando: boolean = false;
+  errores: boolean = false;
+  miembros: any[] = [];
 
   constructor(private bbddProyectos: BbddProyectosService) { }
 
   ngOnInit(): void {
   }
 
-    
 
-  getDificultad(){
-    let dificultad:string;
-    switch(this.tarea.dificultad){
-      case 1: dificultad="Fácil"; break;
-      case 2: dificultad="Normal"; break;
-      default: dificultad="Difícil"; 
+
+  getDificultad() {
+    let dificultad: string;
+    switch (this.tarea.dificultad) {
+      case 1: dificultad = "Fácil"; break;
+      case 2: dificultad = "Normal"; break;
+      default: dificultad = "Difícil";
     }
 
     return dificultad;
   }
 
-  getPrioridad(){
-    let prioridad:string;
-    switch(this.tarea.prioridad){
-      case 1: prioridad="Muy baja"; break;
-      case 2: prioridad="Baja"; break;
-      case 3: prioridad="Normal"; break;
-      case 4: prioridad="Alta"; break;
-      default: prioridad="Muy alta";
+  getPrioridad() {
+    let prioridad: string;
+    switch (this.tarea.prioridad) {
+      case 1: prioridad = "Muy baja"; break;
+      case 2: prioridad = "Baja"; break;
+      case 3: prioridad = "Normal"; break;
+      case 4: prioridad = "Alta"; break;
+      default: prioridad = "Muy alta";
     }
 
     return prioridad;
   }
 
-  borrarTarea(){
-   this.bbddProyectos.deleteTarea(this.tarea.id).subscribe(
-     () => {
+  borrarTarea() {
+    this.bbddProyectos.deleteTarea(this.tarea.id).subscribe(
+      () => {
 
-     }, (error)=>{
-       Swal.fire("ERROR", "Error al eliminar la tarea", "error");
-     }
-     );
-     this.bbddProyectos.cargar();
-     this.actualizar.emit(true);
-   
+      }, (error) => {
+        Swal.fire("ERROR", "Error al eliminar la tarea", "error");
+      }
+    );
+    this.bbddProyectos.cargar();
+    this.actualizar.emit(true);
+
   }
 
-  buscarMiembro(email:any){
+  buscarMiembro(email: any) {
     this.actualizar.emit(false);
     let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     if (email.value == '') {
@@ -76,7 +76,7 @@ export class TareaComponent implements OnInit {
         (m: any) => {
           let encontrado: boolean = false;
           for (let i = 0; i < this.miembros.length && !encontrado; i++) {
-            if (this.miembros[i].id == m.id) encontrado = true;            
+            if (this.miembros[i].id == m.id) encontrado = true;
           }
           if (!encontrado) this.miembros.push(m);
           email.value = '';
@@ -90,7 +90,7 @@ export class TareaComponent implements OnInit {
     }
   }
 
-  quitarMiembro(miembro:any){
+  quitarMiembro(miembro: any) {
     let encontrado: boolean = false;
     let indice: number = -1;
     for (let i = 0; i < this.tarea.usuarios.length && !encontrado; i++) {
@@ -107,35 +107,35 @@ export class TareaComponent implements OnInit {
 
   }
 
-  getListas(){ 
-    let listas:any[] = this.proyecto.listas;
-    let copiaLista:any = listas[0];
+  getListas() {
+    let listas: any[] = this.proyecto.listas;
+    let copiaLista: any = listas[0];
     for (let i = 0; i < listas.length && this.lista != listas[0]; i++) {
       if (this.lista == listas[i]) {
         listas[0] = listas[i];
         listas[i] = copiaLista;
         break;
-      }      
+      }
     }
-    return listas; 
+    return listas;
   }
-  
-  cambiarEditando(){
+
+  cambiarEditando() {
     this.editando = !this.editando;
-    if(this.editando && this.asignando) this.asignando = false;
-    if(this.editando) this.actualizar.emit(false);
+    if (this.editando && this.asignando) this.asignando = false;
+    if (this.editando) this.actualizar.emit(false);
     else this.actualizar.emit(true);
   }
-  
-  editar(nombre:string, prioridad:string, dificultad:string, descripcion:string){
+
+  editar(nombre: string, prioridad: string, dificultad: string, descripcion: string) {
     this.errores = false;
     this.bbddProyectos.editarTarea(this.tarea.id, nombre, descripcion, parseInt(dificultad), parseInt(prioridad));
     this.bbddProyectos.cargar();
     this.cambiarEditando();
     this.actualizar.emit(true);
   }
-  
-  cancelarEdicion(nombre:any, prioridad:any, dificultad:any, descripcion:any){
+
+  cancelarEdicion(nombre: any, prioridad: any, dificultad: any, descripcion: any) {
     nombre.value = this.tarea.nombre;
     prioridad.value = this.tarea.prioridad;
     dificultad.value = this.tarea.dificultad;
@@ -143,42 +143,46 @@ export class TareaComponent implements OnInit {
     this.cambiarEditando();
   }
 
-  getIniciales(usuario:any){
-    let iniciales:string;
-    iniciales=usuario.nombre[0]+usuario.apellido[0];
+  getIniciales(usuario: any) {
+    let iniciales: string;
+    iniciales = usuario.nombre[0] + usuario.apellido[0];
     iniciales = iniciales.toUpperCase();
     return iniciales;
   }
 
-  cambiarAsignar(){
+  cambiarAsignar() {
     this.asignando = !this.asignando;
-    if(this.asignando && this.editando) this.editando = false;
-    if(this.asignando) this.actualizar.emit(false)
+    if (this.asignando && this.editando) this.editando = false;
+    if (this.asignando) this.actualizar.emit(false)
     else this.actualizar.emit(true);
-    this.miembros=this.tarea.usuarios;
+    this.miembros = this.tarea.usuarios;
   }
 
-  asignarTarea(){
+  asignarTarea() {
     this.cambiarAsignar();
-    this.tarea.usuarios=[];
+    this.tarea.usuarios = [];
     this.miembros.forEach((u: { id: number; }) => {
       this.bbddProyectos.addUsuarioTarea(this.tarea.id, u.id)
       this.actualizar.emit(true);
     });
   }
 
-  crearErrores(){
+  crearErrores() {
     this.errores = true;
     Swal.fire("Atención", "Debe completar los campos obligatorios", "warning")
   }
 
-  validarForm(){
-    
+  validarForm() {
+
   }
-  
-  
-  
-  
+
+  ocultar(details:any){
+    if(details.open) return false
+    else return true;
+  }
+
+
+
 
 
 }

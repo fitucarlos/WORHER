@@ -8,7 +8,7 @@
                 <p>Total de participantes: {{proyecto.usuarios.length}}</p>
                 <table class="nombres">
                     <tr *ngFor="let u of proyecto.usuarios">
-                        <td> <span class="circulo">{{getIniciales(u)}}</span></td>
+                        <td aria-label=""> <span class="circulo">{{getIniciales(u)}}</span></td>
                         <td>{{u.nombre}} {{u.apellido}}</td>
                     </tr>
                 </table>
@@ -18,12 +18,17 @@
 
 
         <div class="botones row">
-            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#addUsuario">Añadir usuario</button>
-            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#moverTarea">Mover tarea</button>
-            <button class="btn boton col-12" data-bs-toggle="modal" data-bs-target="#crearTarea">Crear tarea</button>
-            <button class="btn boton botonChat col-12" (click)="mostrarChat()">Chat</button>
-            <button *ngIf="!filtrando" class="btn boton col-12" (click)="filtrar()">Filtro</button>
-            <button *ngIf="filtrando" class="btn boton col-12" (click)="filtrar()"><svg
+            <button class="btn boton col-12" aria-label="Añadir usuario" data-bs-toggle="modal"
+                data-bs-target="#addUsuario">Añadir usuario</button>
+            <button class="btn boton col-12" aria-label="Mover tarea" data-bs-toggle="modal"
+                data-bs-target="#moverTarea">Mover tarea</button>
+            <button class="btn boton col-12" aria-label="Crear tarea" data-bs-toggle="modal"
+                data-bs-target="#crearTarea">Crear tarea</button>
+            <button class="btn boton botonChat col-12" aria-label="Mostrar chat de proyecto"
+                (click)="mostrarChat()">Chat</button>
+            <button *ngIf="!filtrando" class="btn boton col-12" aria-label="mostrar filtro"
+                (click)="filtrar()">Filtro</button>
+            <button *ngIf="filtrando" class="btn boton col-12" aria-label="Cerrar filtro" (click)="filtrar()"><svg
                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -34,51 +39,51 @@
             </button>
         </div>
         <div class="container filtro" *ngIf="filtrando">
-                <div class="form-check col fil ">
-                    <label class="form-check-label" for="prioridad_muyBaja">
-                        <span>
-                            <img src="assets/images/prioridad_muyBaja.png" width="30" height="30"/>
-                        </span> Prioridad muy baja 
-                    </label>
-                    <input class="form-check-input" type="checkbox" id="prioridad_muyBaja" value="1" #prioridadMuyBaja
-                        (click)="filtrarPrioridad(prioridadMuyBaja.value, $event)" checked />
-                </div>
-                <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_baja">
-                        <span>
-                            <img src="assets/images/prioridad_baja.png" width="30" height="30"/>
-                        </span> Prioridad baja 
-                    </label>
-                    <input class="form-check-input" type="checkbox" id="prioridad_baja" value="2" #prioridadBaja
-                        (click)="filtrarPrioridad(prioridadBaja.value, $event)" checked />
-                </div>
-                <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_media">
-                        <span>
-                            <img src="assets/images/prioridad_media.png" width="30" height="30"/>
-                        </span> Prioridad media 
-                    </label>
-                    <input class="form-check-input" type="checkbox" id="prioridad_media" value="3" #prioridadMedia
-                        (click)="filtrarPrioridad(prioridadMedia.value, $event)" checked />
-                </div>
-                <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_alta">
-                        <span>
-                            <img src="assets/images/prioridad_alta.png" width="30" height="30"/>
-                        </span> Prioridad alta 
-                    </label>
-                    <input class="form-check-input" type="checkbox" id="prioridad_alta" value="4" #prioridadAlta
-                        (click)="filtrarPrioridad(prioridadAlta.value, $event)" checked />
-                </div>
-                <div class="form-check col fil">
-                    <label class="form-check-label" for="prioridad_muyAlta"> 
-                        <span>
-                            <img src="assets/images/prioridad_muyAlta.png" width="30" height="30"/>
-                        </span> Prioridad muy alta
-                    </label>
-                    <input class="form-check-input" type="checkbox" id="prioridad_muyAlta" value="5" #prioridadMuyAlta
-                        (click)="filtrarPrioridad(prioridadMuyAlta.value, $event)" checked />
-                </div>
+            <div class="form-check col fil ">
+                <label class="form-check-label" for="prioridad_muyBaja">
+                    <span>
+                        <img src="assets/images/prioridad_muyBaja.png" alt="" width="30" height="30" />
+                    </span> Prioridad muy baja
+                </label>
+                <input class="form-check-input" type="checkbox" id="prioridad_muyBaja" value="1" #prioridadMuyBaja
+                    (click)="filtrarPrioridad(prioridadMuyBaja.value, $event)" aria-label="filtrar por prioridad muy baja" checked />
+            </div>
+            <div class="form-check col fil">
+                <label class="form-check-label" for="prioridad_baja">
+                    <span>
+                        <img src="assets/images/prioridad_baja.png" alt="" width="30" height="30" />
+                    </span> Prioridad baja
+                </label>
+                <input class="form-check-input" type="checkbox" id="prioridad_baja" value="2" #prioridadBaja
+                    (click)="filtrarPrioridad(prioridadBaja.value, $event)" aria-label="filtrar por prioridad baja" checked />
+            </div>
+            <div class="form-check col fil">
+                <label class="form-check-label" for="prioridad_media">
+                    <span>
+                        <img src="assets/images/prioridad_media.png" alt="" width="30" height="30" />
+                    </span> Prioridad media
+                </label>
+                <input class="form-check-input" type="checkbox" id="prioridad_media" value="3" #prioridadMedia
+                    (click)="filtrarPrioridad(prioridadMedia.value, $event)" aria-label="filtrar por prioridad media" checked />
+            </div>
+            <div class="form-check col fil">
+                <label class="form-check-label" for="prioridad_alta">
+                    <span>
+                        <img src="assets/images/prioridad_alta.png" alt="" width="30" height="30" />
+                    </span> Prioridad alta
+                </label>
+                <input class="form-check-input" type="checkbox" id="prioridad_alta" value="4" #prioridadAlta
+                    (click)="filtrarPrioridad(prioridadAlta.value, $event)" aria-label="filtrar por prioridad alta" checked />
+            </div>
+            <div class="form-check col fil">
+                <label class="form-check-label" for="prioridad_muyAlta">
+                    <span>
+                        <img src="assets/images/prioridad_muyAlta.png" alt="" width="30" height="30" />
+                    </span> Prioridad muy alta
+                </label>
+                <input class="form-check-input" type="checkbox" id="prioridad_muyAlta" value="5" #prioridadMuyAlta
+                    (click)="filtrarPrioridad(prioridadMuyAlta.value, $event)" checked aria-label="filtrar por prioridad muy alta" />
+            </div>
         </div>
 
         <div class="container-fluid">
@@ -90,7 +95,7 @@
                             [proyecto]="proyecto" [lista]="lista" [filtro]="filtro"
                             *ngFor="let lista of proyecto.listas"></app-lista>
 
-                        <div class="col-sm-12 col-md-6 mt-2">
+                        <article class="col-sm-12 col-md-6 mt-2">
 
                             <div class="mt-2 lista tarjeta ">
                                 <h3>Nueva lista</h3>
@@ -106,25 +111,27 @@
                                 <div class="botonAdd">
                                     <svg (click)="addLista(nombreNuevaLista.value); nombreNuevaLista.value=''"
                                         role="button" class="btn" xmlns="http://www.w3.org/2000/svg" width="30"
-                                        height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        height="30" aria-label="Añadir nueva lista" fill="currentColor"
+                                        class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                                     </svg>
                                 </div>
 
                             </div>
-                        </div>
+                        </article>
 
                     </div>
                 </div>
-                <app-chat [proyecto]="proyecto" class="col-lg-3  chat"></app-chat>
+                <app-chat (actualizar)="isActualizar($event)" [proyecto]="proyecto" class="col-lg-3  chat"></app-chat>
             </div>
         </div>
     </div>
 
     <div class="container-fluid mostrarChat" *ngIf="isChat()">
         <div class="botones">
-            <button class="btn boton" (click)="noMostrarChat()">Volver al proyecto</button>
+            <button class="btn boton" (click)="noMostrarChat()" aria-label="Volver al proyecto">Volver al
+                proyecto</button>
         </div>
         <app-chat [proyecto]="proyecto"></app-chat>
     </div>
@@ -136,36 +143,40 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="moverTareaLabel">Mover tarea</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
 
                 <div class="modal-body">
                     <form class="form-group">
                         <label for="original">¿En qué lista se encuentra la tarea?
                             <span class='obligatorio'>*</span>
-                            <span class='obligatorio error' *ngIf="errores && original.value == '-1'">CAMPO OBLIGATORIO</span>
+                            <span class='obligatorio error' *ngIf="errores && original.value == '-1'">CAMPO
+                                OBLIGATORIO</span>
                         </label>
-                        <select name="original" id="original" class="form-select" #original
+                        <select name="original" id="original" class="form-select"
+                            aria-label="seleccionar lista en la que se encuentra la tarea" #original
                             (change)="getTareasListaMover(original.value, tareaId, nuevaListaId)">
                             <option value="-1">Selecciona una lista</option>
                             <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
                         </select>
                         <label for="tareaId">¿Qué tarea quiere mover?
                             <span class='obligatorio'>*</span>
-                            <span class='obligatorio error' *ngIf="errores && tareaId.value == '-1'">CAMPO OBLIGATORIO</span>
+                            <span class='obligatorio error' *ngIf="errores && tareaId.value == '-1'">CAMPO
+                                OBLIGATORIO</span>
                         </label>
                         <select name="tareaId" id="tareaid" class="form-select" #tareaId disabled
-                            (change)="habilitarResto(tareaId.value, nuevaListaId)">
+                            (change)="habilitarResto(tareaId.value, nuevaListaId)" aria-label="seleccionar tarea">
                             <option value="-1">Selecciona una tarea</option>
                             <option *ngFor="let t of tareas" value="{{t.id}}">{{t.nombre}}</option>
                         </select>
                         <label for="nuevaListaId">¿A qué lista quiere mover la tarea?
                             <span class='obligatorio'>*</span>
                             <span class='obligatorio error'
-                                *ngIf="errores && (nuevaListaId.value == '-1' || (original.value != '-1' && nuevaListaId.value==original.value))">CAMPO OBLIGATORIO</span>
+                                *ngIf="errores && (nuevaListaId.value == '-1' || (original.value != '-1' && nuevaListaId.value==original.value))">CAMPO
+                                OBLIGATORIO</span>
                         </label>
                         <select name="nuevaListaId" id="nuevaListaId" class="form-select" #nuevaListaId disabled
-                            (change)="validarForm()">
+                            (change)="validarForm()" aria-label="seleccionar lista a la que se quiere mover la tarea">
                             <option value="-1">Selecciona una lista</option>
                             <option *ngFor="let r of getListas()" value="{{r.id}}">{{r.nombre}}</option>
                         </select>
@@ -175,12 +186,13 @@
                     <button type="button" #boton
                         *ngIf="original.value!='-1' && tareaId.value!='-1' && nuevaListaId.value!='-1' && nuevaListaId.value!=original.value"
                         (click)="moverTarea(tareaId.value, nuevaListaId.value, original.value)" class="btn boton"
-                        data-bs-dismiss="modal">Mover tarea</button>
+                        data-bs-dismiss="modal" aria-label="Mover tarea">Mover tarea</button>
                     <button type="button" #boton
                         *ngIf="original.value=='-1' || tareaId.value=='-1' || nuevaListaId.value=='-1'"
-                        (click)="crearErrores()" class="btn boton">Mover tarea</button>
+                        (click)="crearErrores()" class="btn boton" aria-label="Mover tarea">Mover tarea</button>
                     <button type="button" #boton *ngIf="original.value != '-1' && nuevaListaId.value==original.value"
-                        (click)="crearErroresListasIguales()" class="btn boton">Mover tarea</button>
+                        (click)="crearErroresListasIguales()" class="btn boton" aria-label="Mover tarea">Mover
+                        tarea</button>
                 </div>
             </div>
         </div>
@@ -193,30 +205,34 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="crearTareaLabel">Crear tarea</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <label for="listaCrear">¿En qué lista quieres crear la tarea?
                             <span class='obligatorio'>*</span>
-                            <span class='obligatorio error' *ngIf="errores && listaCrear.value == 'default'">CAMPO OBLIGATORIO</span>
+                            <span class='obligatorio error' *ngIf="errores && listaCrear.value == 'default'">CAMPO
+                                OBLIGATORIO</span>
                         </label>
-                        <select name="listaCrear" id="listaCrear" class="form-select" #listaCrear>
+                        <select name="listaCrear" id="listaCrear" class="form-select" #listaCrear
+                            aria-label="seleccionar lista en la que se quiere crear la tarea">
                             <option value="default">Selecciona una lista</option>
                             <option *ngFor="let l of getListas()" value="{{l.id}}">{{l.nombre}}</option>
                         </select>
                         <div class="txt_field form-control mt-4">
                             <input type="text" required aria-label="Nombre de tarea" name="nombreCrear" #nombreCrear
-                                id="nombreCrear">
+                                id="nombreCrear" (keyup)="validarForm()">
                             <span class="span"></span>
                             <label for="nombreCrear" class="control-label required">Nombre de tarea
                                 <span class='obligatorio'>*</span>
                                 <span class='obligatorio error'
-                                    *ngIf="errores && (nombreCrear.value.trim() == '' || nombreCrear.value.length<3)">CAMPO OBLIGATORIO</span>
+                                    *ngIf="errores && (nombreCrear.value.trim() == '' || nombreCrear.value.length<3)">CAMPO
+                                    OBLIGATORIO</span>
                             </label>
                         </div>
                         <label for="prioridadCrear">Prioridad</label>
-                        <select name="prioridadCrear" id="prioridadCrear" class="form-select" #prioridadCrear>
+                        <select name="prioridadCrear" id="prioridadCrear" class="form-select"
+                            aria-label="seleccionar prioridad de tarea" #prioridadCrear>
                             <option value="1">Muy baja</option>
                             <option value="2">Baja</option>
                             <option value="3">Normal</option>
@@ -224,7 +240,8 @@
                             <option value="5">Muy alta</option>
                         </select>
                         <label for="dificultadCrear">Dificultad</label>
-                        <select name="dificultadCrear" id="dificultadCrear" class="form-select" #dificultadCrear>
+                        <select name="dificultadCrear" id="dificultadCrear" class="form-select"
+                            aria-label="seleccionar dificultad de tarea" #dificultadCrear>
                             <option value="1">Fácil</option>
                             <option value="2">Normal</option>
                             <option value="3">Difícil</option>
@@ -241,9 +258,9 @@
                     <button data-bs-dismiss="modal" *ngIf="listaCrear.value!='default' && nombreCrear.value.trim()!=''"
                         type="button"
                         (click)="crearTarea(modal, listaCrear.value, nombreCrear.value, descripcionCrear.value, dificultadCrear.value, prioridadCrear.value)"
-                        class="btn boton" #botonCrear>Crear tarea</button>
+                        class="btn boton" #botonCrear aria-label="Crear tarea">Crear tarea</button>
                     <button *ngIf="listaCrear.value=='default' || nombreCrear.value.trim()==''" type="button"
-                        class="btn boton" (click)="crearErrores()">Crear tarea</button>
+                        class="btn boton" (click)="crearErrores()" aria-label="Crear tarea">Crear tarea</button>
                 </div>
             </div>
         </div>
@@ -256,7 +273,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addUsuarioLabel">Añadir usuario al proyecto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
                     <div class="txt_field form-control mt-4">
@@ -266,8 +283,8 @@
                         <label for="buscarMiembro" class="control-label required">Email de
                             usuario</label>
                     </div>
-                    <button class="btn boton" type="button" id="searchUser"
-                        (click)="buscarMiembro(buscar)">Buscar</button>
+                    <button class="btn boton" type="button" id="searchUser" (click)="buscarMiembro(buscar)"
+                        aria-label="Buscar usuario">Buscar</button>
 
                     <h4>Miembros del proyecto</h4>
                     <table class="table" *ngIf="hayProyecto()">
@@ -285,9 +302,10 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn boton eliminar" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn boton" data-bs-dismiss="modal"
-                        (click)="addMiembro()">Guardar</button>
+                    <button type="button" class="btn boton eliminar" data-bs-dismiss="modal"
+                        aria-label="Cancelar">Cancelar</button>
+                    <button type="button" class="btn boton" data-bs-dismiss="modal" (click)="addMiembro()"
+                        aria-label="Guardar">Guardar</button>
                 </div>
             </div>
         </div>

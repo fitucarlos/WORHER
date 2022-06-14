@@ -48,16 +48,17 @@
 }
 
 .dropdown:hover .dropdown-content {
-    display:block;
+    display: block;
 }
 
 
-.guardar, .cancelar {
+.guardar,
+.cancelar {
     margin: 1%;
 }
 
 #nombre {
-    text-transform:lowercase;
+    text-transform: lowercase;
     font-variant: small-caps;
 }
 
@@ -114,15 +115,10 @@
 }
 
 .dropdown-content button {
-    color:black;
+    color: black;
 }
 
 .dropdown-content button:hover {
-    background-color: rgb(129,59,255);
-    color:white;
+    background-color: rgb(129, 59, 255);
+    color: white;
 }
-
-
-
-
-

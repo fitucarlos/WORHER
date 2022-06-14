@@ -10,8 +10,8 @@
 
 
 
-.mostrarChat > .botones > .boton {
-    width:200px;
+.mostrarChat>.botones>.boton {
+    width: 200px;
 }
 
 .miembros {
@@ -31,8 +31,8 @@ h1 {
 
 .nombres {
     font-size: 1.2rem;
-    position:absolute;
-    top:45px;
+    position: absolute;
+    top: 45px;
     z-index: 1000;
     padding: 1%;
     overflow-x: hidden;
@@ -40,7 +40,7 @@ h1 {
 }
 
 .nombres span {
-    margin:auto 10px;
+    margin: auto 10px;
 }
 
 li {
@@ -48,18 +48,12 @@ li {
 }
 
 
-h1::first-letter, li::first-letter {
+h1::first-letter,
+li::first-letter {
     text-transform: uppercase;
 }
 
-.filtro {
-    width: 70%;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-}
-.fil{
+.fil {
     text-align: start;
 }
 
@@ -76,11 +70,12 @@ h1::first-letter, li::first-letter {
 .miembros p {
     margin-top: 20px;
 }
+
 .nombres {
     display: none;
 }
 
-.miembros p:hover ~ .nombres {
+.miembros p:hover~.nombres {
     display: block;
 }
 
@@ -97,7 +92,8 @@ h1::first-letter, li::first-letter {
 
 .lista {
     padding: 5%;
-    width: 400px;
+    max-width: 400px;
+    min-width: 300px;
     margin-top: 10%;
     margin-bottom: 7.5%;
     margin-left: auto;
@@ -110,19 +106,50 @@ h1::first-letter, li::first-letter {
 
 .chat {
     display: none;
+    margin-bottom: 20px;
 }
 
- .proyecto {
+.proyecto {
     min-height: 100vh;
     height: 100%;
 }
 
+.filtro {
+
+    background: rgba( 255, 255, 255, 0.7 );
+    box-shadow: 0 8px 20px 0 black;
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 3px solid rgba( 255, 255, 255, 0.3 );
+    border-radius: 5px;
+    color:black;
+    width: 400px;
+}
+
+/******************************************************************************************
+***************************************TABLET**********************************************
+******************************************************************************************/
+@media(min-width:640px) {
+    .filtro {
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: none;
+        background: transparent;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        width: 70%;
+    }
+ }
+ 
 
 
 /******************************************************************************************
 **************************************DESKTOP**********************************************
 ******************************************************************************************/
-@media(min-width:1224px){
+@media(min-width:1224px) {
     .chat {
         display: block;
     }
@@ -165,12 +192,9 @@ h1::first-letter, li::first-letter {
 */
 
 
-
 .nombres {
     background-color: white;
 }
-
-
 
 .botonAdd {
     color: white;
@@ -188,6 +212,6 @@ h1::first-letter, li::first-letter {
 }
 
 .mostrarChat {
-    color:black;;
+    color: black;
     min-height: 100vh;
 }

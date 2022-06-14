@@ -18,18 +18,18 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  private id:number=0;
+  private id: number = 0;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route:Router, private service:BbddProyectosService) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: Router, private service: BbddProyectosService) { }
 
   ngOnInit(): void {
-    if(this.tokenStorage.getToken()){
+    if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
     }
   }
 
   onSubmit(): void {
-    const {email, password} = this.form;
+    const { email, password } = this.form;
     this.authService.login(email, password).subscribe({
       next: data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
-  getId(){
+  getId() {
     return this.id;
   }
 

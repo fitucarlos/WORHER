@@ -1,10 +1,46 @@
 #profile-image {
-    width: 120px;
+    width: 50px !important;
     margin: auto;
 }
 
 .contenedor {
-    margin: auto;
     margin-top: 3%;
+    width: 90%;
+    margin: auto;
 }
 
+.tarjeta {
+    border-radius: 5px;
+    min-width: 380px;
+    width: 100%;
+    padding: 10px;
+    background: rgba( 255, 255, 255, 0.9 );
+    box-shadow: 0 4px 10px 0 black;
+    margin:0;
+}
+
+.login {
+    width: 400px;
+    margin: 10px auto;
+}
+
+
+.tarjeta p {
+    font-size: 20px;
+}
+
+/******************************************************************************************
+***************************************TABLET**********************************************
+******************************************************************************************/
+@media(min-width:640px) {
+
+    .tarjeta {
+        border-radius: 5px;
+        width: 100%;
+        padding: 10px;
+        background: rgba( 255, 255, 255, 0.9 );
+        box-shadow: 0 4px 10px 0 black;
+    }
+
+
+ }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
@@ -10,17 +10,15 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 })
 export class ChatComponent implements OnInit {
   @Input() proyecto: any;
-  actualizar:boolean = false;
+  @Output() actualizar = new EventEmitter<boolean>();
 
-  constructor(private bbddProyectos: BbddProyectosService, private route:Router) {
-    //window.setInterval(() => { this.recargarProyecto() }, 1000)
-    
-    
+  constructor(private bbddProyectos: BbddProyectosService, private route: Router) {
+
   }
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.bajarScroll();      
+      this.bajarScroll();
     }, 100);
   }
 
@@ -33,10 +31,10 @@ export class ChatComponent implements OnInit {
       this.bbddProyectos.enviarMensaje(this.proyecto.id, texto.value).subscribe(
         (respuesta) => {
           this.proyecto = respuesta;
-          this.actualizar = true;
-          this.recargarProyecto();
+          this.actualizar.emit(true);
+          this.bajarScroll();
 
-        }, (error)=>{
+        }, (error) => {
           Swal.fire('ERROR', 'Error al enviar el mensaje', 'error');
         }
       )
@@ -46,28 +44,27 @@ export class ChatComponent implements OnInit {
 
   recargarProyecto() {
     this.bbddProyectos.getProyectoById(this.proyecto.id).subscribe(
-      (respuesta:any) => {
-        if(this.proyecto.mensajes.length != respuesta.mensajes.length || this.actualizar){
+      (respuesta: any) => {
+        if (this.proyecto.mensajes.length != respuesta.mensajes.length) {
           this.proyecto = respuesta;
           this.bajarScroll();
-          this.actualizar = false;
         }
       }, (error) => {
         Swal.fire('ERROR', 'Error al cargar el proyecto', 'error');
-        this.route.navigate(['/error']);
+        this.route.navigate(['/inicio']);
       }
     )
   }
-  
 
-  bajarScroll(){
+
+  bajarScroll() {
     var target = document.querySelector('#mensajes');
     if (target) {
       target.scrollTop = target.scrollHeight
     }
   }
 
-  
+
 
 
 }

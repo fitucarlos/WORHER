@@ -11,8 +11,8 @@ import { BbddProyectosService } from '../bbdd-proyectos.service';
 })
 export class ListaComponent implements OnInit {
   @Input() lista: any;
-  @Input() proyecto:any;
-  @Input() filtro:any;
+  @Input() proyecto: any;
+  @Input() filtro: any;
   @Output() actualizar = new EventEmitter<boolean>();
   menu: boolean = false;
   editar: boolean = false;
@@ -22,7 +22,7 @@ export class ListaComponent implements OnInit {
   constructor(private bbddProyectos: BbddProyectosService) { }
 
   ngOnInit(): void {
-   }
+  }
 
   renombrarLista() {
     this.editar = true;
@@ -42,19 +42,19 @@ export class ListaComponent implements OnInit {
 
   borrarLista() {
     this.bbddProyectos.deleteLista(this.lista.id);
-    let indice:number = -1;
+    let indice: number = -1;
     for (let i = 0; i < this.proyecto.listas.length; i++) {
-      if(this.lista.id == this.proyecto.listas[i].id){
+      if (this.lista.id == this.proyecto.listas[i].id) {
         indice = i;
         break;
-      }      
+      }
     }
 
-    if(indice != -1){
+    if (indice != -1) {
       this.proyecto.listas.splice(indice, 1);
     }
 
-    
+
   }
 
   buscarMiembro(email: string) {
@@ -85,19 +85,19 @@ export class ListaComponent implements OnInit {
 
   }
 
- 
-  actualizarTarea(actualizar:boolean){
-    if(actualizar){
+
+  actualizarTarea(actualizar: boolean) {
+    if (actualizar) {
       this.actualizar.emit(true);
     }
   }
 
- 
-
-  
 
 
-  
+
+
+
+
 
 
 }

@@ -3,7 +3,27 @@ footer {
     width: 100%;
     min-height: 100px;
     padding: 15px;
-    background-color: #813bff;
+    text-align: center;
+    display: flex;
+    flex-direction:column;
     color:white;
-    border: 2px solid black;
+    font-size: 1.5rem;
+    justify-content: center;
 }
+
+ .enlace{
+    color:white;
+}
+
+footer img{
+    width: 100px;
+}
+
+
+
+/******************************************************************************************
+***************************************TABLET**********************************************
+******************************************************************************************/
+@media(min-width:640px) {
+    
+ }

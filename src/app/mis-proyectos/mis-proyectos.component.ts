@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
 
@@ -12,11 +13,15 @@ export class MisProyectosComponent implements OnInit {
   miembros: any[] = [];
   cargando = false;
 
-  constructor(private bbddProyectos: BbddProyectosService) {
+  constructor(private bbddProyectos: BbddProyectosService, private route: Router) {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (!sessionStorage.getItem('id')) {
+      this.route.navigate(['/login']);
+    }
+  }
 
   getProyectos() { return this.bbddProyectos.getProyectos() }
 
@@ -30,7 +35,7 @@ export class MisProyectosComponent implements OnInit {
   isModoCrear() { return this.modoCrear; }
 
   addProyecto(nombre: string) {
-    if(nombre.trim()=='') nombre = '(Proyecto sin nombre)';
+    if (nombre.trim() == '') nombre = '(Proyecto sin nombre)';
     this.bbddProyectos.addProyecto(nombre, this.miembros);
   }
 
@@ -48,7 +53,7 @@ export class MisProyectosComponent implements OnInit {
           let encontrado: boolean = false;
           for (let i = 0; i < this.miembros.length && !encontrado; i++) {
             if (this.miembros[i].id == m[0].id) encontrado = true;
-            
+
           }
           if (!encontrado) this.miembros.push(m[0]);
           email.value = '';

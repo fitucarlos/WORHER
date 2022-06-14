@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap');
 
 
 
@@ -21,6 +22,10 @@ h1,h2,h3,h4 {
     font-family: 'Varela', sans-serif;
 }
 
+.worher {
+    font-family: 'Passion One', cursive;
+    font-size: 5rem;
+}
 
 
 .tarjeta {
@@ -28,7 +33,7 @@ h1,h2,h3,h4 {
     box-shadow: 0 8px 20px 0 black;
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
-    border-radius: 20px;
+    border-radius: 5px;
     border: 3px solid rgba( 255, 255, 255, 0.3 );
     color:black;
 }
@@ -157,5 +162,14 @@ h1,h2,h3,h4 {
     align-items: center;
 }
 
+.enlace {
+    text-decoration: none;
+}
+
+@media(min-width:640px) {
+.worher {
+    font-size: 10rem;
+ }
+}
 
 

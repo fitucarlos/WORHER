@@ -1,39 +1,54 @@
 <app-cabecera></app-cabecera>
-<div class="col-md-4 contenedor">
-    <div class="card card-container p-4">
-        <img id="profile-img" src="assets/images/logo.png" class="profile-img-card" />
-        <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+<div class="contenedor container-fluid">
+    
+    <div class="row">
+        <article class="col">
+            <h1 class="worher ">WORHER</h1>
+            <section class="tarjeta">
+                <p>¡Bienvenido a Worher!</p>
+                <p>Worher es una aplicación pensada para ayudar a equipos de trabajo en la organización de tareas de proyectos.</p>
+                <p>En Worher, un usuario puede tener todos los proyectos activos que necesite. Estos proyectos podrán ser compartidos con otros usuarios, de manera que todo el equipo de trabajo pueda acceder a un mismo proyecto.</p>
+            </section>
+        </article>
+        <article class="col-12 col-lg-4 card card-container p-4 login">
+            <img id="profile-img" src="assets/images/logo.png" alt="logo de Worher"/>
+            <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    
+                <div class="form-group">
+                    <label for="email">Email<span class='obligatorio'>*</span></label>
+                    <input type="text" class="form-control" aria-label="Introducir email de usuario" name="email" id="email" [(ngModel)]="form.email" required
+                        #email="ngModel" />
+                    <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
+                        Se requiere el Email.
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="password">Contraseña<span class='obligatorio'>*</span></label>
+                    <input type="password" class="form-control" aria-label="Introducir contraseña" id="password" name="password" [(ngModel)]="form.password" required
+                        #password="ngModel" />
+                    <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+                        <div *ngIf="password.errors['required']">Introduce la contraseña.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn boton btn-block" aria-label="Iniciar sesión">
+                        Iniciar Sesión
+                    </button>
+                </div>
+                <p>¿Aún no tienes una cuenta? <a href="#" class='enlace'  routerLink="/registro" aria-label="Ir a registro">¡Registrate!</a></p>
+                <div class="form-group">
+                    <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                        Error en el inicio de sesión: {{ errorMessage }}
+                    </div>
+                </div>
+            </form>
+            <div class="alert alert-success" *ngIf="isLoggedIn">
+                Estas logeado.
+            </div>
+        </article>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel" />
-                <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
-                    Se requiere el Email.
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required #password="ngModel" />
-                <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
-                    <div *ngIf="password.errors['required']">Introduce la contraseña.</div>
-                </div>
-            </div>
-            <a href="#" class="nav-link" routerLink="/registro">Crear cuenta</a>
-            <div class="form-group">
-                <button class="btn btn-primary btn-block">
-          Iniciar Sesión
-        </button>
-            </div>
-            <div class="form-group">
-                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
-                    Error en el inicio de sesión: {{ errorMessage }}
-                </div>
-            </div>
-        </form>
-        <div class="alert alert-success" *ngIf="isLoggedIn">
-            Estas logeado.
-        </div>
+        
     </div>
 </div>
 <app-footer></app-footer>

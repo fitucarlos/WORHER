@@ -31,37 +31,37 @@ form {
     position: relative;
 }
 
-#sendmessage{
-    height:100%;
-    width:100%;
-    position:relative;
+#sendmessage {
+    height: 100%;
+    width: 100%;
+    position: relative;
     top: 10px;
     padding: 10px;
 }
 
-#sendmessage textarea{
-    padding:0;
-    font-size:14px;
-    font-family:"Open Sans", sans-serif;
+#sendmessage textarea {
+    padding: 0;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
     width: calc(100% - 45px);
     height: 80%;
     resize: none;
 }
 
-#sendmessage textarea:focus{
-     outline: 0;
+#sendmessage textarea:focus {
+    outline: 0;
 }
 
-#sendmessage button{
-    width:30px;
-    height:30px;
-    position:absolute;
+#sendmessage button {
+    width: 30px;
+    height: 30px;
+    position: absolute;
     right: 15px;
     top: 23px;
 }
 
-#sendmessage button:hover{
-    cursor:pointer;
+#sendmessage button:hover {
+    cursor: pointer;
 }
 
 #sendmessage button:hover svg {
@@ -70,8 +70,8 @@ form {
     transition: all .3s;
 }
 
-#sendmessage button:focus{
-     outline: 0;   
+#sendmessage button:focus {
+    outline: 0;
 }
 
 .mensaje {
@@ -100,30 +100,30 @@ form {
 }
 
 .msg {
-    margin:10px;
+    margin: 10px;
     max-width: 90%;
     word-wrap: break-word;
 }
 
-.fecha_hora{
+.fecha_hora {
     font-size: .75rem;
     font-style: italic;
-    margin:10px;
+    margin: 10px;
 }
 
 /******************************************************************************************
 ***************************************TABLET**********************************************
 ******************************************************************************************/
-@media(min-width:640px){
+@media(min-width:640px) {
     .mensaje {
         max-width: calc(100% - 100px);
     }
- }
+}
 
 /******************************************************************************************
 **************************************DESKTOP**********************************************
 ******************************************************************************************/
-@media(min-width:1224px){
+@media(min-width:1224px) {
     .mensaje {
         max-width: calc(100% - 40px);
     }
@@ -146,23 +146,23 @@ form {
     border-bottom: 5px solid gray;
 }
 
-#sendmessage{
-    border-top:1px solid #e7ebee; 
-    border:5px solid gray;
+#sendmessage {
+    border-top: 1px solid #e7ebee;
+    border: 5px solid gray;
     border-radius: 15px;
 }
 
-#sendmessage textarea{
-    border:none;
-    border-right:3px solid rgb(73, 72, 72);
+#sendmessage textarea {
+    border: none;
+    border-right: 3px solid rgb(73, 72, 72);
 }
 
-#sendmessage button{
-    border:none;
+#sendmessage button {
+    border: none;
 }
 
 .mensaje {
-    border:1px solid white;
+    border: 1px solid white;
 }
 
 .mio {
@@ -178,30 +178,30 @@ form {
 */
 
 .chat {
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .contenedorNombre {
-    background-color: rgba(129,59,255,1);
-    color:white;
+    background-color: rgba(129, 59, 255, 1);
+    color: white;
     border-bottom: 2px solid black;
     padding: 15px 10px;
 }
 
 .mensajes {
-    background: rgba( 255, 255, 255, 0.7 )
+    background: rgba(255, 255, 255, 0.7)
 }
 
-#sendmessage{
-    background:#fff;
+#sendmessage {
+    background: #fff;
 }
 
-#sendmessage textarea{
-    background:#fff;
-    color:black;
+#sendmessage textarea {
+    background: #fff;
+    color: black;
 }
 
-#sendmessage button{
+#sendmessage button {
     background-color: #fff;
 }
 

@@ -1,0 +1,35 @@
+#ayuda {
+    max-width: 400px;
+}
+
+label {
+    font-size: 1.5rem;
+}
+
+.contenedor {
+    padding: 30px 100px;
+    min-height: 70vh;
+}
+
+.tarjeta {
+    margin:50px;
+    padding: 30px;
+}
+
+p {
+    font-size: 1.25rem;
+}
+
+img {
+    max-width: 80%;
+    min-width: 500px;
+    height: auto;
+}
+
+.subir {
+    background-color: transparent;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border: none;
+}

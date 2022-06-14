@@ -8,8 +8,8 @@ import { TokenStorageService } from '../servicios/token-storage.service';
 })
 export class CabeceraComponent implements OnInit {
   isLoggedIn = false;
-  email? : string;
-  
+  email?: string;
+
 
   constructor(private tokenStorageService: TokenStorageService) { }
 

@@ -20,12 +20,12 @@ export class VerProyectoComponent implements OnInit {
   tareas: any[] = []
   edicion: boolean = false;
   filtro: any[] = [];
-  actualizar:boolean=false;
+  actualizar: boolean = false;
   errores: boolean = false;
-  
+
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
-   // let interval = window.setInterval(() => { this.cargarDatos() }, 60000)
+    let interval = window.setInterval(() => { this.cargarDatos() }, 180000)
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class VerProyectoComponent implements OnInit {
 
           }, (error) => {
             Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
-            this.route.navigate(['/error']);
+            this.route.navigate(['/inicio']);
           }
         )
       }
@@ -87,9 +87,9 @@ export class VerProyectoComponent implements OnInit {
   }
 
   isActualizar(actualizar: boolean) {
-    if (actualizar) {      
+    if (actualizar) {
       this.cargarDatos();
-    } 
+    }
     this.actualizar = actualizar;
   }
 
@@ -106,45 +106,49 @@ export class VerProyectoComponent implements OnInit {
   }
 
   cargarDatos() {
-      this.bbddProyectos.getProyectoById(this.id).subscribe(
-        (datos: any) => {
-          
-          this.bbddProyectos.noCargar();
-          let distinto = false;
-          if (this.actualizar || (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length)) {
-            distinto = true;
-          } else {
-            for (let i = 0; i < datos.listas.length && !distinto; i++) {
-              if (datos.listas[i].nombre != this.proyecto.listas[i].nombre || 
-                datos.listas[i].id != this.proyecto.listas[i].id || 
-                datos.listas[i].tareas.length != this.proyecto.listas[i].tareas.length) {
-                distinto = true;
-              }
-              else {
-                for (let j = 0; j < datos.listas[i].tareas.length && !distinto; j++) {
-                  if (datos.listas[i].tareas[j].id != this.proyecto.listas[i].tareas[j].id || 
-                    datos.listas[i].tareas[j].nombre != this.proyecto.listas[i].tareas[j].nombre || 
-                    datos.listas[i].tareas[j].dificultad != this.proyecto.listas[i].tareas[j].dificultad || 
-                    datos.listas[i].tareas[j].prioridad != this.proyecto.listas[i].tareas[j].prioridad || 
-                    datos.listas[i].tareas[j].descripcion != this.proyecto.listas[i].tareas[j].descripcion ||
-                    datos.listas[i].tareas[j].usuarios.length != this.proyecto.listas[i].tareas[j].usuarios.length) {
-                    distinto = true;
-                  }
+    this.bbddProyectos.getProyectoById(this.id).subscribe(
+      (datos: any) => {
+
+        this.bbddProyectos.noCargar();
+        let distinto = false;
+        if (this.actualizar || (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length)) {
+          distinto = true;
+        } else {
+          for (let i = 0; i < datos.listas.length && !distinto; i++) {
+            if (datos.listas[i].nombre != this.proyecto.listas[i].nombre ||
+              datos.listas[i].id != this.proyecto.listas[i].id ||
+              datos.listas[i].tareas.length != this.proyecto.listas[i].tareas.length) {
+              distinto = true;
+            }
+            else {
+              for (let j = 0; j < datos.listas[i].tareas.length && !distinto; j++) {
+                if (datos.listas[i].tareas[j].id != this.proyecto.listas[i].tareas[j].id ||
+                  datos.listas[i].tareas[j].nombre != this.proyecto.listas[i].tareas[j].nombre ||
+                  datos.listas[i].tareas[j].dificultad != this.proyecto.listas[i].tareas[j].dificultad ||
+                  datos.listas[i].tareas[j].prioridad != this.proyecto.listas[i].tareas[j].prioridad ||
+                  datos.listas[i].tareas[j].descripcion != this.proyecto.listas[i].tareas[j].descripcion ||
+                  datos.listas[i].tareas[j].usuarios.length != this.proyecto.listas[i].tareas[j].usuarios.length) {
+                  distinto = true;
                 }
               }
             }
           }
-          if (distinto) {
-            this.proyecto = datos;
-          } 
-          this.actualizar = false;
-        }, (error) => {
-          Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
-          this.route.navigate(['/error']);
         }
-      )
-      
-    
+
+        if(datos.mensajes.length != this.proyecto.mensajes.length){
+          this.proyecto = datos;
+          this.bajarScroll();
+        } else if (distinto) {
+          this.proyecto = datos;
+        }
+        this.actualizar = false;
+      }, (error) => {
+        Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
+        this.route.navigate(['/error']);
+      }
+    )
+
+
   }
 
   isCargando() {
@@ -179,7 +183,7 @@ export class VerProyectoComponent implements OnInit {
         Swal.fire("ERROR", "Error al crear la lista", "error");
       }
     )
-    
+
   }
 
   getTareasListaMover(original: string, tarea: any, lista: any) {
@@ -217,11 +221,11 @@ export class VerProyectoComponent implements OnInit {
     let idLista = parseInt(listaId);
     let idTarea = parseInt(tareaId);
     this.bbddProyectos.cargar();
-    this.actualizar= true;
+    this.actualizar = true;
     this.bbddProyectos.moverTarea(idTarea, idLista).subscribe(
-      (respuesta)=>{
+      (respuesta) => {
         this.cargarDatos();
-      }, (error)=>{
+      }, (error) => {
         Swal.fire('ERROR', "Error al mover la tarea", 'error');
       }
     );
@@ -242,14 +246,14 @@ export class VerProyectoComponent implements OnInit {
   }
 
   crearTarea(modal: any, lista: string, nombre: string, descripcion: string, dificultad: string, prioridad: string) {
-    this.errores=false;
+    this.errores = false;
     if (nombre == '') {
       Swal.fire("Atención", "Debes introducir un nombre para la tarea", "warning");
     } else {
       let dif: number = parseInt(dificultad);
       let prio: number = parseInt(prioridad);
       this.bbddProyectos.cargar();
-      this.actualizar= true;
+      this.actualizar = true;
       this.bbddProyectos.addTarea(parseInt(lista), nombre, descripcion, parseInt(dificultad), parseInt(prioridad)).subscribe(
         (respuesta) => {
           this.cargarDatos();
@@ -290,9 +294,9 @@ export class VerProyectoComponent implements OnInit {
     }
   }
 
-  getIniciales(usuario:any){
-    let iniciales:string;
-    iniciales=usuario.nombre[0]+usuario.apellido[0];
+  getIniciales(usuario: any) {
+    let iniciales: string;
+    iniciales = usuario.nombre[0] + usuario.apellido[0];
     iniciales = iniciales.toUpperCase();
     return iniciales;
   }
@@ -311,7 +315,7 @@ export class VerProyectoComponent implements OnInit {
           let encontrado: boolean = false;
           for (let i = 0; i < this.proyecto.usuarios.length && !encontrado; i++) {
             if (this.proyecto.usuarios[i].id == m[0].id) encontrado = true;
-            
+
           }
           if (!encontrado) this.proyecto.usuarios.push(m[0]);
           email.value = '';
@@ -337,32 +341,39 @@ export class VerProyectoComponent implements OnInit {
     }
 
     if (indice != -1) this.proyecto.usuarios.splice(indice, 1);
-    
+
 
   }
 
-  addMiembro(){
+  addMiembro() {
     this.cargando = true;
     this.proyecto.usuarios.forEach((u: { id: number; }) => {
       this.bbddProyectos.addUsuarioProyecto(this.proyecto.id, u.id)
     });
   }
 
-  hayProyecto(){
-    return (this.proyecto)?true:false;
+  hayProyecto() {
+    return (this.proyecto) ? true : false;
   }
 
-  crearErrores(){
+  crearErrores() {
     this.errores = true;
     Swal.fire("Atención", "Debe completar los campos obligatorios", "warning")
   }
 
-  crearErroresListasIguales(){
+  crearErroresListasIguales() {
     this.errores = true;
     Swal.fire("Atención", "Debe seleccionar una lista distinta a la original", "warning")
   }
-  
-  validarForm(){
+
+  validarForm() {
+  }
+
+  bajarScroll() {
+    var target = document.querySelector('#mensajes');
+    if (target) {
+      target.scrollTop = target.scrollHeight
+    }
   }
 
 

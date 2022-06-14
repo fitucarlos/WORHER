@@ -19,8 +19,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
-import { HomeComponent } from './home/home.component';
-import { PerfilComponent } from './perfil/perfil.component';
+import { AyudaComponent } from './ayuda/ayuda.component';
 
 
 @NgModule({
@@ -38,9 +37,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     TareaComponent,
     LoginComponent,
     RegistroComponent,
-    HomeComponent,
-    PerfilComponent,
-    PrioridadFilterPipe
+    PrioridadFilterPipe,
+    AyudaComponent
   ],
   imports: [
     BrowserModule,

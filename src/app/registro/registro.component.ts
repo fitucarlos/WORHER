@@ -20,16 +20,15 @@ export class RegistroComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private route:Router) { }
+  constructor(private authService: AuthService, private route: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    const {nombre, apellido, email, password} = this.form;
+    const { nombre, apellido, email, password } = this.form;
     this.authService.register(nombre, apellido, email, password).subscribe({
       next: data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.route.navigate(['/login'])
