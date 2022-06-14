@@ -137,7 +137,13 @@ export class BbddProyectosService {
     this.http.post(this.url + "proyecto/" + this.usuarioId, body).subscribe(
       (proyecto: any) => {
         usuarios.forEach(u => {
-          this.addUsuarioProyecto(proyecto.id, u.id);
+          this.addUsuarioProyecto(proyecto.id, u.id).subscribe(
+            (respuesta) => {
+              this.cargarDatos()
+            }, (error) => {
+              Swal.fire('ERROR', "Error al añadir usuario al proyecto", 'error');
+            }
+          );
         });
         this.cargarDatos()
       }, (error) => {
@@ -147,13 +153,7 @@ export class BbddProyectosService {
   }
 
   addUsuarioProyecto(idProyecto: number, id: number) {
-    this.http.post(this.url + "proyecto/add_user/" + idProyecto + "/" + id, null).subscribe(
-      (respuesta) => {
-        this.cargarDatos()
-      }, (error) => {
-        Swal.fire('ERROR', "Error al añadir usuario al proyecto", 'error');
-      }
-    );
+    return this.http.post(this.url + "proyecto/add_user/" + idProyecto + "/" + id, null);
   }
 
   buscarMiembro(email: string) {

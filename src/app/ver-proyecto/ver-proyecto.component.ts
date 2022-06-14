@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { BbddProyectosService } from '../bbdd-proyectos.service';
@@ -22,10 +21,11 @@ export class VerProyectoComponent implements OnInit {
   filtro: any[] = [];
   actualizar: boolean = false;
   errores: boolean = false;
+  miembros: any[] = [];
 
 
   constructor(private actRoute: ActivatedRoute, private bbddProyectos: BbddProyectosService, private route: Router) {
-    let interval = window.setInterval(() => { this.cargarDatos() }, 180000)
+    let interval = window.setInterval(() => { this.cargarDatos() }, 60000)
   }
 
   ngOnInit(): void {
@@ -36,6 +36,9 @@ export class VerProyectoComponent implements OnInit {
           (datos: any) => {
             this.cargando = false;
             this.proyecto = datos;
+            this.proyecto.usuarios.forEach((u: any) => {
+              this.miembros.push(u);
+            });
 
           }, (error) => {
             Swal.fire("ERROR", "Error al cargar el proyecto.", "error");
@@ -111,7 +114,7 @@ export class VerProyectoComponent implements OnInit {
 
         this.bbddProyectos.noCargar();
         let distinto = false;
-        if (this.actualizar || (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length)) {
+        if (this.actualizar || (datos.nombre != this.proyecto.nombre || datos.listas.length != this.proyecto.listas.length || this.proyecto.usuarios.length != datos.usuarios.length)) {
           distinto = true;
         } else {
           for (let i = 0; i < datos.listas.length && !distinto; i++) {
@@ -137,9 +140,17 @@ export class VerProyectoComponent implements OnInit {
 
         if(datos.mensajes.length != this.proyecto.mensajes.length){
           this.proyecto = datos;
+          this.miembros = [];
+          this.proyecto.usuarios.forEach((u: any) => {
+            this.miembros.push(u);
+          });
           this.bajarScroll();
         } else if (distinto) {
           this.proyecto = datos;
+          this.miembros = [];
+          this.proyecto.usuarios.forEach((u: any) => {
+            this.miembros.push(u);
+          });
         }
         this.actualizar = false;
       }, (error) => {
@@ -313,11 +324,11 @@ export class VerProyectoComponent implements OnInit {
       let datos = this.bbddProyectos.buscarMiembro(email.value).subscribe(
         (m: any) => {
           let encontrado: boolean = false;
-          for (let i = 0; i < this.proyecto.usuarios.length && !encontrado; i++) {
-            if (this.proyecto.usuarios[i].id == m[0].id) encontrado = true;
+          for (let i = 0; i < this.miembros.length && !encontrado; i++) {
+            if (this.miembros[i].id == m[0].id) encontrado = true;
 
           }
-          if (!encontrado) this.proyecto.usuarios.push(m[0]);
+          if (!encontrado) this.miembros.push(m[0]);
           email.value = '';
         }, (error) => {
           Swal.fire('ERROR', 'El email introducido no está registrado en Worher', 'error');
@@ -347,8 +358,16 @@ export class VerProyectoComponent implements OnInit {
 
   addMiembro() {
     this.cargando = true;
-    this.proyecto.usuarios.forEach((u: { id: number; }) => {
-      this.bbddProyectos.addUsuarioProyecto(this.proyecto.id, u.id)
+    this.miembros.forEach((u: { id: number; }) => {
+      this.bbddProyectos.addUsuarioProyecto(this.proyecto.id, u.id).subscribe(
+        (respuesta) => {
+          this.bbddProyectos.cargar()
+          this.actualizar = true;
+          this.cargarDatos()
+        }, (error) => {
+          Swal.fire('ERROR', "Error al añadir usuario al proyecto", 'error');
+        }
+      );
     });
   }
 
@@ -374,6 +393,13 @@ export class VerProyectoComponent implements OnInit {
     if (target) {
       target.scrollTop = target.scrollHeight
     }
+  }
+
+  cancelAddMiembro(){
+    this.miembros = [];
+    this.proyecto.usuarios.forEach((u: any) => {
+      this.miembros.push(u);
+    });
   }
 
 

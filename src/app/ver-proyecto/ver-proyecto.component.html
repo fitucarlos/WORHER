@@ -292,10 +292,10 @@
                             <th>Nombre</th>
                             <th>Email</th>
                         </tr>
-                        <tr *ngIf="proyecto.usuarios.length == 0">
+                        <tr *ngIf="miembros.length == 0">
                             <td colspan="3">No se ha añadido ningún miembro aún al proyecto</td>
                         </tr>
-                        <tr *ngFor="let m of proyecto.usuarios">
+                        <tr *ngFor="let m of miembros">
                             <td>{{m.nombre}} {{m.apellido}}</td>
                             <td>{{m.email}}</td>
                         </tr>
@@ -303,7 +303,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn boton eliminar" data-bs-dismiss="modal"
-                        aria-label="Cancelar">Cancelar</button>
+                        aria-label="Cancelar" (click)="cancelAddMiembro()">Cancelar</button>
                     <button type="button" class="btn boton" data-bs-dismiss="modal" (click)="addMiembro()"
                         aria-label="Guardar">Guardar</button>
                 </div>
