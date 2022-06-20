@@ -1,6 +1,6 @@
 {
     "/api/*":{
-      "target":"https://app-name-worher.herokuapp.com",
+      "target":"http://localhost:8000",
       "secure":false,
       "logLevel":"debug"
     }
